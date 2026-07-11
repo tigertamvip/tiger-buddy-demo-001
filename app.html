@@ -3246,6 +3246,16 @@ var _DEFAULT_USERS={
   '孙颖':{pwd:'110088',name:'孙颖',role:'staff',dept:'人力资源部',position:'人事专员',permissions:_defaultPerms('staff'),reports:_defaultReports()},
   '管理员':{pwd:'123',name:'管理员',role:'admin',dept:'系统',position:'管理员',permissions:_defaultPerms('admin'),reports:_defaultReports()}
 };
+// ★ DEMO 模式：注入演示用户到 _DEFAULT_USERS（双重保障，不受 localStorage 影响）
+(function(){
+  if(location.hostname!=='demo.tiger-buddy.com'&&location.hostname!=='localhost'&&location.hostname!=='127.0.0.1')return;
+  _DEFAULT_USERS['admin']={pwd:'123',name:'赵建国',role:'admin',dept:'总经办',position:'总经理',permissions:_defaultPerms('admin'),reports:_defaultReports(),subordinates:{}};
+  _DEFAULT_USERS['hr']={pwd:'123',name:'李慧芳',role:'center_head',centerKeyword:'人力资源',dept:'人力资源部',position:'人力资源总监',permissions:_defaultPerms('center_head'),reports:_defaultReports(),subordinates:{}};
+  _DEFAULT_USERS['rd']={pwd:'123',name:'孙志远',role:'center_head',centerKeyword:'研发',dept:'研发中心',position:'研发总监',permissions:_defaultPerms('center_head'),reports:_defaultReports(),subordinates:{}};
+  _DEFAULT_USERS['sales']={pwd:'123',name:'郑海峰',role:'center_head',centerKeyword:'营销中心',dept:'营销中心',position:'营销总监',permissions:_defaultPerms('center_head'),reports:_defaultReports(),subordinates:{}};
+  _DEFAULT_USERS['manager']={pwd:'123',name:'黄伟明',role:'center_head',centerKeyword:'研发',dept:'研发中心',position:'研发经理',permissions:_defaultPerms('center_head'),reports:_defaultReports(),subordinates:{}};
+  _DEFAULT_USERS['staff']={pwd:'123',name:'张丽',role:'staff',dept:'财务部',position:'总账会计',permissions:_defaultPerms('staff'),reports:_defaultReports(),subordinates:{}};
+})();
 
 // USERS 从 localStorage 加载，回退到默认值
 var USERS=loadUserSettings();
