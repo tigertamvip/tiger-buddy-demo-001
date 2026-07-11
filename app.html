@@ -3929,6 +3929,11 @@ function moduleBuilding(){
   _DEFAULT_USERS['demo']={pwd:'123',name:'演示用户',role:'admin',dept:'系统',position:'管理员',permissions:_defaultPerms('admin'),reports:_defaultReports(),subordinates:{}};
 })();
 
+// Demo fallback: 这些函数在 policies.js 中定义，demo 环境下可能缺失
+if(typeof syncFavoritesFromCloud!=='function'){window.syncFavoritesFromCloud=function(){};}
+if(typeof syncFavoritesToCloud!=='function'){window.syncFavoritesToCloud=function(){};}
+if(typeof loadJobDescsFromDB!=='function'){window.loadJobDescsFromDB=function(cb){if(cb)cb([]);};}
+
 </script>
 <script src="js/modules/kpi.js"></script>
 <script>
