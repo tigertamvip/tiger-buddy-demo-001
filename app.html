@@ -3095,16 +3095,19 @@ var supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
   if(!isDemo)return;
   console.log('HWM: ★ DEMO MODE ★ 演示环境 — 数据仅存储于浏览器本地');
 
-  // 演示用户数据
+  // 演示用户数据（登录账号 — 康达医疗器械有限公司）
   var demoUsers={
-    'admin':{pwd:'123',name:'管理员',role:'admin',dept:'人力资源部',position:'系统管理员',permissions:{all:true,employees:true,workplan:true,mbo:true,orgchart:true,admin:true,system:true},reports:{boss:'',supervisor:'',subordinates:[]}},
-    'manager':{pwd:'123',name:'李经理',role:'center_head',centerKeyword:'营销中心',dept:'营销中心',position:'销售总监',permissions:{all:true,employees:true,workplan:true,mbo:true,orgchart:true,admin:false,system:true},reports:{boss:'',supervisor:'',subordinates:{'sales1':'direct','sales2':'direct'}}},
-    'staff':{pwd:'123',name:'王专员',role:'staff',dept:'人力资源部',position:'人资专员',permissions:{all:false,employees:true,workplan:true,mbo:true,orgchart:false,admin:false,system:false},reports:{boss:'',supervisor:'',subordinates:[]}}
+    'admin':{pwd:'123',name:'赵建国',role:'admin',dept:'总经办',position:'总经理',permissions:{all:true,employees:true,workplan:true,mbo:true,orgchart:true,admin:true,system:true},reports:{boss:'',supervisor:'',subordinates:{'钱明达':'direct','孙志远':'direct','李慧芳':'direct','周国强':'direct','吴启明':'direct','郑海峰':'direct','王丽华':'direct'}}},
+    'hr':{pwd:'123',name:'李慧芳',role:'center_head',centerKeyword:'人力资源',dept:'人力资源部',position:'人力资源总监',permissions:{all:true,employees:true,workplan:true,mbo:true,orgchart:true,admin:false,system:true},reports:{boss:'赵建国',supervisor:'',subordinates:{'林小红':'direct'}}},
+    'rd':{pwd:'123',name:'孙志远',role:'center_head',centerKeyword:'研发',dept:'研发中心',position:'研发总监',permissions:{all:true,employees:true,workplan:true,mbo:true,orgchart:true,admin:false,system:true},reports:{boss:'赵建国',supervisor:'',subordinates:{'黄伟明':'direct'}}},
+    'sales':{pwd:'123',name:'郑海峰',role:'center_head',centerKeyword:'营销中心',dept:'营销中心',position:'营销总监',permissions:{all:true,employees:true,workplan:true,mbo:true,orgchart:true,admin:false,system:true},reports:{boss:'赵建国',supervisor:'',subordinates:{'张明辉':'direct','沈建伟':'direct','韩晓宇':'direct','谭磊':'direct'}}},
+    'manager':{pwd:'123',name:'黄伟明',role:'center_head',centerKeyword:'研发',dept:'研发中心',position:'研发经理',permissions:{all:true,employees:true,workplan:true,mbo:true,orgchart:true,admin:false,system:true},reports:{boss:'孙志远',supervisor:'',subordinates:{'刘洋':'direct','陈晓东':'direct','邓丽娜':'direct'}}},
+    'staff':{pwd:'123',name:'张丽',role:'staff',dept:'财务部',position:'总账会计',permissions:{all:false,employees:true,workplan:true,mbo:true,orgchart:false,admin:false,system:false},reports:{boss:'钱明达',supervisor:'陈建华',subordinates:[]}}
   };
   if(!localStorage.getItem('HWM_USER_SETTINGS')){
     localStorage.setItem('HWM_USER_SETTINGS',JSON.stringify(demoUsers));
   }
-  // 预置周计划数据（当前周 + 上周）
+  // 预置周计划数据（当前周 + 上周）— 医疗器械行业场景
   function getWeekNumber(d){
     d=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));
     d.setUTCDate(d.getUTCDate()+4-(d.getUTCDay()||7));
@@ -3112,9 +3115,25 @@ var supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
     return Math.ceil((((d-ys)/86400000)+1)/7);
   }
   var now=new Date();var y=now.getFullYear();var wk=getWeekNumber(now);var wk1=wk>1?wk-1:52;
-  var wpData=[{seq:1,task:'完成客户拜访报告',priority:'重要紧急',deadline:'周五',status:'已完成',boss:'',startDate:'',actualDate:'',duration:'',notes:'演示数据'},{seq:2,task:'更新CRM系统记录',priority:'重要不急',deadline:'周三',status:'进行中',boss:'',startDate:'',actualDate:'',duration:'',notes:''},{seq:3,task:'参加团队周例会',priority:'日常紧急',deadline:'周一',status:'已完成',boss:'',startDate:'',actualDate:'',duration:'',notes:''},{seq:4,task:'整理本月销售数据',priority:'日常事项',deadline:'周五',status:'进行中',boss:'',startDate:'',actualDate:'',duration:'',notes:''}];
-  var key='hwm_workplans_'+y+'_'+wk;if(!localStorage.getItem(key))localStorage.setItem(key,JSON.stringify(wpData));
-  var key1='hwm_workplans_'+y+'_'+wk1;if(!localStorage.getItem(key1))localStorage.setItem(key1,JSON.stringify([{seq:1,task:'上周遗留任务跟进',priority:'重要紧急',deadline:'周二',status:'已完成',boss:'',startDate:'',actualDate:'',duration:'',notes:'演示数据'}]));
+  // 本周周计划 — 医疗器械公司总经理视角
+  var wpCurrent=[
+    {seq:1,task:'审批胰岛素泵CE认证二期预算申请',priority:'重要紧急',deadline:'周二',status:'已完成',boss:'',startDate:'2026-07-07',actualDate:'2026-07-07',duration:'0.5天',notes:'研发中心孙志远提交，预算380万'},
+    {seq:2,task:'拜访华东区重点经销商：上海康美医疗器械',priority:'重要不急',deadline:'周四',status:'进行中',boss:'',startDate:'2026-07-09',actualDate:'',duration:'1天',notes:'携带新款血糖仪样品，洽谈年度框架协议'},
+    {seq:3,task:'召开管理层周例会，review各部门07月KPI',priority:'日常紧急',deadline:'周一',status:'已完成',boss:'',startDate:'2026-07-06',actualDate:'2026-07-06',duration:'0.5天',notes:'重点关注生产部产能提升与新品上市节奏'},
+    {seq:4,task:'审核2026年下半年招聘计划',priority:'重要不急',deadline:'周五',status:'未开始',boss:'',startDate:'',actualDate:'',duration:'',notes:'李慧芳提交，研发中心急招3人，营销中心海外岗2人'},
+    {seq:5,task:'与法务总监讨论墨西哥市场准入合规问题',priority:'重要紧急',deadline:'周三',status:'已完成',boss:'',startDate:'2026-07-08',actualDate:'2026-07-08',duration:'0.5天',notes:'CFDI认证材料准备，预计8月底提交'},
+    {seq:6,task:'审阅《医疗设备网络安全管理办法》征求意见稿',priority:'日常事项',deadline:'周五',status:'进行中',boss:'',startDate:'',actualDate:'',duration:'',notes:'NMPA近期发布，需评估对现有产品线影响'},
+    {seq:7,task:'参加中国医疗器械行业协会年度论坛',priority:'重要不急',deadline:'周六',status:'未开始',boss:'',startDate:'',actualDate:'',duration:'',notes:'准备演讲稿：国产医疗器械出海策略'}
+  ];
+  // 上周周计划
+  var wpLast=[
+    {seq:1,task:'年中战略复盘会议',priority:'重要紧急',deadline:'周二',status:'已完成',boss:'',startDate:'',actualDate:'',duration:'',notes:'确定下半年重点：CE认证、墨西哥市场、新产品上市'},
+    {seq:2,task:'与供应链总监讨论原材料库存优化方案',priority:'重要不急',deadline:'周三',status:'已完成',boss:'',startDate:'',actualDate:'',duration:'',notes:'传感器芯片库存预警，需提前备货3个月用量'},
+    {seq:3,task:'审批研发中心年度专利申报计划',priority:'日常紧急',deadline:'周四',status:'已完成',boss:'',startDate:'',actualDate:'',duration:'',notes:'含3项发明专利、5项实用新型'},
+    {seq:4,task:'参加高新区管委会医药园区政策座谈会',priority:'重要不急',deadline:'周五',status:'已完成',boss:'',startDate:'',actualDate:'',duration:'',notes:'争取产业扶持资金，已提交申报材料'}
+  ];
+  var key='hwm_workplans_'+y+'_'+wk;if(!localStorage.getItem(key))localStorage.setItem(key,JSON.stringify(wpCurrent));
+  var key1='hwm_workplans_'+y+'_'+wk1;if(!localStorage.getItem(key1))localStorage.setItem(key1,JSON.stringify(wpLast));
 
   // 替换 supabase 为 mock 对象
   function DemoQuery(table){
