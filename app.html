@@ -3135,41 +3135,35 @@ var supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
   var key='hwm_workplans_'+y+'_'+wk;if(!localStorage.getItem(key))localStorage.setItem(key,JSON.stringify(wpCurrent));
   var key1='hwm_workplans_'+y+'_'+wk1;if(!localStorage.getItem(key1))localStorage.setItem(key1,JSON.stringify(wpLast));
 
-  // 替换 supabase 为 mock 对象
-  function DemoQuery(table){
-    this._table=table;this._filters=[];this._limit=null;this._columns='*';this._options={};
-    this._action='select';this._actionData=null;
-  }
-  DemoQuery.prototype.select=function(cols,opts){this._action='select';this._columns=cols;this._options=opts||{};return this;};
-  DemoQuery.prototype.eq=function(k,v){this._filters.push({k:k,v:v,op:'eq'});return this;};
-  DemoQuery.prototype.neq=function(k,v){this._filters.push({k:k,v:v,op:'neq'});return this;};
-  DemoQuery.prototype.in=function(k,arr){this._filters.push({k:k,v:arr,op:'in'});return this;};
-  DemoQuery.prototype.limit=function(n){this._limit=n;return this;};
-  DemoQuery.prototype.insert=function(data){this._action='insert';this._actionData=data;return this;};
-  DemoQuery.prototype.update=function(data){this._action='update';this._actionData=data;return this;};
-  DemoQuery.prototype.delete=function(){this._action='delete';return this;};
-  DemoQuery.prototype.upsert=function(data,opts){this._action='upsert';this._actionData=data;this._options=opts||{};return this;};
-  DemoQuery.prototype.then=function(onF,onR){return Promise.resolve(this._exec()).then(onF,onR);};
-  DemoQuery.prototype._exec=function(){
-    var self=this;
-    if(this._action==='insert')return {data:this._actionData,error:null};
-    if(this._action==='update')return {data:this._actionData,error:null};
-    if(this._action==='delete')return {data:[],error:null};
-    if(this._action==='upsert')return {data:this._actionData,error:null};
-    var rows=[];
-    if(this._table===SUPABASE_USERS_TABLE||this._table==='hwm_users'){
-      var saved=localStorage.getItem('HWM_USER_SETTINGS');
-      var ud=saved?JSON.parse(saved):{};
-      for(var uid in ud){if(!ud.hasOwnProperty(uid))continue;
-        rows.push({uid:uid,user_data:ud[uid],updated_at:new Date().toISOString()});
+  // 替换 supabase 为 mock 对象（可靠闭包实现）
+  supabase={from:function(t){
+    var filters=[],limit=null,columns='*',options={},action='select',actionData=null;
+    function ch(m){return function(){m.apply(null,arguments);return obj;};}
+    var obj={
+      select:function(c,o){action='select';columns=c;options=o||{};return obj;},
+      eq:function(k,v){filters.push({k:k,v:v,op:'eq'});return obj;},
+      neq:function(k,v){filters.push({k:k,v:v,op:'neq'});return obj;},
+      in:function(k,arr){filters.push({k:k,v:arr,op:'in'});return obj;},
+      limit:function(n){limit=n;return obj;},
+      insert:function(d){action='insert';actionData=d;return obj;},
+      update:function(d){action='update';actionData=d;return obj;},
+      delete:function(){action='delete';return obj;},
+      upsert:function(d,o){action='upsert';actionData=d;options=o||{};return obj;},
+      then:function(onF,onR){
+        try{
+          var r;
+          if(action==='insert')r={data:actionData,error:null};
+          else if(action==='update')r={data:actionData,error:null};
+          else if(action==='delete')r={data:[],error:null};
+          else if(action==='upsert')r={data:actionData,error:null};
+          else{var rows=[];try{var saved=localStorage.getItem('HWM_USER_SETTINGS'),ud=saved?JSON.parse(saved):{};for(var uid in ud){if(!ud.hasOwnProperty(uid))continue;rows.push({uid:uid,user_data:ud[uid],updated_at:new Date().toISOString()});}if(filters.length>0)rows=rows.filter(function(r){for(var i=0;i<filters.length;i++){var f=filters[i],rv=r[f.k];if(f.op==='eq'&&rv!==f.v)return false;if(f.op==='neq'&&rv===f.v)return false;if(f.op==='in'&&(!Array.isArray(f.v)||f.v.indexOf(rv)<0))return false;}return true;});if(limit)rows=rows.slice(0,limit);}catch(e){}
+            if(columns==='count'&&options.count==='exact')r={data:[],count:rows.length,error:null};else r={data:rows,error:null};}
+          return Promise.resolve(r).then(onF,onR);
+        }catch(e){return Promise.resolve({data:[],error:null}).then(onF,onR);}
       }
-      rows=rows.filter(function(r){for(var i=0;i<self._filters.length;i++){var f=self._filters[i];var rv=r[f.k];if(f.op==='eq'&&rv!==f.v)return false;if(f.op==='neq'&&rv===f.v)return false;if(f.op==='in'&&(!Array.isArray(f.v)||f.v.indexOf(rv)<0))return false;}return true;});
-      if(this._limit)rows=rows.slice(0,this._limit);
-    }
-    if(this._columns==='count'&&this._options.count==='exact')return {data:[],count:rows.length,error:null};
-    return {data:rows,error:null};
-  };
-  supabase={from:function(t){return new DemoQuery(t);}};
+    };
+    return obj;
+  }};
 })();
 
 // ===== V0.5.74: 品牌 CSS 变量注入（切换客户品牌只需改 config.js） =====
