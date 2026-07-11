@@ -6,15 +6,15 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="version" content="V0.6.1d">
+<meta name="version" content="V0.6.1p">
 <!-- cache-bust: 2026-07-11-09-15 -->
 <meta name="theme-color" content="#02314D">
 <link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="HWM-AI 目标计划管理系统">
+<meta name="apple-mobile-web-app-title" content="MBO+AI">
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%2302314D' width='100' height='100' rx='20'/><text x='50' y='65' text-anchor='middle' fill='white' font-size='45' font-family='Arial'>HWM</text></svg>">
-<title>HWM-AI 目标计划管理系统</title>
+<title>MBO+AI</title>
 <style>
 :root {
   --primary: #02314D;
@@ -657,7 +657,7 @@ body{
 .modal-handle{width:36px;height:5px;background:var(--border);border-radius:3px;margin:12px auto 0}
 .modal-header{padding:16px 20px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:rgba(255,255,255,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:1;min-height:76px;box-sizing:border-box}
 .modal-header h2{font-size:17px;font-weight:600}
-.modal-header-actions{display:flex;align-items:center;gap:8px;margin-right:8px}
+.modal-header-actions{display:flex;align-items:center;gap:8px;margin-right:40px}
 .modal-header-btn{
   padding:8px 16px;border-radius:6px;border:none;
   font-size:13px;font-weight:500;cursor:pointer;
@@ -1247,6 +1247,27 @@ body{
 .portal-card.disabled .portal-card-en{color:#6b7280}
 .portal-card.disabled .portal-card-badge{background:rgba(0,0,0,.08);color:#6b7280;border-color:rgba(0,0,0,.06)}
 .portal-card.disabled:hover{opacity:.8}
+
+/* ★ V0.6.1k: 未授权模块 — 高透明显示，保持界面完整 */
+.portal-card.unauthorized{
+  opacity:.3;
+  cursor:default;
+  filter:grayscale(.6);
+  transition:opacity .3s ease,filter .3s ease;
+}
+.portal-card.unauthorized:hover{
+  opacity:.5;
+  filter:grayscale(.4);
+}
+.portal-card.unauthorized .portal-card-label,
+.portal-card.unauthorized .portal-card-en{
+  opacity:.7;
+}
+.portal-card.unauthorized .portal-card-badge{
+  background:rgba(0,0,0,.04);
+  color:#9ca3af;
+  border-color:rgba(0,0,0,.03);
+}
 
 .portal-footer{
   text-align:center;
@@ -2364,16 +2385,16 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
 <div id="portalView" class="portal-view" style="display:none">
   <div class="portal-topbar">HWM</div>
   <div class="portal-hero">
-    <div class="portal-cn-title">欢迎进入 HWM-AI 目标计划管理系统</div>
+    <div class="portal-cn-title">欢迎进入 MBO+AI</div>
     <h1>Welcome to the HWM-AI Goal &amp; Plan Management System</h1>
   </div>
   <div class="portal-grid">
-    <div id="portalCard_decision" class="portal-card portal-card-orange disabled" data-module="decision" style="display:none" data-tip-head="三年规划" data-tip-cn="该模块正在开发中，敬请期待。战略规划是企业长远发展的基石，我们将为您提供科学的三年规划工具。" data-tip-en="This module is under development. Strategic planning is the cornerstone of long-term business development." onclick="moduleBuilding()">
+    <div id="portalCard_decision" class="portal-card portal-card-orange disabled" data-module="decision" style="display:none" data-tip-head="三年规划" data-tip-cn="制定公司中长期三年战略规划，分解战略目标并追踪执行进度。科学规划引领公司稳健发展。" data-tip-en="Formulate three-year strategic planning for the company, decompose strategic goals and track execution progress. Scientific planning guides steady company development." onclick="moduleBuilding()">
       <div class="portal-card-label">三年规划</div>
       <div class="portal-card-en">3-Year Plan</div>
       <div class="portal-card-badge">In Progress</div>
     </div>
-    <div id="portalCard_kpi" class="portal-card" data-module="kpi" style="display:none" data-tip-head="年度目标" data-tip-cn="设定并追踪年度关键目标，确保个人目标与团队战略一致。目标驱动的绩效管理帮助您聚焦重点、持续进步。" data-tip-en="Set and track annual key goals, ensuring alignment between individual objectives and team strategy." onclick="enterModule('kpi')">
+    <div id="portalCard_kpi" class="portal-card" data-module="kpi" style="display:none" data-tip-head="年度目标" data-tip-cn="设定年度关键绩效目标，将公司战略层层分解到部门与个人。目标驱动的管理确保上下对齐、聚焦重点。" data-tip-en="Set annual key performance goals, decompose company strategy to departments and individuals. Goal-driven management ensures alignment and focus." onclick="enterModule('kpi')">
       <div class="portal-card-label">年度目标</div>
       <div class="portal-card-en">Annual Goals</div>
     </div>
@@ -2381,50 +2402,50 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
       <div class="portal-card-label">周计划</div>
       <div class="portal-card-en">Weekly Plan</div>
     </div>
-    <div id="portalCard_rd" class="portal-card portal-card-orange disabled" data-module="rd" style="display:none" data-tip-head="月计划" data-tip-cn="该模块正在开发中，敬请期待。月度计划是连接年度目标与周执行的关键桥梁。" data-tip-en="This module is under development. Monthly plans bridge the gap between annual goals and weekly execution." onclick="moduleBuilding()">
+    <div id="portalCard_rd" class="portal-card portal-card-orange disabled" data-module="rd" style="display:none" data-tip-head="月计划" data-tip-cn="承上启下的月度计划管理，将年度目标分解为月度里程碑，确保战略执行不脱节。" data-tip-en="Monthly plan management bridging annual and weekly goals. Decompose annual targets into monthly milestones to ensure strategic execution continuity." onclick="moduleBuilding()">
       <div class="portal-card-label">月计划</div>
       <div class="portal-card-en">Monthly Plan</div>
       <div class="portal-card-badge">In Progress</div>
     </div>
-    <div id="portalCard_decision2" class="portal-card portal-card-orange disabled" data-module="decision" style="display:none" data-tip-head="三年规划" data-tip-cn="该模块正在开发中，敬请期待。战略规划是企业长远发展的基石，我们将为您提供科学的三年规划工具。" data-tip-en="This module is under development. Strategic planning is the cornerstone of long-term business development." onclick="moduleBuilding()">
+    <div id="portalCard_decision2" class="portal-card portal-card-orange disabled" data-module="decision" style="display:none" data-tip-head="三年规划" data-tip-cn="制定公司中长期三年战略规划，分解战略目标并追踪执行进度。科学规划引领公司稳健发展。" data-tip-en="Formulate three-year strategic planning for the company, decompose strategic goals and track execution progress. Scientific planning guides steady company development." onclick="moduleBuilding()">
       <div class="portal-card-label">三年规划</div>
       <div class="portal-card-en">3-Year Plan</div>
       <div class="portal-card-badge">In Progress</div>
     </div>
-    <div id="portalCard_hr" class="portal-card" data-module="hr" style="display:none" data-tip-head="组织架构" data-tip-cn="管理团队信息、人员档案与组织架构。高效的团队管理是组织效能提升的基础。" data-tip-en="Manage team information, personnel files and organizational structure." onclick="enterModule('hr')">
+    <div id="portalCard_hr" class="portal-card" data-module="hr" style="display:none" data-tip-head="组织架构" data-tip-cn="管理团队信息、人员档案与组织架构。清晰的组织脉络与人才盘点是高效管理的基础。" data-tip-en="Manage team information, personnel files and organizational structure. Clear organizational mapping and talent inventory are the foundation of efficient management." onclick="enterModule('hr')">
       <div class="portal-card-label">组织架构</div>
       <div class="portal-card-en">Team &amp; Structure</div>
     </div>
-    <div id="portalCard_talent" class="portal-card disabled" data-module="talent" style="display:none" data-tip-head="项目管理" data-tip-cn="该模块正在开发中，敬请期待。通过数据驱动的组织效能分析，帮助管理者优化团队结构与资源配置。" data-tip-en="This module is under development. Data-driven organizational efficiency analysis helps optimize team structure." onclick="moduleBuilding()">
+    <div id="portalCard_talent" class="portal-card disabled" data-module="talent" style="display:none" data-tip-head="项目管理" data-tip-cn="全生命周期项目管理，从立项、执行到验收闭环跟踪。提升项目交付效率与质量，确保按时按质完成。" data-tip-en="Full-lifecycle project management, from initiation to execution to closure tracking. Improve project delivery efficiency and quality, ensuring on-time completion." onclick="moduleBuilding()">
       <div class="portal-card-label">项目管理</div>
       <div class="portal-card-en">PM</div>
       <div class="portal-card-badge">In Progress</div>
     </div>
-    <div id="portalCard_payroll" class="portal-card disabled" data-module="payroll" style="display:none" data-tip-head="决策工具" data-tip-cn="该模块正在开发中，敬请期待。智能决策辅助工具，将为您提供科学的决策路径与风险评估。" data-tip-en="This module is under development. Intelligent decision support tools will provide scientific decision paths." onclick="moduleBuilding()">
+    <div id="portalCard_payroll" class="portal-card disabled" data-module="payroll" style="display:none" data-tip-head="决策工具" data-tip-cn="智能决策辅助工具，提供数据驱动的决策分析与风险评估。科学决策路径助力管理者做出最优选择。" data-tip-en="Intelligent decision support tools providing data-driven analysis and risk assessment. Scientific decision paths help managers make optimal choices." onclick="moduleBuilding()">
       <div class="portal-card-label">决策工具</div>
       <div class="portal-card-en">Decision Tool</div>
       <div class="portal-card-badge">In Progress</div>
     </div>
-    <div id="portalCard_dashboard" class="portal-card portal-card-orange disabled" data-module="dashboard" style="display:none" data-tip-head="数据中心" data-tip-cn="该模块正在开发中，敬请期待。以客户为中心的业务驱动模型，帮助团队聚焦客户需求与价值创造。" data-tip-en="This module is under development. Customer-centric business driver model to focus on customer needs." onclick="moduleBuilding()">
+    <div id="portalCard_dashboard" class="portal-card portal-card-orange disabled" data-module="dashboard" style="display:none" data-tip-head="数据中心" data-tip-cn="公司核心数据汇聚与分析平台，为各业务模块提供数据支撑与决策依据。数据驱动让管理更精准。" data-tip-en="Company data aggregation and analytics platform, providing data support and decision basis for all business modules. Data-driven management for precision." onclick="moduleBuilding()">
       <div class="portal-card-label">数据中心</div>
       <div class="portal-card-en">Data Center</div>
       <div class="portal-card-badge">In Progress</div>
     </div>
-    <div id="portalCard_learning" class="portal-card disabled" data-module="learning" style="display:none" data-tip-head="岗位胜任力" data-tip-cn="该模块正在开发中，敬请期待。基于BLM方法论的业务增长分析工具，助力战略落地与业务突破。" data-tip-en="This module is under development. BLM-based business growth analysis tools to support strategy execution." onclick="moduleBuilding()">
+    <div id="portalCard_learning" class="portal-card disabled" data-module="learning" style="display:none" data-tip-head="岗位胜任力" data-tip-cn="建立岗位能力模型与胜任力标准，评估员工岗位匹配度与发展潜力。人岗匹配是组织效能的基石。" data-tip-en="Build job competency models and standards, evaluate employee-job fit and development potential. Right people in right roles is the foundation of organizational effectiveness." onclick="moduleBuilding()">
       <div class="portal-card-label">岗位胜任力</div>
       <div class="portal-card-en">Job Competency</div>
       <div class="portal-card-badge">In Progress</div>
     </div>
-    <div id="portalCard_policies" class="portal-card" data-module="policies" style="display:none" data-tip-head="体系流程" data-tip-cn="管理人力资源相关制度、流程与文档。完善的制度体系是企业规范化运营的保障。" data-tip-en="Manage HR policies, processes and documents. Sound policy systems ensure standardized operations." onclick="enterModule('policies')">
+    <div id="portalCard_policies" class="portal-card" data-module="policies" style="display:none" data-tip-head="体系流程" data-tip-cn="管理公司制度、流程与标准化文档。完善的制度体系是规范化运营与风险管控的基础保障。" data-tip-en="Manage company policies, processes and standardized documents. Sound system frameworks are the foundation for standardized operations and risk control." onclick="enterModule('policies')">
       <div class="portal-card-label">体系流程</div>
       <div class="portal-card-en">System &amp; Process</div>
     </div>
-    <div id="portalCard_ideas" class="portal-card portal-card-orange disabled" data-module="ideas" style="display:none" data-tip-head="敬业度" data-tip-cn="该模块正在开发中，敬请期待。员工敬业度是组织活力的核心指标，我们将为您提供专业的敬业度分析工具。" data-tip-en="This module is under development. Employee engagement is a core indicator of organizational vitality." onclick="moduleBuilding()">
+    <div id="portalCard_ideas" class="portal-card portal-card-orange disabled" data-module="ideas" style="display:none" data-tip-head="敬业度" data-tip-cn="员工敬业度测评与分析，识别团队活力与留任风险。高敬业度团队是业务持续增长的驱动力。" data-tip-en="Employee engagement assessment and analysis, identifying team vitality and retention risks. Highly engaged teams drive sustainable business growth." onclick="moduleBuilding()">
       <div class="portal-card-label">敬业度</div>
       <div class="portal-card-en">Engagement Driver</div>
       <div class="portal-card-badge">In Progress</div>
     </div>
-    <div id="portalCard_maintenance" class="portal-card portal-card-special" data-module="maintenance" style="display:none" data-tip-head="系统维护" data-tip-cn="系统配置与维护工具。管理员可在此进行系统设置、数据管理与权限配置。" data-tip-en="System configuration and maintenance tools. Administrators can manage settings, data and permissions." onclick="enterModule('system')">
+    <div id="portalCard_maintenance" class="portal-card portal-card-special" data-module="maintenance" style="display:none" data-tip-head="系统维护" data-tip-cn="系统配置与维护中心。管理员可在此进行系统设置、数据管理与权限配置，保障系统稳定运行。" data-tip-en="System configuration and maintenance center. Administrators can manage settings, data and permissions to ensure stable system operation." onclick="enterModule('system')">
       <div class="portal-card-label">系统维护</div>
       <div class="portal-card-en">System Maintenance</div>
     </div>
@@ -2448,7 +2469,7 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
 <div class="header">
   <div class="header-inner">
     <div>
-        <h1>HWM-AI 目标计划管理系统-组织</h1>
+        <h1>MBO+AI-组织</h1>
         <div style="font-size:13px;color:rgba(255,255,255,.55);margin-top:2px;letter-spacing:.3px">HWM-AI Goal Plan System · Organization</div>
         <div class="header-sub" id="headerUser">随时随地查询员工信息</div>
       </div>
@@ -2772,7 +2793,7 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
         </div>
         <div class="wp-custom-select" id="wpSharedCustom" style="display:none">
           <div class="wp-custom-trigger" id="wpSharedTrigger" onclick="toggleWPSharedDropdown()">
-            <span id="wpSharedTriggerText">📖 分享给我的周计划</span>
+            <span id="wpSharedTriggerText">📖 查看授权我阅览其周计划的同事</span>
             <span style="font-size:10px;margin-left:4px">▾</span>
           </div>
           <div class="wp-custom-dropdown" id="wpSharedDropdown" style="display:none"></div>
@@ -3081,90 +3102,13 @@ console.log('HWM HR v20260603-kpi-v4 loaded');
 (function setBrandTexts(){
   var c=window.APP_CONFIG.company;
   var t=document.getElementById('portal-title');
-  if(t)t.textContent='HWM-AI 目标计划管理系统';
+  if(t)t.textContent='MBO+AI';
   var f=document.getElementById('footer-copy');
   if(f)f.textContent='© '+c.copyright+' 版权所有';
 })();
 if(typeof pdfjsLib!=='undefined')pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 // ===== Supabase 初始化（配置来自 config.js） =====
 var supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-
-// ===== DEMO 模式：客户独立试用环境（数据物理隔离） =====
-(function initDemoMode(){
-  var isDemo=(location.hostname==='demo.tiger-buddy.com'||location.hostname==='localhost'||location.hostname==='127.0.0.1');
-  if(!isDemo)return;
-  console.log('HWM: ★ DEMO MODE ★ 演示环境 — 数据仅存储于浏览器本地');
-
-  // 演示用户数据（登录账号 — 康达医疗器械有限公司）
-  var demoUsers={
-    'admin':{pwd:'123',name:'赵建国',role:'admin',dept:'总经办',position:'总经理',permissions:{all:true,employees:true,workplan:true,mbo:true,orgchart:true,admin:true,system:true},reports:{boss:'',supervisor:'',subordinates:{'钱明达':'direct','孙志远':'direct','李慧芳':'direct','周国强':'direct','吴启明':'direct','郑海峰':'direct','王丽华':'direct'}}},
-    'hr':{pwd:'123',name:'李慧芳',role:'center_head',centerKeyword:'人力资源',dept:'人力资源部',position:'人力资源总监',permissions:{all:true,employees:true,workplan:true,mbo:true,orgchart:true,admin:false,system:true},reports:{boss:'赵建国',supervisor:'',subordinates:{'林小红':'direct'}}},
-    'rd':{pwd:'123',name:'孙志远',role:'center_head',centerKeyword:'研发',dept:'研发中心',position:'研发总监',permissions:{all:true,employees:true,workplan:true,mbo:true,orgchart:true,admin:false,system:true},reports:{boss:'赵建国',supervisor:'',subordinates:{'黄伟明':'direct'}}},
-    'sales':{pwd:'123',name:'郑海峰',role:'center_head',centerKeyword:'营销中心',dept:'营销中心',position:'营销总监',permissions:{all:true,employees:true,workplan:true,mbo:true,orgchart:true,admin:false,system:true},reports:{boss:'赵建国',supervisor:'',subordinates:{'张明辉':'direct','沈建伟':'direct','韩晓宇':'direct','谭磊':'direct'}}},
-    'manager':{pwd:'123',name:'黄伟明',role:'center_head',centerKeyword:'研发',dept:'研发中心',position:'研发经理',permissions:{all:true,employees:true,workplan:true,mbo:true,orgchart:true,admin:false,system:true},reports:{boss:'孙志远',supervisor:'',subordinates:{'刘洋':'direct','陈晓东':'direct','邓丽娜':'direct'}}},
-    'staff':{pwd:'123',name:'张丽',role:'staff',dept:'财务部',position:'总账会计',permissions:{all:false,employees:true,workplan:true,mbo:true,orgchart:false,admin:false,system:false},reports:{boss:'钱明达',supervisor:'陈建华',subordinates:[]}}
-  };
-  if(!localStorage.getItem('HWM_USER_SETTINGS')){
-    localStorage.setItem('HWM_USER_SETTINGS',JSON.stringify(demoUsers));
-  }
-  // 预置周计划数据（当前周 + 上周）— 医疗器械行业场景
-  function getWeekNumber(d){
-    d=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));
-    d.setUTCDate(d.getUTCDate()+4-(d.getUTCDay()||7));
-    var ys=new Date(Date.UTC(d.getUTCFullYear(),0,1));
-    return Math.ceil((((d-ys)/86400000)+1)/7);
-  }
-  var now=new Date();var y=now.getFullYear();var wk=getWeekNumber(now);var wk1=wk>1?wk-1:52;
-  // 本周周计划 — 医疗器械公司总经理视角
-  var wpCurrent=[
-    {seq:1,task:'审批胰岛素泵CE认证二期预算申请',priority:'重要紧急',deadline:'周二',status:'已完成',boss:'',startDate:'2026-07-07',actualDate:'2026-07-07',duration:'0.5天',notes:'研发中心孙志远提交，预算380万'},
-    {seq:2,task:'拜访华东区重点经销商：上海康美医疗器械',priority:'重要不急',deadline:'周四',status:'进行中',boss:'',startDate:'2026-07-09',actualDate:'',duration:'1天',notes:'携带新款血糖仪样品，洽谈年度框架协议'},
-    {seq:3,task:'召开管理层周例会，review各部门07月KPI',priority:'日常紧急',deadline:'周一',status:'已完成',boss:'',startDate:'2026-07-06',actualDate:'2026-07-06',duration:'0.5天',notes:'重点关注生产部产能提升与新品上市节奏'},
-    {seq:4,task:'审核2026年下半年招聘计划',priority:'重要不急',deadline:'周五',status:'未开始',boss:'',startDate:'',actualDate:'',duration:'',notes:'李慧芳提交，研发中心急招3人，营销中心海外岗2人'},
-    {seq:5,task:'与法务总监讨论墨西哥市场准入合规问题',priority:'重要紧急',deadline:'周三',status:'已完成',boss:'',startDate:'2026-07-08',actualDate:'2026-07-08',duration:'0.5天',notes:'CFDI认证材料准备，预计8月底提交'},
-    {seq:6,task:'审阅《医疗设备网络安全管理办法》征求意见稿',priority:'日常事项',deadline:'周五',status:'进行中',boss:'',startDate:'',actualDate:'',duration:'',notes:'NMPA近期发布，需评估对现有产品线影响'},
-    {seq:7,task:'参加中国医疗器械行业协会年度论坛',priority:'重要不急',deadline:'周六',status:'未开始',boss:'',startDate:'',actualDate:'',duration:'',notes:'准备演讲稿：国产医疗器械出海策略'}
-  ];
-  // 上周周计划
-  var wpLast=[
-    {seq:1,task:'年中战略复盘会议',priority:'重要紧急',deadline:'周二',status:'已完成',boss:'',startDate:'',actualDate:'',duration:'',notes:'确定下半年重点：CE认证、墨西哥市场、新产品上市'},
-    {seq:2,task:'与供应链总监讨论原材料库存优化方案',priority:'重要不急',deadline:'周三',status:'已完成',boss:'',startDate:'',actualDate:'',duration:'',notes:'传感器芯片库存预警，需提前备货3个月用量'},
-    {seq:3,task:'审批研发中心年度专利申报计划',priority:'日常紧急',deadline:'周四',status:'已完成',boss:'',startDate:'',actualDate:'',duration:'',notes:'含3项发明专利、5项实用新型'},
-    {seq:4,task:'参加高新区管委会医药园区政策座谈会',priority:'重要不急',deadline:'周五',status:'已完成',boss:'',startDate:'',actualDate:'',duration:'',notes:'争取产业扶持资金，已提交申报材料'}
-  ];
-  var key='hwm_workplans_'+y+'_'+wk;if(!localStorage.getItem(key))localStorage.setItem(key,JSON.stringify(wpCurrent));
-  var key1='hwm_workplans_'+y+'_'+wk1;if(!localStorage.getItem(key1))localStorage.setItem(key1,JSON.stringify(wpLast));
-
-  // 替换 supabase 为 mock 对象（可靠闭包实现）
-  supabase={from:function(t){
-    var filters=[],limit=null,columns='*',options={},action='select',actionData=null;
-    function ch(m){return function(){m.apply(null,arguments);return obj;};}
-    var obj={
-      select:function(c,o){action='select';columns=c;options=o||{};return obj;},
-      eq:function(k,v){filters.push({k:k,v:v,op:'eq'});return obj;},
-      neq:function(k,v){filters.push({k:k,v:v,op:'neq'});return obj;},
-      in:function(k,arr){filters.push({k:k,v:arr,op:'in'});return obj;},
-      limit:function(n){limit=n;return obj;},
-      insert:function(d){action='insert';actionData=d;return obj;},
-      update:function(d){action='update';actionData=d;return obj;},
-      delete:function(){action='delete';return obj;},
-      upsert:function(d,o){action='upsert';actionData=d;options=o||{};return obj;},
-      then:function(onF,onR){
-        try{
-          var r;
-          if(action==='insert')r={data:actionData,error:null};
-          else if(action==='update')r={data:actionData,error:null};
-          else if(action==='delete')r={data:[],error:null};
-          else if(action==='upsert')r={data:actionData,error:null};
-          else{var rows=[];try{var saved=localStorage.getItem('HWM_USER_SETTINGS'),ud=saved?JSON.parse(saved):{};for(var uid in ud){if(!ud.hasOwnProperty(uid))continue;rows.push({uid:uid,user_data:ud[uid],updated_at:new Date().toISOString()});}if(filters.length>0)rows=rows.filter(function(r){for(var i=0;i<filters.length;i++){var f=filters[i],rv=r[f.k];if(f.op==='eq'&&rv!==f.v)return false;if(f.op==='neq'&&rv===f.v)return false;if(f.op==='in'&&(!Array.isArray(f.v)||f.v.indexOf(rv)<0))return false;}return true;});if(limit)rows=rows.slice(0,limit);}catch(e){}
-            if(columns==='count'&&options.count==='exact')r={data:[],count:rows.length,error:null};else r={data:rows,error:null};}
-          return Promise.resolve(r).then(onF,onR);
-        }catch(e){return Promise.resolve({data:[],error:null}).then(onF,onR);}
-      }
-    };
-    return obj;
-  }};
-})();
 
 // ===== V0.5.74: 品牌 CSS 变量注入（切换客户品牌只需改 config.js） =====
 (function injectBrandVars(){
@@ -3246,16 +3190,6 @@ var _DEFAULT_USERS={
   '孙颖':{pwd:'110088',name:'孙颖',role:'staff',dept:'人力资源部',position:'人事专员',permissions:_defaultPerms('staff'),reports:_defaultReports()},
   '管理员':{pwd:'123',name:'管理员',role:'admin',dept:'系统',position:'管理员',permissions:_defaultPerms('admin'),reports:_defaultReports()}
 };
-// ★ DEMO 模式：注入演示用户到 _DEFAULT_USERS（双重保障，不受 localStorage 影响）
-(function(){
-  if(location.hostname!=='demo.tiger-buddy.com'&&location.hostname!=='localhost'&&location.hostname!=='127.0.0.1')return;
-  _DEFAULT_USERS['admin']={pwd:'123',name:'赵建国',role:'admin',dept:'总经办',position:'总经理',permissions:_defaultPerms('admin'),reports:_defaultReports(),subordinates:{}};
-  _DEFAULT_USERS['hr']={pwd:'123',name:'李慧芳',role:'center_head',centerKeyword:'人力资源',dept:'人力资源部',position:'人力资源总监',permissions:_defaultPerms('center_head'),reports:_defaultReports(),subordinates:{}};
-  _DEFAULT_USERS['rd']={pwd:'123',name:'孙志远',role:'center_head',centerKeyword:'研发',dept:'研发中心',position:'研发总监',permissions:_defaultPerms('center_head'),reports:_defaultReports(),subordinates:{}};
-  _DEFAULT_USERS['sales']={pwd:'123',name:'郑海峰',role:'center_head',centerKeyword:'营销中心',dept:'营销中心',position:'营销总监',permissions:_defaultPerms('center_head'),reports:_defaultReports(),subordinates:{}};
-  _DEFAULT_USERS['manager']={pwd:'123',name:'黄伟明',role:'center_head',centerKeyword:'研发',dept:'研发中心',position:'研发经理',permissions:_defaultPerms('center_head'),reports:_defaultReports(),subordinates:{}};
-  _DEFAULT_USERS['staff']={pwd:'123',name:'张丽',role:'staff',dept:'财务部',position:'总账会计',permissions:_defaultPerms('staff'),reports:_defaultReports(),subordinates:{}};
-})();
 
 // USERS 从 localStorage 加载，回退到默认值
 var USERS=loadUserSettings();
@@ -3641,7 +3575,13 @@ function applyRoleUI(){
     var card=document.getElementById('portalCard_'+mod);
     if(!card)continue;
     var hasModPerm=!!userPerms[mod];
-    card.style.display=hasModPerm?'':'none';
+    // ★ V0.6.1k: 未授权模块显示为高透明，不隐藏，保持界面完整
+    card.style.display='';
+    if(hasModPerm){
+      card.classList.remove('unauthorized');
+    }else{
+      card.classList.add('unauthorized');
+    }
   }
   // 刷新列表
   doSearch();
@@ -3800,7 +3740,7 @@ function enterModule(mod){
   // 权限检查
   var permKey=mod==='workplan'?'mbo':(mod==='system'?'maintenance':mod);
   if(!hasPermission(permKey)){
-    _showAlert('您没有访问此模块的权限，请联系系统管理员。');
+    _showAlert('未获授权使用的模块，如需授权，请联络系统管理员。<br><br>Module not authorized. Please contact system administrator for access.','提示',2000);
     return;
   }
   // ★ 清理任何残留的系统维护弹窗（防止串模块）
@@ -3925,8 +3865,68 @@ function enterModule(mod){
 }
 
 function moduleBuilding(){
-  _showAlert('该模块建设中，敬请期待');
+  _showAlert('该模块建设中，敬请期待<br><br>This module is under development.','提示',2000);
 }
+
+// ====== DEMO MODE: Mock Supabase + Demo Users ======
+(function initDemoMode(){
+  var isDemo=(location.hostname==='demo.tiger-buddy.com'||location.hostname==='localhost'||location.hostname==='127.0.0.1');
+  if(!isDemo)return;
+  console.log('HWM DEMO ★ 演示环境 — 数据仅存储于浏览器本地 localStorage');
+
+  // Replace supabase with localStorage mock
+  var _demoStore={};
+  var _demoStoreKey=function(tbl){return 'demo_'+tbl;};
+  var _loadDemo=function(tbl){
+    try{var r=localStorage.getItem(_demoStoreKey(tbl));_demoStore[tbl]=r?JSON.parse(r):{};}catch(e){_demoStore[tbl]={};}
+  };
+  var _saveDemo=function(tbl){localStorage.setItem(_demoStoreKey(tbl),JSON.stringify(_demoStore[tbl]));};
+  
+  window.supabase={
+    from:function(tbl){
+      _loadDemo(tbl);
+      var store=_demoStore[tbl];
+      return {
+        select:function(cols){return this;},
+        eq:function(k,v){
+          var results=[];
+          for(var id in store){if(store[id][k]===v)results.push(store[id]);}
+          return {then:function(cb){cb({data:results,error:null});return{then:function(cb2){cb2&&cb2({data:results,error:null});}};}};
+        },
+        insert:function(rows){
+          for(var i=0;i<rows.length;i++){var id=rows[i].id||('_'+Date.now()+'_'+i);store[id]=rows[i];store[id].id=id;}
+          _saveDemo(tbl);return {then:function(cb){cb({error:null});}};
+        },
+        update:function(obj){
+          return {eq:function(k,v){
+            for(var id in store){if(store[id][k]===v){for(var pk in obj)store[id][pk]=obj[pk];}}
+            _saveDemo(tbl);return {then:function(cb){cb({error:null});}};
+          }};
+        },
+        delete:function(){
+          return {eq:function(k,v){
+            for(var id in store){if(store[id][k]===v)delete store[id];}
+            _saveDemo(tbl);return {then:function(cb){cb({error:null});}};
+          }};
+        },
+        upsert:function(rows){
+          for(var i=0;i<rows.length;i++){var r=rows[i];var found=false;for(var id in store){if(store[id].empid===r.empid&&store[id].name===r.name){store[id]=r;found=true;break;}}if(!found){store['_'+Date.now()+'_'+i]=r;}}
+          _saveDemo(tbl);return {then:function(cb){cb({error:null});}};
+        }
+      };
+    }
+  };
+})();
+
+(function injectDemoUsers(){
+  if(location.hostname!=='demo.tiger-buddy.com'&&location.hostname!=='localhost'&&location.hostname!=='127.0.0.1')return;
+  _DEFAULT_USERS['admin']={pwd:'123',name:'赵建国',role:'admin',dept:'总经办',position:'总经理',permissions:_defaultPerms('admin'),reports:_defaultReports(),subordinates:{}};
+  _DEFAULT_USERS['hr']={pwd:'123',name:'李慧芳',role:'center_head',centerKeyword:'人力资源',dept:'人力资源部',position:'人力资源总监',permissions:_defaultPerms('center_head'),reports:_defaultReports(),subordinates:{}};
+  _DEFAULT_USERS['rd']={pwd:'123',name:'孙志远',role:'center_head',centerKeyword:'研发',dept:'研发中心',position:'研发总监',permissions:_defaultPerms('center_head'),reports:_defaultReports(),subordinates:{}};
+  _DEFAULT_USERS['sales']={pwd:'123',name:'郑海峰',role:'center_head',centerKeyword:'营销',dept:'营销中心',position:'营销总监',permissions:_defaultPerms('center_head'),reports:_defaultReports(),subordinates:{}};
+  _DEFAULT_USERS['manager']={pwd:'123',name:'周国强',role:'manager',dept:'生产部',position:'生产经理',permissions:_defaultPerms('manager'),reports:_defaultReports(),subordinates:{}};
+  _DEFAULT_USERS['staff']={pwd:'123',name:'张小明',role:'staff',dept:'研发中心',position:'高级工程师',permissions:_defaultPerms('staff'),reports:_defaultReports(),subordinates:{}};
+})();
 
 </script>
 <script src="js/modules/kpi.js"></script>
@@ -5357,7 +5357,7 @@ function updateStats(){
   var mr=pool.filter(function(e){var d=parseD(e.resignDate);return d&&d>=ms&&d<=me;}).length;
   // 本月标题：支持 admin/data_admin 点击编辑月份
   var monthLabel=localStorage.getItem('stats_month_label')||(Y+'年'+(M+1)+'月');
-  var canEditMonth=(currentUser&&(currentUser.role==='admin'||currentUser.role==='data_admin'));
+  var canEditMonth=(currentUser.role==='admin'||currentUser.role==='data_admin');
   var monthEditClass=canEditMonth?' stats-month-editable':'';
   var monthEditHint=canEditMonth?' title="点击修改月份" style="cursor:pointer;border-bottom:1px dashed #02314D"':'';
   var b1='<div class="stats-box-title">本月情况（<span class="stats-month-text'+monthEditClass+'" '+monthEditHint+' onclick="editStatsMonth(event)">'+monthLabel+'</span>）</div>';
@@ -5611,7 +5611,7 @@ function _showDemogUnmatched(type){
 // ★ V0.1.99n: 编辑统计面板的月份标签（仅 admin/data_admin 可调用）
 function editStatsMonth(e){
   e.stopPropagation();
-  if(!currentUser||(currentUser.role!=='admin'&&currentUser.role!=='data_admin'))return;
+  if(currentUser.role!=='admin'&&currentUser.role!=='data_admin')return;
   var current=localStorage.getItem('stats_month_label')||(Y+'年'+(M+1)+'月');
   var input=prompt('请输入月份（格式：2026年5月）：',current);
   if(!input)return;
@@ -6057,15 +6057,33 @@ function _showConfirm(message,title){
 }
 
 /* ★ V0.1.99l: 统一alert弹窗为居中毛玻璃样式 (alert-modal-design Skill) */
-function _showAlert(message,title){
+/* ★ V0.6.1m: 支持autoClose自动渐隐 */
+function _showAlert(message,title,autoCloseMs){
+  var ms=typeof autoCloseMs==='number'?autoCloseMs:(autoCloseMs===true?2000:0);
   return new Promise(function(resolve){
     var overlay=document.createElement('div');
     overlay.className='_confirm-overlay';
-    overlay.innerHTML='<div class="_confirm-card"><div class="_confirm-title">'+(title||'提示')+'</div><div class="_confirm-body">'+message+'</div><div class="_confirm-actions" style="justify-content:center"><button class="_confirm-btn-ok">确定</button></div></div>';
+    overlay.style.transition='opacity .5s ease';
+    if(ms>0){
+      // 无按钮模式：纯提示，自动渐隐
+      overlay.innerHTML='<div class="_confirm-card"><div class="_confirm-title">'+(title||'提示')+'</div><div class="_confirm-body">'+message+'</div></div>';
+    }else{
+      overlay.innerHTML='<div class="_confirm-card"><div class="_confirm-title">'+(title||'提示')+'</div><div class="_confirm-body">'+message+'</div><div class="_confirm-actions" style="justify-content:center"><button class="_confirm-btn-ok">确定</button></div></div>';
+    }
     document.body.appendChild(overlay);
-    var okBtn=overlay.querySelector('._confirm-btn-ok');
-    function cleanup(){document.body.removeChild(overlay);}
-    okBtn.addEventListener('click',function(){cleanup();resolve();});
+    function cleanup(){
+      if(overlay.parentNode)document.body.removeChild(overlay);
+      resolve();
+    }
+    if(ms>0){
+      setTimeout(function(){
+        overlay.style.opacity='0';
+        setTimeout(cleanup,500);
+      },ms);
+    }else{
+      var okBtn=overlay.querySelector('._confirm-btn-ok');
+      if(okBtn)okBtn.addEventListener('click',cleanup);
+    }
   });
 }
 
@@ -6383,20 +6401,20 @@ if('serviceWorker' in navigator){
     </div>
     <div class="modal-body" style="padding:20px 24px;min-height:420px">
       <div style="display:flex;gap:8px;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:12px">
-        <button class="btn btn-sm" id="wpVisTab1" onclick="switchWPVisTab('grant')" style="flex:1;background:#3B7DB4;color:#fff">我希望分享的</button>
-        <button class="btn btn-sm" id="wpVisTab2" onclick="switchWPVisTab('received')" style="flex:1">分享给我的</button>
+        <button class="btn btn-sm" id="wpVisTab1" onclick="switchWPVisTab('grant')" style="flex:1;background:#3B7DB4;color:#fff">设置可阅览我周计划的同事</button>
+        <button class="btn btn-sm" id="wpVisTab2" onclick="switchWPVisTab('received')" style="flex:1">查看授权我阅览其周计划的同事</button>
       </div>
       <div id="wpVisGrantPanel" style="min-height:300px">
         <div style="display:flex;gap:8px;margin-bottom:12px">
-          <input type="text" id="wpVisSearch" class="form-input" placeholder="搜索你要分享的伙伴" oninput="wpVisSearchMember()" style="flex:1">
+          <input type="text" id="wpVisSearch" class="form-input" placeholder="搜索可授权阅览我周计划的同事" oninput="wpVisSearchMember()" style="flex:1">
         </div>
         <div id="wpVisSearchResults" style="max-height:160px;overflow-y:auto;margin-bottom:12px"></div>
-        <div style="font-size:12px;color:#797973;margin-bottom:8px">当前已授权：</div>
+        <div style="font-size:12px;color:#797973;margin-bottom:8px">已授权可阅览我周计划的同事：</div>
         <div id="wpVisGrantList" style="max-height:200px;overflow-y:auto"></div>
       </div>
       <div id="wpVisReceivedPanel" style="display:none;min-height:300px">
         <div id="wpVisReceivedList" style="max-height:300px;overflow-y:auto">
-          <div style="text-align:center;padding:120px 0;color:#797973">暂无分享</div>
+          <div style="text-align:center;padding:120px 0;color:#797973">暂无授权</div>
         </div>
       </div>
     </div>
