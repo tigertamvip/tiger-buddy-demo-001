@@ -6,15 +6,15 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="version" content="V0.6.1s-demo">
-<!-- cache-bust: 2026-07-11-09-45 -->
+<meta name="version" content="V0.6.1du-demo">
+P26-07-13-18-25 -->
 <meta name="theme-color" content="#02314D">
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="manifest.json?v=bc">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="MBO+AI Demo">
+<meta name="apple-mobile-web-app-title" content="MBO+AI">
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%2302314D' width='100' height='100' rx='20'/><text x='50' y='65' text-anchor='middle' fill='white' font-size='45' font-family='Arial'>HWM</text></svg>">
-<title>MBO+AI 演示版</title>
+<title>MBO+AI</title>
 <style>
 :root {
   --primary: #02314D;
@@ -659,9 +659,9 @@ body{
 .modal-header h2{font-size:17px;font-weight:600}
 .modal-header-actions{display:flex;align-items:center;gap:8px;margin-right:40px}
 .modal-header-btn{
-  padding:8px 16px;border-radius:6px;border:none;
+  padding:8px 20px;border-radius:6px;border:none;
   font-size:13px;font-weight:500;cursor:pointer;
-  transition:all .2s;color:#fff;
+  transition:all .2s;color:#fff;min-width:100px;text-align:center;
 }
 .modal-header-btn:hover{opacity:.9;transform:translateY(-1px)}
 .modal-header-btn:active{transform:translateY(0)}
@@ -699,9 +699,22 @@ body{
 .export-option-text{display:flex;flex-direction:column;gap:4px}
 .export-option-text strong{font-size:16px;color:var(--text)}
 .export-option-text small{font-size:12px;color:var(--text-secondary)}
-.detail-row{display:flex;align-items:center;padding:12px 0;border-bottom:1px solid #EBEEF0}
+.detail-row{display:flex;align-items:center;padding:6px 0;border-bottom:1px solid #EBEEF0}
 .detail-label{width:100px;flex-shrink:0;font-size:13px;color:var(--text);text-align:right;padding-right:16px}
 .detail-value{font-size:14px;color:var(--text);flex:1}
+/* ★ V0.6.1ak: 两列网格表单布局 — 分组+固定对齐 */
+.detail-form-group{padding:0 0 8px;margin-bottom:8px;border-bottom:1px solid #EBEEF0}
+.detail-form-group:last-child{border-bottom:none;margin-bottom:0}
+.detail-form-group-title{font-size:13px;font-weight:600;color:var(--text-secondary);margin:10px 0 6px;padding-left:4px;border-left:3px solid #3B7DB4}
+.detail-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;padding:4px 0}
+.detail-form-field{display:flex;align-items:flex-start;gap:6px}
+.detail-form-label{font-size:12px;color:var(--text-secondary);text-align:right;white-space:normal;flex-shrink:0;width:100px;line-height:1.3;word-break:break-all}
+.detail-form-input-wrap{flex:1;min-width:0;max-width:220px}
+.detail-form-input-wrap input,.detail-form-input-wrap select{width:100%;padding:6px 8px;border:1px solid #E0E4E8;border-radius:6px;font-size:13px;background:#F8FAFB;outline:none;box-sizing:border-box;height:34px;line-height:1}
+.detail-form-input-wrap input:focus,.detail-form-input-wrap select:focus{border-color:#3B7DB4;box-shadow:0 0 0 2px rgba(59,125,180,.08)}
+.detail-form-input-wrap input[type="date"]{padding-right:4px}
+.detail-form-value{font-size:13px;color:var(--text);font-weight:500;word-break:break-word;padding:6px 0}
+.detail-form-value-empty{color:var(--text-hint);font-style:italic;font-size:12px;padding:6px 0}
 .detail-section-header{
   margin:16px 0 4px;
   padding:10px 0 8px;
@@ -799,7 +812,7 @@ body{
 /* ★ V0.5.132: 登录页顶部横条 */
 .login-topbar{
   position:absolute; top:0; left:0; right:0;
-  height:32px; background:rgba(2,49,77,0.70); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  height:32px; background:rgba(2,49,77,0.60); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
   display:flex; align-items:center; justify-content:center;
   color:#fff; font-size:14px; font-weight:600;
   z-index:1000; letter-spacing:1px;
@@ -858,7 +871,9 @@ body{
 .login-left .value-item .en{font-size:15px;opacity:.6;margin-left:4px}
 .login-right{flex:0 0 auto;margin-right:95px}
 .password-card{
-  background:#fff;
+  background:rgba(255,255,255,.8);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
   border-radius:20px;
   padding:40px 28px 32px;
   width:360px;
@@ -878,6 +893,9 @@ body{
   outline:none;
   letter-spacing:4px;
   -webkit-text-security:disc;
+  box-sizing:border-box;
+  height:48px;
+  line-height:1;
 }
 .password-card input:focus{border-color:#B0B8C4}
 .password-card .error-msg{
@@ -1051,7 +1069,7 @@ body{
 /* ★ V0.5.134: 门户顶部横条 */
 .portal-topbar{
   position:fixed; top:0; left:0; right:0;
-  height:32px; background:rgba(2,49,77,0.70); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  height:32px; background:rgba(2,49,77,0.60); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
   display:flex; align-items:center; justify-content:center;
   color:#fff; font-size:14px; font-weight:600;
   z-index:1000; letter-spacing:1px;
@@ -1171,27 +1189,67 @@ body{
 }
 .portal-card:hover .portal-card-en{color:rgba(255,255,255,.65)}
 
-/* ★ V0.5.120: 固定底部信息面板（50%透明度） */
+/* ★ V0.5.120→抽屉式改造: 顶部抽屉式信息面板（easeOutExpo推出 / easeInExpo回收） */
 .portal-info-panel{
   position:fixed;
-  bottom:54px;
-  left:50%;
-  transform:translateX(-50%);
+  top:32px;
+  left:0; right:0;
+  display:flex;
+  justify-content:center;
+  z-index:100;
+  pointer-events:none;
+  transform:translateY(-100%);
+  opacity:0;
+  visibility:hidden;
+  transition:
+    transform 460ms cubic-bezier(0.7,0,0.84,0),
+    opacity 380ms cubic-bezier(0.7,0,0.84,0),
+    visibility 0s linear 460ms;
+  will-change:transform,opacity;
+}
+.portal-info-panel.is-open{
+  transform:translateY(0);
+  opacity:1;
+  visibility:visible;
+  transition:
+    transform 520ms cubic-bezier(0.16,1,0.3,1),
+    opacity 380ms cubic-bezier(0.16,1,0.3,1),
+    visibility 0s linear 0s;
+}
+.portal-info-panel-inner{
   width:960px;
   max-width:96vw;
-  background:rgba(255,255,255,0.50);
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
+  background:rgba(255,255,255,0.90);
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
   border:1px solid rgba(255,255,255,0.3);
   border-radius:12px;
   box-shadow:0 12px 40px rgba(0,0,0,.18);
   padding:20px 28px;
-  z-index:100;
+  pointer-events:auto;
   white-space:normal;
-  opacity:0;
-  visibility:hidden;
-  transition:opacity .44s ease,visibility .44s ease;
+  position:relative;
 }
+.portal-info-panel-inner::after{
+  content:'';
+  position:absolute;
+  top:-1px; left:0; right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(133,183,235,0.6),transparent);
+  opacity:0;
+  transition:opacity 400ms ease 120ms;
+}
+.portal-info-panel.is-open .portal-info-panel-inner::after{opacity:1}
+.portal-info-panel .tip-head,
+.portal-info-panel .tip-cn,
+.portal-info-panel .tip-en{
+  opacity:0;
+  transform:translateY(-6px);
+  transition:opacity 300ms ease,transform 300ms cubic-bezier(0.16,1,0.3,1);
+}
+.portal-info-panel.is-open .tip-head{opacity:1;transform:translateY(0);transition-delay:140ms}
+.portal-info-panel.is-open .tip-cn{opacity:1;transform:translateY(0);transition-delay:220ms}
+.portal-info-panel.is-open .tip-en{opacity:1;transform:translateY(0);transition-delay:300ms}
 .portal-info-panel .tip-head{
   font-size:14px;
   font-weight:600;
@@ -1241,23 +1299,23 @@ body{
 
 /* 未开工建设的模块：浅灰底深色字 */
 .portal-card.disabled{
-  background:#D0D8E2;
+  background:rgba(208,216,226,.8);
 }
 .portal-card.disabled .portal-card-label{color:#0F2C4B;font-weight:300}
 .portal-card.disabled .portal-card-en{color:#6b7280}
 .portal-card.disabled .portal-card-badge{background:rgba(0,0,0,.08);color:#6b7280;border-color:rgba(0,0,0,.06)}
 .portal-card.disabled:hover{opacity:.8}
 
-/* ★ V0.6.1k: 未授权模块 — 高透明显示，保持界面完整 */
+/* ★ V0.6.1k: 未授权模块 — 看得见但低饱和（提高可见性） */
 .portal-card.unauthorized{
-  opacity:.3;
+  opacity:.55;
   cursor:default;
-  filter:grayscale(.6);
+  filter:grayscale(.35);
   transition:opacity .3s ease,filter .3s ease;
 }
 .portal-card.unauthorized:hover{
-  opacity:.5;
-  filter:grayscale(.4);
+  opacity:.75;
+  filter:grayscale(.15);
 }
 .portal-card.unauthorized .portal-card-label,
 .portal-card.unauthorized .portal-card-en{
@@ -1960,9 +2018,9 @@ body{
 .wp-topbar-left{display:flex;align-items:center;gap:20px}
 .wp-topbar-logo{font-size:16px;font-weight:600;display:flex;align-items:center;gap:6px}
 .wp-topbar-user{font-size:12px;margin-left:16px;padding:2px 10px;background:rgba(42,71,106,.08);border-radius:10px;color:#2A476A}
-.wp-back-btn{padding:10px 20px;border:none;border-radius:8px;background:#3B7DB4;color:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.wp-back-btn:hover{background:rgba(59,125,180,.2);color:#3B7DB4}
-.wp-btn-visibility{padding:8px 16px 8px 14px;border-radius:8px;border:1px solid #3B7DB4;background:#fff;color:#3B7DB4;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:4px;user-select:none;transition:all .15s}
+.wp-back-btn{padding:10px 20px;border:none;border-radius:8px;background:rgba(109,157,57,.9);color:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.wp-back-btn:hover{background:rgba(109,157,57,.2);color:#6D9D39}
+.wp-btn-visibility{padding:8px 16px 8px 14px;border-radius:8px;border:1px solid #3B7DB4;background:#fff;color:#3B7DB4;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;display:flex;align-items:center;justify-content:center;gap:4px;user-select:none;transition:all .15s;width:160px}
 .wp-btn-visibility:hover{background:#E8F4FE;border-color:#2A6A9A;color:#2A6A9A}
 
 .wp-layout{display:flex;height:calc(100vh - 48px);overflow:hidden}
@@ -2013,10 +2071,31 @@ body{
 .wp-sidebar-plan-item:hover .wp-sidebar-plan-delete{display:block}
 .wp-sidebar-plan-item.active .wp-sidebar-plan-delete{display:block;opacity:.6;background:rgba(214,67,82,.7)}
 .wp-sidebar-plan-delete:hover{background:#B91C1C;transform:scale(1.1)}
+.wp-sidebar-plan-delete.locked{background:rgba(214,67,82,.5);cursor:not-allowed;opacity:1}
+.wp-sidebar-plan-item.active .wp-sidebar-plan-delete.locked{background:rgba(214,67,82,.5);opacity:1}
 
-.wp-content{flex:1;height:100%;overflow:hidden;padding:0;background:#FBF8F3;display:flex;flex-direction:column}
+.wp-content{flex:1;height:100%;overflow:hidden;padding:0;min-width:0;background:#FBF8F3;display:flex;flex-direction:column}
 /* V0.5.152: 独立滚动容器 — 让 left/top sticky 双向生效 */
-.wp-scroll-area{flex:1;overflow:auto;padding:0 24px 16px;display:block}
+.wp-scroll-area{flex:1;overflow:auto;padding:0 24px 16px;display:block;min-width:0;background:#FBF8F3}
+/* ★ V0.6.1dl: 下属重急事项合并视图 — 标题/工具栏左让侧栏2字距离 */
+.wp-info-bar.merged-urgent{padding-left:24px;padding-top:0;padding-bottom:0;margin-top:24px}
+.wp-toolbar.merged-urgent{padding-left:24px;padding-right:24px;padding-top:0;padding-bottom:0;margin-bottom:0;min-height:48px;align-items:center}
+/* ★ V0.6.1dl: 合并视图导出按钮 — 垂直对齐 Save & Back 按钮中心线 */
+.wp-toolbar.merged-urgent .wp-btn-export{align-self:flex-start;margin-top:-8px}
+/* ★ V0.6.1dm: 合并视图冻结列扩展 — 解决标题行色块断裂问题 */
+.wp-table.merged-urgent thead th:nth-child(1){position:sticky;left:0;z-index:6;background:#E8EAED;border-left:1px solid var(--border);min-width:56px}
+.wp-table.merged-urgent thead th:nth-child(2){position:sticky;left:56px;z-index:6;min-width:70px;background:#E8EAED}
+.wp-table.merged-urgent thead th:nth-child(3){position:sticky;left:126px;z-index:6;min-width:180px;background:#E8EAED}
+.wp-table.merged-urgent thead th:nth-child(4){position:sticky;left:306px;z-index:6;min-width:80px;background:#E8EAED}
+.wp-table.merged-urgent thead th:nth-child(5){position:sticky;left:386px;z-index:6;min-width:80px;background:#E8EAED}
+.wp-table.merged-urgent thead th:nth-child(6){position:sticky;left:466px;z-index:6;min-width:80px;background:#E8EAED}
+/* 合并视图数据行同步 */
+.wp-table.merged-urgent tbody td:nth-child(1){position:sticky;left:0;z-index:2;background:#FBF8F3;border-left:1px solid var(--border);min-width:56px}
+.wp-table.merged-urgent tbody td:nth-child(2){position:sticky;left:56px;z-index:2;background:#FBF8F3;min-width:70px}
+.wp-table.merged-urgent tbody td:nth-child(3){position:sticky;left:126px;z-index:2;background:#FBF8F3;min-width:180px}
+.wp-table.merged-urgent tbody td:nth-child(4){position:sticky;left:306px;z-index:2;background:#FBF8F3;min-width:80px}
+.wp-table.merged-urgent tbody td:nth-child(5){position:sticky;left:386px;z-index:2;background:#FBF8F3;min-width:80px}
+.wp-table.merged-urgent tbody td:nth-child(6){position:sticky;left:466px;z-index:2;background:#FBF8F3;min-width:80px}
 .wp-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--text-hint);padding:16px 24px}
 .wp-empty-icon{font-size:48px;margin-bottom:16px;opacity:.5}
 .wp-empty-title{font-size:18px;font-weight:500;margin-bottom:8px;color:var(--text-secondary)}
@@ -2024,10 +2103,10 @@ body{
 
 .wp-toolbar{display:flex;flex-wrap:wrap;gap:16px;padding:14px 0;margin-bottom:7px;border-bottom:1px solid var(--border);flex-shrink:0}
 /* ★ V0.3.140: 全局按钮标准化 — 三类基准样式 + 8px圆角 */
-.wp-toolbar button{padding:5px 18px;border:1px solid #3B7DB4;border-radius:8px;background:#fff;color:#3B7DB4;font-size:12px;cursor:pointer;transition:all .18s ease;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:5px;font-weight:500;min-width:118px;box-shadow:none;line-height:1.4}
+.wp-toolbar button{padding:5px 18px;border:1px solid #3B7DB4;border-radius:8px;background:#fff;color:#3B7DB4;font-size:12px;cursor:pointer;transition:all .18s ease;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:5px;font-weight:500;min-width:130px;box-shadow:none;line-height:1.4}
 .wp-toolbar button:hover{background:#E8F4FE;border-color:#2A6A9A;color:#2A6A9A}
 .wp-toolbar button:active{background:#D0E8FD;border-color:#004A9E}
-/* 第一类：绿色填充（提交周计划） */
+/* 第一类：绿色填充（提交周行动项） */
 .wp-toolbar button.wp-btn-primary{background:rgba(109,157,57,.9);color:#fff;border-color:rgba(109,157,57,.9)}
 .wp-toolbar button.wp-btn-primary:hover{background:rgba(109,157,57,.2);border-color:rgba(109,157,57,.2);color:#5a8530}
 /* 第二类：蓝绿填充（提交周小结） */
@@ -2041,9 +2120,18 @@ body{
 .wp-toolbar button.wp-btn-export:hover{background:rgba(97,145,211,.2);border-color:rgba(97,145,211,.2);color:#4a7bb5}
 /* 统一禁用状态 */
 .wp-toolbar button.wp-btn-primary:disabled,.wp-toolbar button.wp-btn-summary:disabled,.wp-toolbar button.wp-btn-delete:disabled,.wp-toolbar button.wp-btn-export:disabled,.wp-toolbar button.wp-btn-disabled{background:#CBD5E1;color:#94A3B8;border-color:#CBD5E1;cursor:not-allowed}
+/* ★ V0.6.1au: 删除按钮禁用状态用原色50%透明度 */
+.wp-toolbar button.wp-btn-delete:disabled{background:rgba(240,113,103,.45);color:rgba(255,255,255,.85);border-color:rgba(240,113,103,.45)}
+.wp-toolbar button.wp-btn-delete:disabled:hover{background:rgba(240,113,103,.45);color:rgba(255,255,255,.85);border-color:rgba(240,113,103,.45)}
 /* 白底蓝框次要按钮（回到我的计划/查看评价等） */
 .wp-toolbar button.wp-btn-accent{background:#fff;color:#3B7DB4;border-color:#3B7DB4}
 .wp-toolbar button.wp-btn-accent:hover{background:#E8F4FE;border-color:#2A6A9A;color:#2A6A9A}
+/* ★ V0.6.1z: Toggle 已提交可撤回状态 */
+.wp-toolbar button.wp-btn-toggle-submitted{background:#E8F5E9;color:#2E7D32;border:1px solid #A5D6A7;font-weight:500}
+.wp-toolbar button.wp-btn-toggle-submitted:hover{background:#C8E6C9;border-color:#66BB6A;color:#1B5E20}
+/* ★ V0.6.1aa: Toggle 已提交但锁定（上级已评价/需先撤小结） */
+.wp-toolbar button.wp-btn-toggle-locked{background:#F1F5F9;color:#94A3B8;border:1px solid #CBD5E1;cursor:not-allowed;font-weight:500}
+.wp-toolbar button.wp-btn-toggle-locked:hover{background:#F1F5F9;color:#94A3B8;border-color:#CBD5E1}
 .wp-toolbar button.wp-btn-ai{background:linear-gradient(135deg,var(--brand-accent) 0%,#8B5CF6 40%,#A78BFA 70%,#EC4899 100%);background-size:200% 200%;color:#fff;border:none;border-radius:16px;padding:0;width:52px;height:52px;font-size:12px;font-weight:600;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 4px 14px rgba(139,92,246,.25),0 0 18px rgba(236,72,153,.08),inset 0 1px 0 rgba(255,255,255,.2);animation:aiGlow 5s ease-in-out 2;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.5}
 .wp-toolbar button.wp-btn-ai::before{content:'';position:absolute;inset:0;border-radius:16px;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.15) 50%,transparent 100%);background-size:200% 100%;animation:aiSlide 4s linear 2}
 @keyframes aiGlow{0%,100%{box-shadow:0 4px 14px rgba(139,92,246,.25),0 0 18px rgba(236,72,153,.08)}50%{box-shadow:0 5px 20px rgba(139,92,246,.40),0 0 28px rgba(168,85,247,.20),0 0 36px rgba(236,72,153,.10)}}
@@ -2054,20 +2142,21 @@ body{
 .wp-toolbar button.wp-btn-freeze{background:#fff;color:#3B7DB4;border-color:#3B7DB4}
 .wp-toolbar button.wp-btn-freeze:hover{background:#E8F4FE;border-color:#2A6A9A;color:#2A6A9A}
 /* ★ V0.1.30: 锁定视觉提示 */
-.wp-table td.wp-cell-frozen{border-left:3px solid #3b82f6!important;border-right:none!important;position:relative;background:rgba(59,130,246,.04);cursor:not-allowed!important}
+.wp-table td.wp-cell-frozen{box-shadow:inset 3px 0 0 0 #3B7DB4;border-right:none!important;background:rgba(59,125,180,.04);cursor:not-allowed!important}
 .wp-toolbar-sep{width:1px;background:var(--border);margin:0 4px;display:inline-block}
 
 .wp-table-wrap{flex:1;background:#FBF8F3;border-radius:8px;border:none;border-right:1px solid var(--border)}
-.wp-table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;min-width:1200px;table-layout:auto}
+.wp-table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;min-width:1200px;table-layout:auto;background:#FBF8F3}
 .wp-table tbody tr{min-height:38px}
 .wp-table th{background:#E8EAED;color:#002D4E;font-weight:600;padding:8px 6px;border-top:1px solid var(--border);border-bottom:2px solid #C5C9CE;white-space:nowrap;position:sticky;top:0;z-index:5;font-size:11px;text-align:center;line-height:1}
 .wp-table th.col-fixed{background:#d5d8db}
 /* 冻结列表头高于冻结列内容(z-index:2) */
 .wp-table thead th:nth-child(-n+5){background:#E8EAED;z-index:6}
-.wp-table td{padding:6px 6px;border-bottom:1px solid #E2E4E7;border-right:1px solid rgba(0,0,0,.04);vertical-align:middle;text-align:center;color:#0F2C4B;min-height:36px;height:36px;background:#FBF8F3}
+.wp-table thead th:nth-child(6){background:#E8EAED;z-index:6}
+.wp-table td{padding:6px 6px;border-bottom:1px solid #E2E4E7;vertical-align:middle;text-align:center;color:#0F2C4B;min-height:36px;height:36px;background:#FBF8F3}
 .wp-table td.editable{cursor:pointer;transition:background .15s;position:relative}
 .wp-table td.editable:hover{background:#F5EDE0}
-.wp-table td.editable:nth-child(-n+5):hover{background:#F5EDE0}
+.wp-table td.editable:nth-child(-n+6):hover{background:#F5EDE0}
 .wp-table td.editable.editing{background:#F8F9FA;box-shadow:inset 0 0 0 2px rgba(15,123,225,.25);padding:3px}
 .wp-table th,.wp-table td{overflow:hidden;text-overflow:ellipsis}
 .wp-table td.col-num{color:#5B6B7B;font-size:11px;min-width:56px}
@@ -2079,19 +2168,34 @@ body{
 .wp-table td.col-work{text-align:left;min-width:180px;font-weight:600}
 .wp-table td.col-goal{text-align:center;min-width:80px;font-size:12px;font-weight:600}
 /* ★ V0.3.101: 优先级纯文字标签 — 去彩色底色 */
-.wp-table td.col-goal.pri-urgent{background:#FBF8F3;color:#D64352;font-weight:600;border-left:3px solid #D64352}
-.wp-table td.col-goal.pri-important{background:#FBF8F3;color:#F97316;font-weight:500;border-left:3px solid #F97316}
-.wp-table td.col-goal.pri-daily-urgent{background:#FBF8F3;color:#0EA5E9;font-weight:500;border-left:3px solid #0EA5E9}
-.wp-table td.col-goal.pri-daily-routine{background:#FBF8F3;color:#5E7080;font-weight:400;border-left:3px solid rgba(94,112,128,.25)}
-/* ★ V0.5.142: 冻结前5列 — 序号/重点工作/优先级/启动日期/计划完成日期（Excel式列锁定）*/
-/* ★ V0.5.142: 冻结前5列 — 仅 tbody 冻结，thead 由 JS transform 同步 */
+.wp-table td.col-goal.pri-urgent{background:#FBF8F3;color:#FF3B30;font-weight:600;box-shadow:inset 3px 0 0 0 #FF3B30}
+.wp-table td.col-goal.pri-important{background:#FBF8F3;color:#007AFF;font-weight:500;box-shadow:inset 3px 0 0 0 #007AFF}
+.wp-table td.col-goal.pri-daily-urgent{background:#FBF8F3;color:#FF9500;font-weight:500;box-shadow:inset 3px 0 0 0 #FF9500}
+.wp-table td.col-goal.pri-daily-routine{background:#FBF8F3;color:#5E7080;font-weight:400;box-shadow:inset 3px 0 0 0 rgba(94,112,128,.25)}
+/* ★ V0.6.1ct: 冻结前6列 — 无边框/阴影，用背景色区分 */
 .wp-table th:nth-child(1),.wp-table td:nth-child(1){position:sticky;left:0;z-index:2;border-left:1px solid var(--border)}
 .wp-table th:nth-child(2),.wp-table td:nth-child(2){position:sticky;left:56px;z-index:2}
 .wp-table th:nth-child(3),.wp-table td:nth-child(3){position:sticky;left:236px;z-index:2}
 .wp-table th:nth-child(4),.wp-table td:nth-child(4){position:sticky;left:316px;z-index:2}
 .wp-table th:nth-child(5),.wp-table td:nth-child(5){position:sticky;left:431px;z-index:2}
-.wp-table td:nth-child(-n+5){background:#FBF8F3}
-.wp-table td:nth-child(5){}
+.wp-table th:nth-child(6),.wp-table td:nth-child(6){position:sticky;left:546px;z-index:2}
+.wp-table td:nth-child(-n+6){background:#FBF8F3}
+/* ★ V0.6.1cz: 所有列统一浅黄，无边框/阴影，无列间竖线 */
+.wp-table td:nth-child(n+7){background:#FBF8F3}
+.wp-table th:nth-child(n+7){background:#E8EAED}
+.wp-table td.col-remaining{text-align:center;font-size:12px;min-width:80px}
+/* ★ V0.6.1cr: 合计行和标题行也冻结前3列 */
+.wp-table .wp-total-row td:nth-child(1){position:sticky;left:0;z-index:2;background:#FBF8F3}
+.wp-table .wp-total-row td:nth-child(2){position:sticky;left:56px;z-index:2;background:#FBF8F3}
+.wp-table .wp-total-row td:nth-child(3){position:sticky;left:236px;z-index:2;background:#FBF8F3}
+.wp-table .wp-section-header td:nth-child(1){position:sticky;left:0;z-index:2}
+/* ★ V0.6.1cs: editable 的 td 也冻结（无边框/阴影） */
+.wp-table td.editable:nth-child(1){position:sticky;left:0;z-index:2}
+.wp-table td.editable:nth-child(2){position:sticky;left:56px;z-index:2}
+.wp-table td.editable:nth-child(3){position:sticky;left:236px;z-index:2}
+.wp-table td.editable:nth-child(4){position:sticky;left:316px;z-index:2}
+.wp-table td.editable:nth-child(5){position:sticky;left:431px;z-index:2}
+.wp-table td.editable:nth-child(6){position:sticky;left:546px;z-index:2}
   .wp-table td.col-hours{font-variant-numeric:tabular-nums;min-width:115px;text-align:center}
   .wp-table td.col-hours input[type="date"].wp-cell-input{width:110px!important;max-width:110px!important;min-width:0;padding:4px 8px 4px 2px;text-align:center;font-size:12px}
   .wp-table td.col-hours input[type="date"].wp-cell-input::-webkit-datetime-edit{padding:0;margin:0;width:80px}
@@ -2162,9 +2266,9 @@ table.collab-table tbody tr:hover{background:#fffdf5}
 .collab-btn-reject:hover{background:#b91c1c}
 .collab-btn-pending{background:#f5f5f5;color:#666;border:1px solid var(--border)}
 .collab-btn-pending:hover{background:#e5e5e5}
-.collab-pri-urgent{color:#D64352;font-size:10px;font-weight:600}
-.collab-pri-important{color:#F97316;font-size:10px;font-weight:500}
-.collab-pri-daily-urgent{color:#0EA5E9;font-size:10px;font-weight:500}
+.collab-pri-urgent{color:#FF3B30;font-size:10px;font-weight:600}
+.collab-pri-important{color:#007AFF;font-size:10px;font-weight:500}
+.collab-pri-daily-urgent{color:#FF9500;font-size:10px;font-weight:500}
 .collab-pri-daily-routine{color:#5E7080;font-size:10px;font-weight:400}
 
 /* ===== Weekly Feedback Sections ===== */
@@ -2233,41 +2337,41 @@ table.collab-table tbody tr:hover{background:#fffdf5}
 /* 评价弹窗 */
 .wp-eval-modal{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:300;display:none;align-items:center;justify-content:center}
 .wp-eval-modal.show{display:flex}
-.wp-eval-card{background:#fff;border-radius:8px;width:90%;max-width:560px;max-height:80vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,.15)}
-.wp-eval-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-.wp-eval-header h3{font-size:15px;font-weight:600}
-.wp-eval-close{width:28px;height:28px;border:none;border-radius:50%;background:#F2F2F2;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
+.wp-eval-card{background:#fff;border-radius:8px;width:90%;max-width:560px;max-height:80vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.15)}
+.wp-eval-header{padding:10px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-shrink:0;gap:12px}
+.wp-eval-header h3{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
+.wp-eval-header-actions{display:flex;gap:8px;align-items:center;flex-shrink:0}
+.wp-eval-header-actions button{padding:6px 14px;border-radius:6px;font-size:12px;cursor:pointer;font-weight:500}
+.wp-eval-close{width:28px;height:28px;border:none;border-radius:50%;background:#F2F2F2;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .wp-eval-close:hover{background:#E0E0E0}
 
 /* ★ V0.1.94: 自定义居中确认弹窗 (alert-modal-design Skill v1.0) */
 ._confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:9999;display:flex;align-items:center;justify-content:center}
-._confirm-card{background:rgba(255,255,255,.8);backdrop-filter:blur(10px);border-radius:12px;width:400px;max-width:90vw;box-shadow:0 12px 40px rgba(0,0,0,.2);overflow:hidden}
+._confirm-card{background:rgba(255,255,255,.8);backdrop-filter:blur(10px);border-radius:12px;width:480px;max-width:90vw;box-shadow:0 12px 40px rgba(0,0,0,.2);overflow:hidden}
 ._confirm-title{padding:28px 24px 12px;font-size:15px;font-weight:600;color:#1f2937;border-bottom:1px solid #e5e7eb}
-._confirm-body{padding:10px 28px 20px;font-size:14px;color:#6b7280;line-height:1.0;white-space:pre-line}
+._confirm-body{padding:10px 28px 20px;font-size:14px;color:#6b7280;line-height:1;white-space:pre-line;word-break:break-word}
 ._confirm-actions{padding:14px 28px 20px;display:flex;justify-content:flex-end;gap:12px;border-top:1px solid #e5e7eb}
 ._confirm-btn-cancel{padding:10px 40px;border:1px solid #d1d5db;border-radius:8px;background:#fff;color:#6b7280;font-size:14px;cursor:pointer;min-width:100px}
 ._confirm-btn-cancel:hover{background:#F5F5F5}
 ._confirm-btn-ok{padding:10px 40px;border:none;border-radius:8px;background:#3B6FA5;color:#fff;font-size:14px;font-weight:500;cursor:pointer;min-width:100px}
 ._confirm-btn-ok:hover{background:#2d5a8b}
-.wp-eval-body{padding:16px 18px 20px}
+.wp-eval-body{padding:16px 18px 20px;overflow-y:auto;flex:1}
 .wp-eval-row{margin-bottom:12px}
 .wp-eval-row label{display:block;font-size:12px;font-weight:500;margin-bottom:4px;color:var(--text-secondary)}
 .wp-eval-row textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:13px;resize:vertical;min-height:80px;outline:none;box-sizing:border-box}
 .wp-eval-row textarea:focus{border-color:var(--primary)}
-.wp-eval-actions{display:flex;gap:8px;justify-content:flex-end;padding:12px 0 16px;border-top:1px solid var(--border)}
-.wp-eval-actions button{padding:8px 20px;border-radius:8px;font-size:13px;cursor:pointer;font-weight:500}
 .wp-eval-submit{background:#3B7DB4;color:#fff;border:none}
 .wp-eval-submit:hover{background:#2A6A9A}
 .wp-eval-cancel{background:#fff;color:#3B7DB4;border:1px solid #3B7DB4}
 .wp-eval-cancel:hover{background:#E8F4FE}
 
 /* 下属选择下拉 — 毛玻璃风格 */
-.wp-sub-select{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:12px;padding-left:120px;color:#2A476A}
+.wp-sub-select{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:12px;padding-left:90px;color:#2A476A}
 .wp-sub-select>.wp-custom-select{flex:0 1 auto;min-width:160px;max-width:200px}
 .wp-sub-select>.wp-btn-visibility{flex:0 0 auto}
 .wp-sub-select>.wp-btn-myplan{flex:0 0 auto}
 .wp-custom-select{/* position:relative removed — breaks position:fixed in child dropdown */}
-.wp-custom-trigger{padding:8px 16px 8px 14px;border-radius:8px;border:1px solid #3B7DB4;background:#fff;color:#3B7DB4;font-size:13px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;user-select:none;transition:all .15s}
+.wp-custom-trigger{padding:8px 16px 8px 14px;border-radius:8px;border:1px solid #3B7DB4;background:#fff;color:#3B7DB4;font-size:13px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;justify-content:space-between;user-select:none;transition:all .15s;width:160px}
 .wp-custom-trigger:hover{background:#E8F4FE;border-color:#2A6A9A;color:#2A6A9A}
 .wp-custom-dropdown{position:fixed;background:rgba(252,252,253,.55);border:1px solid rgba(200,205,212,.4);border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,.04),0 10px 24px rgba(0,0,0,.08),0 24px 64px rgba(0,0,0,.06);overflow-y:auto;z-index:9999;padding:12px 16px;backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4)}
 .wp-dropdown-scroll-hint{display:flex;align-items:center;justify-content:center;gap:4px;padding:6px 0 4px;color:#9ca3af;font-size:11px;pointer-events:none;animation:scrollHintPulse 1.5s ease-in-out infinite}
@@ -2275,7 +2379,7 @@ table.collab-table tbody tr:hover{background:#fffdf5}
 .wp-custom-option{display:flex;align-items:center;height:24px;padding:0;font-size:13px;color:#0F2C4B;cursor:pointer;white-space:nowrap;border-radius:6px;margin:0 -8px;padding:0 8px}
 .wp-custom-option:hover{background:rgba(0,0,0,.04)}
 .wp-custom-option.active{background:rgba(59,130,246,.08);font-weight:500;color:#1d4ed8}
-.wp-btn-myplan{padding:8px 16px 8px 14px;margin-left:0;border:none;border-radius:8px;background:#3B7DB4;color:#fff;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .15s}
+.wp-btn-myplan{padding:8px 16px 8px 14px;margin-left:0;border:none;border-radius:8px;background:#3B7DB4;color:#fff;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .15s;width:160px;display:inline-flex;align-items:center;justify-content:center}
 .wp-btn-myplan:hover{background:#2A6A9A}
 
 @media(max-width:768px){
@@ -2293,7 +2397,7 @@ table.collab-table tbody tr:hover{background:#fffdf5}
 .sys-main-content{padding:24px;max-width:1400px;margin:0 auto}
 .sys-toolbar{display:flex;align-items:center;margin-bottom:20px}
 .sys-table-wrap{overflow-x:auto;overflow-y:auto;max-height:calc(100vh - 200px);background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow)} /* V0.1.77: 表头sticky需容器有滚动上下文 */
-.sys-user-table{width:100%;border-collapse:collapse;font-size:13px;min-width:1100px}
+.sys-user-table{width:100%;border-collapse:collapse;font-size:13px;min-width:1250px}
 .sys-user-table thead{position:sticky;top:0;z-index:1}
 .sys-user-table th{background:#3B7DB4;color:#fff;font-weight:600;font-size:12px;padding:12px 8px;text-align:center;white-space:nowrap;border-right:1px solid rgba(255,255,255,.15)}
 .sys-user-table th:last-child{border-right:none}
@@ -2340,6 +2444,12 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
   .sys-form-row{flex-direction:column;gap:8px}
 }
 
+/* ★ V0.6.1bd: 门户提示窗开关 */
+#portalTipToggle{display:flex;align-items:center;gap:7px;cursor:pointer;user-select:none}
+#portalTipSlider{position:relative;display:inline-block;width:36px;height:20px;background:#8D8D8D;border-radius:10px;transition:background .25s ease;vertical-align:middle}
+#portalTipSlider.on{background:#0F7BE1}
+#portalTipKnob{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .25s ease;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+#portalTipSlider.on #portalTipKnob{transform:translateX(16px)}
 </style>
 </head>
 <body>
@@ -2350,8 +2460,32 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
 </div>
 <script>document.getElementById('appVersionBadgeText').textContent=document.querySelector('meta[name="version"]').content</script>
 
+<!-- ★ V0.6.1bd: 门户提示窗开关逻辑 -->
+<script>
+function togglePortalTips(){
+  var slider=document.getElementById('portalTipSlider');
+  var isOff=slider.classList.contains('on');
+  if(isOff){
+    // 切换到关闭状态
+    slider.classList.remove('on');
+    localStorage.setItem('hwm_disable_portal_tips','true');
+  }else{
+    // 切换到开启状态
+    slider.classList.add('on');
+    localStorage.setItem('hwm_disable_portal_tips','false');
+  }
+}
+// 初始化：默认关闭（slider无.on类，关闭提示窗）
+(function initPortalTipToggle(){
+  if(localStorage.getItem('hwm_disable_portal_tips')==='false'){
+    document.getElementById('portalTipSlider').classList.add('on');
+  }
+  // 首次访问或未设置 → 保持默认关闭（slider无.on类）
+})();
+</script>
+
 <div class="password-overlay" id="passwordGate">
-  <div class="login-topbar">Demo（体验版）</div>
+  <div class="login-topbar">HWM</div>
   <!-- ★ V0.1.96: 左侧使命/价值观 -->
   <div class="login-left">
     <div class="title-block">
@@ -2371,7 +2505,7 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
   <div class="login-right">
   <div class="password-card">
     <div class="lock-icon">🔐</div>
-    <h2 id="portal-title"></h2>
+    <h2 id="portal-title">MBO+AI团队目标计划管理系统</h2>
     <div class="sub" id="loginSub">请输入用户名和密码</div>
     <input type="text" id="loginUser" placeholder="用户名" autocomplete="off" style="margin-bottom:10px;letter-spacing:1px;-webkit-text-security:none;text-security:none" onkeydown="if(event.key==='Enter')document.getElementById('pwdInput').focus()">
     <input type="password" id="pwdInput" placeholder="密码" autocomplete="off" onkeydown="if(event.key==='Enter')verifyLogin()">
@@ -2383,10 +2517,10 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
 
 <!-- 门户首页 -->
 <div id="portalView" class="portal-view" style="display:none">
-  <div class="portal-topbar">Demo（体验版）</div>
+  <div class="portal-topbar">HWM</div>
   <div class="portal-hero">
-    <div class="portal-cn-title">欢迎登陆 MBO+AI（Demo）</div>
-    <h1>Welcome to the MBO+AI Management System</h1>
+    <div class="portal-cn-title">欢迎进入MBO+AI团队目标计划管理系统</div>
+    <h1>Welcome to MBO+AI Team Objective &amp; Plan System</h1>
   </div>
   <div class="portal-grid">
     <div id="portalCard_decision" class="portal-card portal-card-orange disabled" data-module="decision" style="display:none" data-tip-head="三年规划" data-tip-cn="制定公司中长期三年战略规划，分解战略目标并追踪执行进度。科学规划引领公司稳健发展。" data-tip-en="Formulate three-year strategic planning for the company, decompose strategic goals and track execution progress. Scientific planning guides steady company development." onclick="moduleBuilding()">
@@ -2398,13 +2532,13 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
       <div class="portal-card-label">年度目标</div>
       <div class="portal-card-en">Annual Goals</div>
     </div>
-    <div id="portalCard_mbo" class="portal-card" data-module="mbo" style="display:none" data-tip-head="周计划" data-tip-cn="团队目标计划管理下沉到周，公司运营效率和绩效才有扎实根基。借助信息化系统内嵌管理规则与约束机制，用系统自动追踪跟进员工计划进度，优于管理者反复催促督办。一个人如果周计划长期落实不到位，其绩效表现大概率不会理想。" data-tip-en="Weekly team goal management underpins operational efficiency and performance management. An information system auto-tracks task progress instead of frequent managerial chasing. Persistent failure on weekly plans usually leads to poor performance." onclick="enterModule('workplan')">
-      <div class="portal-card-label">周计划</div>
-      <div class="portal-card-en">Weekly Plan</div>
+    <div id="portalCard_mbo" class="portal-card" data-module="mbo" style="display:none" data-tip-head="当周行动" data-tip-cn="团队目标计划管理下沉到周，公司运营效率和绩效才有扎实根基。借助信息化系统内嵌管理规则与约束机制，用系统自动追踪跟进员工计划进度，优于管理者反复催促督办。一个人如果周计划长期落实不到位，其绩效表现大概率不会理想。" data-tip-en="Weekly team goal management underpins operational efficiency and performance management. An information system auto-tracks task progress instead of frequent managerial chasing. Persistent failure on weekly plans usually leads to poor performance." onclick="enterModule('workplan')">
+      <div class="portal-card-label">当周行动</div>
+      <div class="portal-card-en">Weekly To-Do</div>
     </div>
-    <div id="portalCard_rd" class="portal-card portal-card-orange disabled" data-module="rd" style="display:none" data-tip-head="月计划" data-tip-cn="承上启下的月度计划管理，将年度目标分解为月度里程碑，确保战略执行不脱节。" data-tip-en="Monthly plan management bridging annual and weekly goals. Decompose annual targets into monthly milestones to ensure strategic execution continuity." onclick="moduleBuilding()">
-      <div class="portal-card-label">月计划</div>
-      <div class="portal-card-en">Monthly Plan</div>
+    <div id="portalCard_rd" class="portal-card portal-card-orange disabled" data-module="rd" style="display:none" data-tip-head="本月计划" data-tip-cn="承上启下的月度计划管理，将年度目标分解为月度里程碑，确保战略执行不脱节。" data-tip-en="Monthly plan management bridging annual and weekly goals. Decompose annual targets into monthly milestones to ensure strategic execution continuity." onclick="moduleBuilding()">
+      <div class="portal-card-label">本月计划</div>
+      <div class="portal-card-en">Month Plan</div>
       <div class="portal-card-badge">In Progress</div>
     </div>
     <div id="portalCard_decision2" class="portal-card portal-card-orange disabled" data-module="decision" style="display:none" data-tip-head="三年规划" data-tip-cn="制定公司中长期三年战略规划，分解战略目标并追踪执行进度。科学规划引领公司稳健发展。" data-tip-en="Formulate three-year strategic planning for the company, decompose strategic goals and track execution progress. Scientific planning guides steady company development." onclick="moduleBuilding()">
@@ -2412,14 +2546,13 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
       <div class="portal-card-en">3-Year Plan</div>
       <div class="portal-card-badge">In Progress</div>
     </div>
-    <div id="portalCard_hr" class="portal-card" data-module="hr" style="display:none" data-tip-head="组织架构" data-tip-cn="管理团队信息、人员档案与组织架构。清晰的组织脉络与人才盘点是高效管理的基础。" data-tip-en="Manage team information, personnel files and organizational structure. Clear organizational mapping and talent inventory are the foundation of efficient management." onclick="enterModule('hr')">
-      <div class="portal-card-label">组织架构</div>
-      <div class="portal-card-en">Team &amp; Structure</div>
+    <div id="portalCard_hr" class="portal-card" data-module="hr" style="display:none" data-tip-head="人才团队" data-tip-cn="管理团队信息、人员档案与组织架构。清晰的组织脉络与人才盘点是高效管理的基础。" data-tip-en="Manage team information, personnel files and organizational structure. Clear organizational mapping and talent inventory are the foundation of efficient management." onclick="enterModule('hr')">
+      <div class="portal-card-label">人才团队</div>
+      <div class="portal-card-en">Talent Team</div>
     </div>
-    <div id="portalCard_talent" class="portal-card disabled" data-module="talent" style="display:none" data-tip-head="项目管理" data-tip-cn="全生命周期项目管理，从立项、执行到验收闭环跟踪。提升项目交付效率与质量，确保按时按质完成。" data-tip-en="Full-lifecycle project management, from initiation to execution to closure tracking. Improve project delivery efficiency and quality, ensuring on-time completion." onclick="moduleBuilding()">
+    <div id="portalCard_talent" class="portal-card" data-module="pm" style="display:none" data-tip-head="项目管理" data-tip-cn="全生命周期项目管理，从立项、执行到验收闭环跟踪。提升项目交付效率与质量，确保按时按质完成。" data-tip-en="Full-lifecycle project management, from initiation to execution to closure tracking. Improve project delivery efficiency and quality, ensuring on-time completion." onclick="enterModule('pm')">
       <div class="portal-card-label">项目管理</div>
       <div class="portal-card-en">PM</div>
-      <div class="portal-card-badge">In Progress</div>
     </div>
     <div id="portalCard_payroll" class="portal-card disabled" data-module="payroll" style="display:none" data-tip-head="决策工具" data-tip-cn="智能决策辅助工具，提供数据驱动的决策分析与风险评估。科学决策路径助力管理者做出最优选择。" data-tip-en="Intelligent decision support tools providing data-driven analysis and risk assessment. Scientific decision paths help managers make optimal choices." onclick="moduleBuilding()">
       <div class="portal-card-label">决策工具</div>
@@ -2450,16 +2583,23 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
       <div class="portal-card-en">System Maintenance</div>
     </div>
   </div>
-  <!-- ★ V0.5.112: 固定底部信息面板 -->
+  <!-- ★ V0.5.112→抽屉式改造: 顶部抽屉式信息面板 -->
   <div class="portal-info-panel" id="portalInfoPanel">
-    <div class="tip-head" id="panelTipHead">请将鼠标悬停在模块上查看详情</div>
-    <div class="tip-cn" id="panelTipCn"></div>
-    <div class="tip-en" id="panelTipEn"></div>
+    <div class="portal-info-panel-inner">
+      <div class="tip-head" id="panelTipHead">请将鼠标悬停在模块上查看详情</div>
+      <div class="tip-cn" id="panelTipCn"></div>
+      <div class="tip-en" id="panelTipEn"></div>
+    </div>
   </div>
   <div class="portal-footer">
     If you have any questions, please contact the HR Department<br>
     如果使用过程中有任何问题，请咨询人力资源部<br>
-    <span id="footer-copy">&copy; 安徽省幸福工场医疗设备有限公司 版权所有</span>
+    <span id="footer-copy">&copy; Tiger-Buddy+AI 版权所有</span>
+  </div>
+  <!-- ★ V0.6.1bd: 门户提示窗开关 — 仅首页显示 -->
+  <div id="portalTipToggle" style="position:fixed;left:12px;bottom:40px;z-index:10000;font-size:11px;color:rgba(255,255,255,.55);font-family:-apple-system,'苹方',sans-serif" onclick="togglePortalTips()" title="关闭后鼠标悬停模块不弹窗">
+    <span>提示窗</span>
+    <span id="portalTipSlider"><span id="portalTipKnob"></span></span>
   </div>
   <button style="position:fixed;top:48px;right:24px;z-index:100;padding:10px 28px;background:#3B7DB4;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;box-shadow:0 2px 8px rgba(59,125,180,.25);transition:all .15s" onclick="logout()" onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1"><span style="margin-right:6px">←</span>退出登录</button>
 </div>
@@ -2469,8 +2609,8 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
 <div class="header">
   <div class="header-inner">
     <div>
-        <h1>MBO+AI-组织</h1>
-        <div style="font-size:13px;color:rgba(255,255,255,.55);margin-top:2px;letter-spacing:.3px">HWM-AI Goal Plan System · Organization</div>
+        <h1>人才团队</h1>
+        <div style="font-size:13px;color:rgba(255,255,255,.55);margin-top:2px;letter-spacing:.3px">Talent Team</div>
         <div class="header-sub" id="headerUser">随时随地查询员工信息</div>
       </div>
     <div style="display:flex;flex-direction:column;align-items:flex-end;gap:16px">
@@ -2780,29 +2920,52 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
   <div class="wp-topbar">
     <div class="wp-topbar-left">
       <div class="wp-topbar-logo">
-        <span>📋</span><span>MBO</span>
+        <span>📋</span><span>Weekly To-Do</span>
       </div>
       <div class="wp-topbar-user" id="wpUserInfo"></div>
       <div class="wp-sub-select" id="wpSubSelect" style="display:none">
         <div class="wp-custom-select" id="wpSubCustom">
           <div class="wp-custom-trigger" id="wpSubTrigger" onclick="toggleWPSubDropdown()">
-            <span id="wpSubTriggerText">View Team Plans</span>
-            <span style="font-size:10px;margin-left:4px">▾</span>
+            <span id="wpSubTriggerText">审阅团队周行动项</span>
+            <span style="font-size:10px;margin-left:4px;color:#D9D9D9">▼</span>
           </div>
           <div class="wp-custom-dropdown" id="wpSubDropdown" style="display:none"></div>
         </div>
-        <button class="wp-btn-visibility" onclick="openWPVisibility()" title="管理周计划可见性">Share My Plan <span style="font-size:10px">▾</span></button>
-        <button class="wp-btn-myplan" id="wpBtnMyPlan" onclick="switchToMyWP()" title="Return to My Plan">Return to My Plan</button>
+        <button class="wp-btn-visibility" onclick="openWPVisibility()" title="管理周行动项可见性">分享我的周行动项 <span style="font-size:10px;color:#D9D9D9">▼</span></button>
+        <button class="wp-btn-myplan" id="wpBtnMyPlan" onclick="switchToMyWP()" title="返回我的周行动项">返回我的周行动项</button>
       </div>
     </div>
     <div style="display:flex;gap:8px;align-items:center">
       <button class="wp-back-btn" onclick="goHome()">💾 Save &amp; Back to Home</button>
     </div>
   </div>
+  <!-- ===== PM 项目管理模块 ===== -->
+  <div id="pmView" style="display:none;flex-direction:column;height:100vh;">
+    <div class="header pm-header">
+      <div class="header-inner">
+        <div>
+          <h1>项目管理</h1>
+          <div style="font-size:13px;color:rgba(255,255,255,.55);margin-top:2px;letter-spacing:.3px">Project Management</div>
+          <div class="header-sub" id="pmHeaderUser">项目全生命周期管理</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <button onclick="showNewProjectForm()" style="padding:6px 16px;background:rgba(109,157,57,.9);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer">+ 新建项目</button>
+          <button class="pm-back-btn" onclick="goHome()" style="padding:6px 14px;background:rgba(255,255,255,.15);color:#fff;border:none;border-radius:8px;font-size:12px;cursor:pointer">返回首页</button>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex:1;overflow:hidden">
+      <div id="pmSidebar" style="width:200px;min-width:200px;background:#F9FAFB;border-right:1px solid #E5E7EB;padding:14px;overflow-y:auto"></div>
+      <div style="flex:1;overflow-y:auto;padding:16px;background:#F3F4F6">
+        <div id="pmListView"><div id="pmContent"></div></div>
+        <div id="pmDetailView" style="display:none;flex-direction:column;height:100%"><div id="pmDetailContent" style="flex:1;overflow-y:auto"></div></div>
+      </div>
+    </div>
+  </div>
   <div class="wp-layout">
     <!-- 左侧导航：周计划定位 -->
     <div class="wp-sidebar" id="wpSidebar">
-      <div class="wp-sidebar-title">📅 周计划导航</div>
+      <div class="wp-sidebar-title">📅 Timeline</div>
       <div class="wp-sidebar-label">年度</div>
       <select id="wpYear" onchange="onWPYearChange()" class="hidden-select">
         <option value="2026">2026年</option>
@@ -2813,7 +2976,7 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
       </select>
       <div class="wp-month-trigger" id="wpYearTrigger" onclick="toggleYearDropdown()">
         <span id="wpYearLabel">2026年</span>
-        <span style="font-size:10px;color:#9ca3af">▼</span>
+        <span style="font-size:10px;color:#D9D9D9">▼</span>
       </div>
       <div class="wp-sidebar-label">月份</div>
       <select id="wpMonth" onchange="onWPMonthChange()" class="hidden-select">
@@ -2824,7 +2987,7 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
       </select>
       <div class="wp-month-trigger" id="wpMonthTrigger" onclick="toggleMonthDropdown()">
         <span id="wpMonthLabel">7月</span>
-        <span style="font-size:10px;color:#9ca3af">▼</span>
+        <span style="font-size:10px;color:#D9D9D9">▼</span>
       </div>
       <div class="wp-sidebar-label">周次</div>
       <div class="wp-sidebar-plan-list" id="wpPlanList">
@@ -2833,14 +2996,14 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
       <!-- ★ V0.4.91s: 全年53周快速导航网格 -->
       <div class="wp-year-grid" id="wpYearGrid" style="display:none"></div>
       <div class="wp-sidebar-divider"></div>
-      <button class="kpi-new-btn" onclick="createNewWP()">＋ 新建周计划</button>
+      <button class="kpi-new-btn" onclick="createNewWP()">＋ 新建周行动项</button>
     </div>
     <!-- 右侧：工作计划表 -->
     <div class="wp-content" id="wpContent">
       <div class="wp-empty" id="wpDefault">
         <div class="wp-empty-icon">📋</div>
         <div class="wp-empty-title">选择周计划</div>
-        <div class="wp-empty-desc">请从左侧选择年度、月份和周次，<br>或点击「新建周计划」创建</div>
+        <div class="wp-empty-desc">请从左侧选择年度、月份和周次，<br>或点击「新建周行动项」创建</div>
       </div>
     </div>
   </div>
@@ -2934,9 +3097,10 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
             <th class="sys-col-position">职务</th>
             <th class="sys-col-uid">用户名</th>
             <th class="sys-col-pwd">密码</th>
-            <th class="sys-col-module">组织架构</th>
-            <th class="sys-col-module">周计划</th>
+            <th class="sys-col-module">人才团队</th>
+            <th class="sys-col-module">当周行动</th>
             <th class="sys-col-module">年度目标</th>
+            <th class="sys-col-module">项目协同</th>
             <th class="sys-col-module">项目管理</th>
             <th class="sys-col-module">岗位胜任力</th>
             <th class="sys-col-module">决策工具</th>
@@ -2945,7 +3109,7 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
             <th class="sys-col-module">系统维护</th>
             <th class="sys-col-module" style="color:rgba(255,255,255,.6)">三年规划</th>
             <th class="sys-col-module" style="color:rgba(255,255,255,.6)">数据中心</th>
-            <th class="sys-col-module" style="color:rgba(255,255,255,.6)">月计划</th>
+            <th class="sys-col-module" style="color:rgba(255,255,255,.6)">本月计划</th>
             <th class="sys-col-action" style="width:70px">编辑</th>
             <th class="sys-col-action">下属</th>
           </tr>
@@ -2963,6 +3127,11 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
     <div class="modal-handle"></div>
     <div class="modal-header">
       <h2 id="sysModalTitle">编辑用户</h2>
+      <div class="modal-header-actions" id="sysModalHeaderActions" style="display:flex;align-items:center;gap:8px;margin-right:0">
+        <button type="button" class="modal-header-btn modal-header-btn--cancel" onclick="sysCloseModal()">取消</button>
+        <button type="button" class="modal-header-btn modal-header-btn--delete" id="sysDeleteUserBtn" style="display:none" onclick="sysDeleteUser()">🗑 删除用户</button>
+        <button type="button" class="modal-header-btn modal-header-btn--save" onclick="sysSaveUser()">保存</button>
+      </div>
       <button class="modal-close" onclick="sysCloseModal()">✕</button>
     </div>
     <div class="modal-body" style="padding:20px 24px">
@@ -3016,11 +3185,6 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
           <div class="sys-form-section-title">下属管理 <span style="font-size:11px;color:var(--text-hint);font-weight:400" id="sysSubInfo">—</span></div>
           <div id="sysSubPreview" style="margin-top:8px;font-size:12px;color:var(--text-hint);min-height:20px"></div>
           <button type="button" class="btn btn-sm" onclick="sysOpenSubPanel()" style="margin-top:8px;background:var(--gold);color:var(--primary);border:1px solid var(--primary);border-radius:8px">⚙ 设置下属</button>
-        </div>
-        <div style="text-align:right;margin-top:20px;padding:16px 0 8px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end">
-          <button type="button" class="btn" onclick="sysCloseModal()" style="padding:10px 24px;min-width:120px;background:#fff;color:#6B7280;border:1px solid #D0D5DD;border-radius:8px;font-size:14px;cursor:pointer">取消</button>
-          <button type="button" class="btn btn-danger" id="sysDeleteUserBtn" style="display:none;padding:10px 24px;margin-right:auto;min-width:120px;border-radius:8px;font-size:14px;cursor:pointer" onclick="sysDeleteUser()">🗑 删除用户</button>
-          <button type="button" class="btn btn-primary" onclick="sysSaveUser()" style="padding:10px 24px;min-width:120px;border-radius:8px;font-size:14px;cursor:pointer">保存</button>
         </div>
       </form>
     </div>
@@ -3089,13 +3253,13 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
 <script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
-console.log('HWM HR v20260603-kpi-v4 loaded');
+console.log('HWM HR v20260712-drawer-v6 loaded');
 // ===== pdf.js worker 配置 =====
 // V0.5.74: 品牌文本注入（从 APP_CONFIG 读取，切换客户只需改 config.js）
 (function setBrandTexts(){
   var c=window.APP_CONFIG.company;
   var t=document.getElementById('portal-title');
-  if(t)t.textContent='登陆MBO+AI目标计划管理系统';
+  if(t && !t.textContent)t.textContent='MBO+AI团队目标计划管理系统';
   var f=document.getElementById('footer-copy');
   if(f)f.textContent='© '+c.copyright+' 版权所有';
 })();
@@ -3148,12 +3312,12 @@ var AUTH_UID_KEY='hr_auth_uid';
 
 // 用户数据库：用户名 → {pwd: SHA256哈希, name: 显示名, role: 角色, centerKeyword: 中心关键词}
 // 模块权限定义
-var HWM_MODULES=['hr','mbo','kpi','talent','learning','payroll','ideas','policies','maintenance','decision','dashboard','rd'];
-var HWM_MODULE_LABELS={hr:'组织架构',mbo:'周计划',kpi:'年度目标',talent:'项目管理',learning:'岗位胜任力',payroll:'决策工具',ideas:'敬业度',policies:'体系流程',maintenance:'系统维护',decision:'三年规划',dashboard:'数据中心',rd:'月计划'};
+var HWM_MODULES=['hr','mbo','kpi','talent','pm','learning','payroll','ideas','policies','maintenance','decision','dashboard','rd'];
+var HWM_MODULE_LABELS={hr:'人才团队',mbo:'当周行动',kpi:'年度目标',pm:'项目协同',talent:'项目管理',learning:'岗位胜任力',payroll:'决策工具',ideas:'敬业度',policies:'体系流程',maintenance:'系统维护',decision:'三年规划',dashboard:'数据中心',rd:'本月计划'};
 
 // 默认权限：admin 全开，其余按角色
 function _defaultPerms(role){
-  var all={hr:true,mbo:true,kpi:true,talent:true,learning:true,payroll:true,ideas:true,policies:true,maintenance:true,decision:true,dashboard:true,rd:true};
+  var all={hr:true,mbo:true,kpi:true,talent:true,pm:true,learning:true,payroll:true,ideas:true,policies:true,maintenance:true,decision:true,dashboard:true,rd:true};
   if(role==='admin')return all;
   // 普通用户默认全部开放，由管理员在系统维护中调整
   return all;
@@ -3584,7 +3748,7 @@ function applyRoleUI(){
   initPortalInfoPanel();
 }
 
-// ★ V0.5.166: 固定底部信息面板 — 悬停0.8s显示，停留8s后自动渐隐
+// ★ V0.5.166→抽屉式改造: 顶部抽屉式面板 — 悬停0.25s推出，6s后自动收起
 function initPortalInfoPanel(){
   var cards=document.querySelectorAll('.portal-card');
   var panel=document.getElementById('portalInfoPanel');
@@ -3598,10 +3762,11 @@ function initPortalInfoPanel(){
     if(hideTimer){clearTimeout(hideTimer);hideTimer=null;}
   }
   function doHide(){
-    panel.style.opacity='0';
-    panel.style.visibility='hidden';
+    panel.classList.remove('is-open');
   }
   function doShow(card){
+    // ★ V0.6.1bd: 用户关闭提示窗时跳过
+    if(localStorage.getItem('hwm_disable_portal_tips')==='true')return;
     var h=card.getAttribute('data-tip-head')||'';
     var c=card.getAttribute('data-tip-cn')||'';
     var e=card.getAttribute('data-tip-en')||'';
@@ -3610,9 +3775,8 @@ function initPortalInfoPanel(){
     else{cn.style.display='none';}
     if(e){en.textContent=e;en.style.display='';}
     else{en.style.display='none';}
-    panel.style.opacity='1';
-    panel.style.visibility='visible';
-    // 6秒后自动渐隐
+    panel.classList.add('is-open');
+    // 6秒后自动收起
     hideTimer=setTimeout(function(){
       doHide();
       hideTimer=null;
@@ -3621,7 +3785,7 @@ function initPortalInfoPanel(){
   cards.forEach(function(card){
     card.addEventListener('mouseenter',function(){
       clearTimers();
-      showTimer=setTimeout(function(){doShow(card);showTimer=null;},800);
+      showTimer=setTimeout(function(){doShow(card);showTimer=null;},250);
     });
     card.addEventListener('mouseleave',function(){
       clearTimers();
@@ -3798,6 +3962,7 @@ function enterModule(mod){
       document.getElementById('hrPoliciesView').style.display='none';
       document.getElementById('appView').style.display='none';
       document.getElementById('kpiView').style.display='none';
+      document.getElementById('pmView').style.display='none';
       var wv=document.getElementById('workPlanView');
       if(!wv)return;
       if(wv.parentElement && (wv.parentElement.id==='appView'||wv.parentElement.id==='hrPoliciesView')){
@@ -3810,12 +3975,29 @@ function enterModule(mod){
       console.error('WorkPlan enterModule error:',e);
       _showAlert('MBO模块加载失败：'+e.message);
     }
+  }else if(mod==='pm'){
+    try{
+      document.getElementById('portalView').style.display='none';
+      document.getElementById('hrPoliciesView').style.display='none';
+      document.getElementById('appView').style.display='none';
+      document.getElementById('kpiView').style.display='none';
+      document.getElementById('workPlanView').style.display='none';
+      var pmv=document.getElementById('pmView');
+      if(!pmv)return;
+      if(pmv.parentElement && pmv.parentElement.id!=='body'){document.body.appendChild(pmv);}
+      pmv.style.display='flex';
+      pmv.style.flexDirection='column';
+      enterPMModule();
+    }catch(e){
+      console.error('PM enterModule error:',e);
+      _showAlert('项目管理模块加载失败：'+e.message);
+    }
   }else if(mod==='system'){
     console.log('HWM: enterModule(system) START');
     var sv=null;
     try{
       // 1. 隐藏所有其他视图（逐个判空，避免某元素缺失导致整个块崩溃）
-      var hideIds=['portalView','hrPoliciesView','appView','kpiView','workPlanView'];
+      var hideIds=['portalView','hrPoliciesView','appView','kpiView','workPlanView','pmView'];
       for(var hi=0;hi<hideIds.length;hi++){
         var hEl=document.getElementById(hideIds[hi]);
         if(hEl)hEl.style.display='none';
@@ -3860,34 +4042,6 @@ function enterModule(mod){
 function moduleBuilding(){
   _showAlert('该模块建设中，敬请期待<br><br>This module is under development.','提示',2000);
 }
-
-// ====== DEMO MODE: Mock Supabase + Demo Users ======
-(function initDemoMode(){
-  var isDemo=(location.hostname==='demo.tiger-buddy.com'||location.hostname==='localhost'||location.hostname==='127.0.0.1');
-  if(!isDemo)return;
-  console.log('HWM DEMO ★ 演示环境 — 数据仅存储于浏览器本地 localStorage');
-  var _demoStore={};
-  var _demoStoreKey=function(tbl){return 'demo_'+tbl;};
-  var _loadDemo=function(tbl){try{var r=localStorage.getItem(_demoStoreKey(tbl));_demoStore[tbl]=r?JSON.parse(r):{};}catch(e){_demoStore[tbl]={};}};
-  var _saveDemo=function(tbl){localStorage.setItem(_demoStoreKey(tbl),JSON.stringify(_demoStore[tbl]));};
-  window.supabase={from:function(tbl){_loadDemo(tbl);var store=_demoStore[tbl];return {select:function(cols){return this;},eq:function(k,v){var results=[];for(var id in store){if(store[id][k]===v)results.push(store[id]);}return {then:function(cb){cb({data:results,error:null});return{then:function(cb2){cb2&&cb2({data:results,error:null});}};}};},insert:function(rows){for(var i=0;i<rows.length;i++){var id=rows[i].id||('_'+Date.now()+'_'+i);store[id]=rows[i];store[id].id=id;}_saveDemo(tbl);return {then:function(cb){cb({error:null});}};},update:function(obj){return {eq:function(k,v){for(var id in store){if(store[id][k]===v){for(var pk in obj)store[id][pk]=obj[pk];}}_saveDemo(tbl);return {then:function(cb){cb({error:null});}};}};},delete:function(){return {eq:function(k,v){for(var id in store){if(store[id][k]===v)delete store[id];}_saveDemo(tbl);return {then:function(cb){cb({error:null});}};}};},upsert:function(rows){for(var i=0;i<rows.length;i++){var r=rows[i];var found=false;for(var id in store){if(store[id].empid===r.empid&&store[id].name===r.name){store[id]=r;found=true;break;}}if(!found){store['_'+Date.now()+'_'+i]=r;}}_saveDemo(tbl);return {then:function(cb){cb({error:null});}};}};}};};
-})();
-
-(function injectDemoUsers(){
-  if(location.hostname!=='demo.tiger-buddy.com'&&location.hostname!=='localhost'&&location.hostname!=='127.0.0.1')return;
-  _DEFAULT_USERS['admin']={pwd:'123',name:'赵建国',role:'admin',dept:'总经办',position:'总经理',permissions:_defaultPerms('admin'),reports:_defaultReports(),subordinates:{'hr':'direct','rd':'direct','sales':'direct','manager':'direct','staff':'direct'}};
-  _DEFAULT_USERS['hr']={pwd:'123',name:'李慧芳',role:'center_head',centerKeyword:'人力资源',dept:'人力资源部',position:'人力资源总监',permissions:_defaultPerms('center_head'),reports:_defaultReports(),subordinates:{}};
-  _DEFAULT_USERS['rd']={pwd:'123',name:'孙志远',role:'center_head',centerKeyword:'研发',dept:'研发中心',position:'研发总监',permissions:_defaultPerms('center_head'),reports:_defaultReports(),subordinates:{}};
-  _DEFAULT_USERS['sales']={pwd:'123',name:'郑海峰',role:'center_head',centerKeyword:'营销',dept:'营销中心',position:'营销总监',permissions:_defaultPerms('center_head'),reports:_defaultReports(),subordinates:{}};
-  _DEFAULT_USERS['manager']={pwd:'123',name:'周国强',role:'manager',dept:'生产部',position:'生产经理',permissions:_defaultPerms('manager'),reports:_defaultReports(),subordinates:{}};
-  _DEFAULT_USERS['staff']={pwd:'123',name:'张小明',role:'staff',dept:'研发中心',position:'高级工程师',permissions:_defaultPerms('staff'),reports:_defaultReports(),subordinates:{}};
-  _DEFAULT_USERS['demo']={pwd:'123',name:'演示用户',role:'admin',dept:'系统',position:'管理员',permissions:_defaultPerms('admin'),reports:_defaultReports(),subordinates:{}};
-})();
-
-// Demo fallback: 这些函数在 policies.js 中定义，demo 环境下可能缺失
-if(typeof syncFavoritesFromCloud!=='function'){window.syncFavoritesFromCloud=function(){};}
-if(typeof syncFavoritesToCloud!=='function'){window.syncFavoritesToCloud=function(){};}
-if(typeof loadJobDescsFromDB!=='function'){window.loadJobDescsFromDB=function(cb){if(cb)cb([]);};}
 
 </script>
 <script src="js/modules/kpi.js"></script>
@@ -5594,10 +5748,11 @@ function showDetail(empId){
   if(canEditBasic){
     avatarHtml=avatarHtml.replace('detailAvatar"','detailAvatar" ondrop="handlePhotoDrop(event,\''+e.empId+'\')" ondragover="event.preventDefault();this.style.border=\'3px dashed var(--gold)\'" ondragleave="this.style.border=\'\'" style="cursor:pointer;border:2px dashed rgba(0,0,0,.1);flex-shrink:0;margin-bottom:0" title="拖拽照片到此处更换"');
   }
-  // 设置弹窗标题栏内容（头像+姓名+职位）
+  // 设置弹窗标题栏内容（头像+姓名+职位+公司工龄）
+  var companyWY=calcWorkYears(e.entryDate);
   document.getElementById('modalHeaderContent').innerHTML=
     avatarHtml+
-    '<div><div style="font-size:18px;font-weight:600;color:var(--text)">'+esc(e.name)+'</div><div style="font-size:13px;color:var(--text-secondary)">'+esc(e.position||'')+(e.dept?' · '+esc(e.dept):'')+'</div></div>';
+    '<div><div style="font-size:18px;font-weight:600;color:var(--text)">'+esc(e.name)+'</div><div style="font-size:13px;color:var(--text-secondary)">'+esc(e.position||'')+(e.dept?' · '+esc(e.dept):'')+'</div><div style="font-size:12px;color:var(--text-hint);margin-top:2px">公司工龄：'+(companyWY||'—')+'</div></div>';
   const fields=[
     {label:'工号',value:e.empId},
     {label:'姓名',value:e.name},
@@ -5622,74 +5777,35 @@ function showDetail(empId){
     {label:'专业',value:e.major},
     {label:'工龄',value:e.workYears?(e.workYears+'年'):''}
   ].filter(f=>f.value);
-  // Build HR sensitive section with edit controls
+  // ★ V0.6.1al: HR 字段用两列网格布局（与基础信息一致）
   var hrRows='';
   var hasEditable=false;
   var currentSection='';
+  var currentGridFields=[];
+  function _flushHRSection(){
+    if(currentGridFields.length===0)return;
+    hrRows+='<div class="detail-form-group">';
+    hrRows+='<div class="detail-form-group-title">'+esc(currentSection)+'</div>';
+    hrRows+='<div class="detail-form-grid">';
+    for(var fi=0;fi<currentGridFields.length;fi++){
+      var f=currentGridFields[fi];
+      var fv=(e[f.key]||'');
+      hrRows+=_renderField(f.key,f.label,f.type,f.opts,fv,!f.editable);
+    }
+    hrRows+='</div></div>';
+    currentGridFields=[];
+  }
   for(var i=0;i<HR_FIELD_CONFIG.length;i++){
     var cfg=HR_FIELD_CONFIG[i];
-    // 渲染分区标题
     if(cfg.section&&cfg.section!==currentSection){
+      _flushHRSection();
       currentSection=cfg.section;
-      hrRows+='<div class="detail-section-header">'+esc(currentSection)+'</div>';
     }
     var canEdit=canEditField(cfg);
     if(canEdit)hasEditable=true;
-    var val=(e[cfg.key]||'').toString();
-    if(cfg.type==='successor'){
-      // 继任者复合字段
-      var p=cfg.prefix;
-      var sName=e[p+'Name']||'';
-      var sDept=e[p+'Dept']||'';
-      var sEdu=e[p+'Education']||'';
-      var sWY=e[p+'WorkYears']||'';
-      var hasAny=sName||sDept||sEdu||sWY;
-      if(canEdit){
-        hrRows+='<div class="detail-row"><div class="detail-label">'+esc(cfg.label)+'</div><div class="detail-value">';
-        hrRows+='<div class="detail-successor-editor">';
-        hrRows+='<input class="detail-field-input" placeholder="姓名" value="'+esc(sName)+'" data-field="'+p+'Name">';
-        hrRows+='<input class="detail-field-input" placeholder="部门" value="'+esc(sDept)+'" data-field="'+p+'Dept">';
-        hrRows+='<input class="detail-field-input" placeholder="学历" value="'+esc(sEdu)+'" data-field="'+p+'Education">';
-        hrRows+='<input class="detail-field-input" placeholder="工龄（年）" value="'+esc(sWY)+'" data-field="'+p+'WorkYears">';
-        hrRows+='</div></div></div>';
-      }else{
-        var disp=hasAny?
-          '<div style="display:flex;flex-wrap:wrap;gap:4px 10px">'+(sName?'<span>'+esc(sName)+'</span>':'')+(sDept?'<span style="color:var(--text-hint)">'+esc(sDept)+'</span>':'')+(sEdu?'<span style="color:var(--text-hint)">'+esc(sEdu)+'</span>':'')+(sWY?'<span style="color:var(--text-hint)">工龄'+esc(sWY)+'年</span>':'')+'</div>':
-          '<span class="detail-value-empty">待补充</span>';
-        hrRows+='<div class="detail-row"><div class="detail-label">'+esc(cfg.label)+'</div><div class="detail-value">'+disp+'</div></div>';
-      }
-    }else if(cfg.type==='dropdown'){
-      if(canEdit){
-        hrRows+='<div class="detail-row"><div class="detail-label">'+esc(cfg.label)+'</div><div class="detail-value">';
-        hrRows+='<select data-field="'+cfg.key+'" style="width:100%;padding:10px 12px;border-radius:8px;border:1.5px solid var(--border);font-size:13px;background:#F6F8F9;outline:none">';
-        hrRows+='<option value="">- 请选择 -</option>';
-        var opts=cfg.opts||[];
-        for(var o=0;o<opts.length;o++){
-          hrRows+='<option value="'+esc(opts[o])+'"'+(val===opts[o]?' selected':'')+'>'+esc(opts[o])+'</option>';
-        }
-        hrRows+='</select></div></div>';
-      }else{
-        hrRows+='<div class="detail-row"><div class="detail-label">'+esc(cfg.label)+'</div><div class="detail-value">'+(val?'<span style="font-weight:500">'+esc(val)+'</span>':'<span class="detail-value-empty">待补充</span>')+'</div></div>';
-      }
-    }else if(cfg.type==='date'){
-      if(canEdit){
-        hrRows+='<div class="detail-row"><div class="detail-label">'+esc(cfg.label)+'</div><div class="detail-value">';
-        hrRows+='<input type="date" class="detail-field-input" data-field="'+cfg.key+'" value="'+esc(val)+'" style="width:100%">';
-        hrRows+='</div></div>';
-      }else{
-        hrRows+='<div class="detail-row"><div class="detail-label">'+esc(cfg.label)+'</div><div class="detail-value">'+(val?esc(val):'<span class="detail-value-empty">待补充</span>')+'</div></div>';
-      }
-    }else{
-      // text type
-      if(canEdit){
-        hrRows+='<div class="detail-row"><div class="detail-label">'+esc(cfg.label)+'</div><div class="detail-value">';
-        hrRows+='<textarea class="detail-field-input" data-field="'+cfg.key+'" rows="2" placeholder="待填写">'+esc(val)+'</textarea>';
-        hrRows+='</div></div>';
-      }else{
-        hrRows+='<div class="detail-row"><div class="detail-label">'+esc(cfg.label)+'</div><div class="detail-value">'+(val?esc(val):'<span class="detail-value-empty">待补充</span>')+'</div></div>';
-      }
-    }
+    currentGridFields.push({key:cfg.key,label:cfg.label,type:cfg.type||'text',opts:cfg.opts,editable:canEdit});
   }
+  _flushHRSection();
   // admin/data_admin 可编辑基础字段（仅这两个角色）
   var canEditBasic=(currentUser&&(currentUser.role==='admin'||currentUser.role==='data_admin'));
   // 基础字段配置：{key, label, type: text|dropdown|date|auto}
@@ -5743,39 +5859,81 @@ function showDetail(empId){
     if(today.getMonth()+1<dm||(today.getMonth()+1===dm&&today.getDate()<dd))years--;
     return years.toFixed(1)+'年';
   }
-  var basicRows='';
-  for(var b=0;b<basicConfig.length;b++){
-    var bc=basicConfig[b];
-    var bv='';
-    if(bc.type==='auto'){
-      if(bc.key==='age')bv=calcAge(e.birthDate||e.birthDay||'');
-      else if(bc.key==='workYears')bv=calcWorkYears(e.entryDate);
-    }else{
-      bv=e[bc.key]||'';
-    }
-    if(!bv&&!canEditBasic&&bc.type!=='auto')continue;
-    if(canEditBasic&&bc.type!=='auto'){
-      basicRows+='<div class="detail-row"><div class="detail-label">'+esc(bc.label)+'</div><div class="detail-value">';
-      if(bc.type==='dropdown'){
-        basicRows+='<select data-field="'+bc.key+'" style="width:100%;padding:10px 12px;border-radius:8px;border:1.5px solid var(--border);font-size:13px;background:#F6F8F9;outline:none">';
-        basicRows+='<option value="">- 请选择 -</option>';
-        for(var o=0;o<(bc.opts||[]).length;o++){
-          basicRows+='<option value="'+esc(bc.opts[o])+'"'+(bv===bc.opts[o]?' selected':'')+'>'+esc(bc.opts[o])+'</option>';
-        }
-        basicRows+='</select>';
-      }else if(bc.type==='date'){
-        basicRows+='<input type="date" data-field="'+bc.key+'" value="'+esc(bv)+'" class="detail-field-input" style="width:100%">';
+  // ★ V0.6.1ak: 两列网格表单布局 — 分组+固定对齐
+  function _renderField(key,label,type,opts,val,readonly){
+    var rkey=(key==='_age'?'':key);
+    var displayVal=val||'';
+    if(type==='auto')displayVal=val||'—';
+    if(!readonly){
+      var input='';
+      if(type==='dropdown'){
+        input='<select data-field="'+rkey+'" class="detail-form-select">';
+        input+='<option value="">- 请选择 -</option>';
+        if(opts){for(var o=0;o<opts.length;o++){input+='<option value="'+esc(opts[o])+'"'+(displayVal===opts[o]?' selected':'')+'>'+esc(opts[o])+'</option>';}}
+        input+='</select>';
+      }else if(type==='date'){
+        input='<input type="date" data-field="'+rkey+'" value="'+esc(displayVal)+'">';
       }else{
-        basicRows+='<input class="detail-field-input" data-field="'+bc.key+'" value="'+esc(bv)+'" placeholder="'+esc(bc.label)+'">';
+        input='<input type="text" data-field="'+rkey+'" value="'+esc(displayVal)+'" placeholder="'+esc(label)+'">';
       }
-      basicRows+='</div></div>';
+      return '<div class="detail-form-field"><div class="detail-form-label">'+esc(label)+'</div><div class="detail-form-input-wrap">'+input+'</div></div>';
     }else{
-      basicRows+='<div class="detail-row"><div class="detail-label">'+esc(bc.label)+'</div><div class="detail-value">'+(bv?esc(bv):'<span class="detail-value-empty">待补充</span>')+'</div></div>';
+      var disp=displayVal?'<span class="detail-form-value">'+esc(displayVal)+'</span>':'<span class="detail-form-value-empty">—</span>';
+      return '<div class="detail-form-field"><div class="detail-form-label">'+esc(label)+'</div><div class="detail-form-input-wrap">'+disp+'</div></div>';
     }
   }
-  // 公司工龄（自动计算）
-  var companyWY=calcWorkYears(e.entryDate);
-  basicRows+='<div class="detail-row"><div class="detail-label">公司工龄</div><div class="detail-value">'+(companyWY||'<span class="detail-value-empty">-</span>')+'</div></div>';
+  function _v2(key){return e[key]||'';}
+  var _ageVal=calcAge(e.birthDate||e.birthDay||'');
+  var editable=!!canEditBasic;
+  // ★ 分组定义：每组 = {title, fields: [ {key,label,type,opts} ]}
+  var _groups=[
+    {title:'基本信息', fields:[
+      {k:'empId',l:'工号',t:'text'},{k:'name',l:'姓名',t:'text'},
+      {k:'gender',l:'性别',t:'dropdown',o:['男','女']},{k:'status',l:'状态',t:'dropdown',o:['已转正','试用期','已离职']},
+      {k:'birthDate',l:'出生年月',t:'date'},{k:'_age',l:'年龄',t:'auto'},
+      {k:'ethnicity',l:'民族',t:'text'},{k:'politicalStatus',l:'政治面貌',t:'text'},
+      {k:'idCard',l:'身份证号',t:'text'}
+    ]},
+    {title:'工作信息', fields:[
+      {k:'center',l:'中心',t:'text'},{k:'dept',l:'部门',t:'text'},
+      {k:'position',l:'岗位',t:'text'},{k:'title',l:'专业职称',t:'text'},
+      {k:'entryDate',l:'入职日期',t:'date'},{k:'workplace',l:'工作地点',t:'text'},
+      {k:'professionalSkills',l:'技能特长',t:'text'}
+    ]},
+    {title:'联系信息', fields:[
+      {k:'phone',l:'手机号',t:'text'},{k:'email',l:'邮箱',t:'text'}
+    ]},
+    {title:'第一学历', fields:[
+      {k:'education',l:'学历',t:'dropdown',o:['博士','普通硕士','其他硕士','普通本科','其他本科','普通专科','其他专科','职业高中','高中','初中','初中以下']},{k:'school',l:'毕业学校',t:'text'},
+      {k:'major',l:'专业',t:'text'},{k:'graduationDate',l:'毕业时间',t:'date'}
+    ]},
+    {title:'最高学历', fields:[
+      {k:'educationMax',l:'最高学历',t:'dropdown',o:['博士','普通硕士','其他硕士','普通本科','其他本科','普通专科','其他专科','职业高中','高中','初中','初中以下']},{k:'highestSchool',l:'毕业学校',t:'text'},
+      {k:'highestMajor',l:'专业',t:'text'},{k:'highestGraduationDate',l:'毕业时间',t:'date'}
+    ]}
+  ];
+  var basicRows='';
+  for(var gi=0;gi<_groups.length;gi++){
+    var grp=_groups[gi];
+    // 只读模式下：如果整组都没数据，跳过
+    if(!editable){
+      var grpHasAny=false;
+      for(var fi=0;fi<grp.fields.length;fi++){
+        var fv=grp.fields[fi].k==='_age'?_ageVal:_v2(grp.fields[fi].k);
+        if(fv){grpHasAny=true;break;}
+      }
+      if(!grpHasAny)continue;
+    }
+    basicRows+='<div class="detail-form-group">';
+    basicRows+='<div class="detail-form-group-title">'+esc(grp.title)+'</div>';
+    basicRows+='<div class="detail-form-grid">';
+    for(var fi=0;fi<grp.fields.length;fi++){
+      var f=grp.fields[fi];
+      var fv=f.k==='_age'?_ageVal:_v2(f.k);
+      basicRows+=_renderField(f.k,f.l,f.t,f.o,fv,!editable);
+    }
+    basicRows+='</div></div>';
+  }
   // admin/data_admin 的删除/恢复按钮
   var deleteBtn='';
   if(canEditBasic&&!e.deleted){
@@ -6314,7 +6472,8 @@ if('serviceWorker' in navigator){
 <script src="js/modules/policies.js"></script>
 <script>
 </script>
-<script src="js/modules/mbo.js"></script>
+<script src="js/modules/mbo.js?v=40"></script>
+<script src="js/modules/pm.js?v=4"></script>
 <script src="js/modules/system.js"></script>
 <script>
 // PWA Service Worker Registration — V0.1.52 永久根治缓存
@@ -6357,13 +6516,13 @@ if('serviceWorker' in navigator){
   <div class="modal" style="max-width:560px">
     <div class="modal-handle"></div>
     <div class="modal-header">
-      <h2 style="color:#616161">目标计划横向对齐</h2>
+      <h2 style="color:#616161">周行动事项（To-Do）跨部门/职能横向对齐：</h2>
       <button class="modal-close" onclick="closeWPVisibility()">✕</button>
     </div>
     <div class="modal-body" style="padding:20px 24px;min-height:420px">
       <div style="display:flex;gap:8px;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:12px">
         <button class="btn btn-sm" id="wpVisTab1" onclick="switchWPVisTab('grant')" style="flex:1;background:#3B7DB4;color:#fff">设置可阅览我周计划的同事</button>
-        <button class="btn btn-sm" id="wpVisTab2" onclick="switchWPVisTab('received')" style="flex:1">查看授权我阅览其周计划的同事</button>
+        <button class="btn btn-sm" id="wpVisTab2" onclick="switchWPVisTab('received')" style="flex:1;background:#CBD5E1;color:#475569;border:1px solid #94A3B8">查看授权我阅览其周计划的同事</button>
       </div>
       <div id="wpVisGrantPanel" style="min-height:300px">
         <div style="display:flex;gap:8px;margin-bottom:12px">
