@@ -13,6 +13,8 @@ window.APP_CONFIG = {
   company: {
     fullName: '南京立顶医疗科技有限公司',
     shortName: '立顶医疗',
+    brandName: 'Leading Med',
+    iconText: 'LM',
     address: '南京市',
     copyright: '南京立顶医疗科技有限公司',
   },
