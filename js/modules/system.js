@@ -108,7 +108,7 @@ function sysTogglePerm(uid,mod){
   var u=USERS[uid];
   if(!u||!u.permissions)return;
   u.permissions[mod]=!u.permissions[mod];
-  saveUserSettings();
+  saveUserSettings();syncAllToCloud();
   if(currentUser&&currentUser._uid===uid&&mod==='maintenance'&&!u.permissions[mod]){
     _showAlert('⚠️ 您已关闭自己的系统维护权限，保存后将无法再进入此模块。');
   }
@@ -341,7 +341,7 @@ function sysSaveUser(){
   for(var i=0;i<items.length;i++){perms[items[i].dataset.mod]=items[i].classList.contains('on');}
   var oldU=USERS[uid]||{};
   USERS[uid]={pwd:pwd,name:name,role:role||oldU.role||'staff',dept:dept,position:position,centerKeyword:oldU.centerKeyword||'',permissions:perms,reports:oldU.reports||_defaultReports(),subordinates:oldU.subordinates||_sysEditingSubs||{}};
-  saveUserSettings();
+  saveUserSettings();syncAllToCloud();
   sysCloseModal();
   sysRenderUserTable();
   if(currentUser&&(_sysEditingUid===currentUser._uid||(!_sysEditingUid&&uid===currentUser._uid))){
@@ -356,7 +356,7 @@ async function sysDeleteUser(){
   if(!ok)return;
   var deletedUid=_sysEditingUid;
   delete USERS[deletedUid];
-  saveUserSettings();
+  saveUserSettings();syncAllToCloud();
   // ★ 同步从 Supabase 删除该用户（防止其他设备拉取到已删除的用户）
   (async function(){
     try{
@@ -502,7 +502,7 @@ function sysSaveSubs(){
   var u=USERS[_sysEditingUid];
   if(!u)return;
   u.subordinates=_sysEditingSubs;
-  saveUserSettings();
+  saveUserSettings();syncAllToCloud();
   // 更新信息提示 + 预览列表
   var info=document.getElementById('sysSubInfo');
   var direct=0,indirect=0;
