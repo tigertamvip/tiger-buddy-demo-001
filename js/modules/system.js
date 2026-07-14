@@ -74,33 +74,27 @@ function sysRenderUserTable(){
     html+='</tr>';
   }
   tbody.innerHTML=html;
-  // ★ V0.6.1.gq: 渲染后立即 + 100ms 后再算一次（确保DOM完全渲染）
-  _recalcSysFixedColumns();
-  setTimeout(_recalcSysFixedColumns,100);
+  // ★ V0.6.1fu: 渲染后动态计算固定列 left（避免CSS预设left和实际宽度错位）
+  setTimeout(_recalcSysFixedColumns,0);
 }
 
 // 测量并应用固定列的 left 值（实际宽度更可靠）
 function _recalcSysFixedColumns(){
   var table=document.getElementById('sysUserTable');
   if(!table)return;
-  var ths=table.querySelectorAll('thead th');
-  if(ths.length<7)return;
+  var firstRow=table.querySelector('tbody tr');
+  if(!firstRow)return;
+  var tds=firstRow.querySelectorAll('td');
   var fixedClasses=['sys-col-center','sys-col-dept','sys-col-name','sys-col-position','sys-col-uid','sys-col-action','sys-col-sub'];
-  // ★ V0.6.1.gr: 用 th 的 offsetWidth（th 不会被内容撑大）作为 left 计算基准
   var cumulative=0;
-  for(var i=0;i<7;i++){
+  for(var i=0;i<tds.length&&i<7;i++){
+    var td=tds[i];
     var cls=fixedClasses[i];
-    var w=80;
-    for(var h=0;h<ths.length;h++){
-      if(ths[h].classList.contains(cls)){w=ths[h].offsetWidth;break;}
-    }
+    td.style.left=cumulative+'px';
     // 同步表头
-    var ths2=table.querySelectorAll('thead th.'+cls);
-    for(var k=0;k<ths2.length;k++)ths2[k].style.left=cumulative+'px';
-    // 同步所有 tbody td
-    var allTds=table.querySelectorAll('tbody td.'+cls);
-    for(var t=0;t<allTds.length;t++)allTds[t].style.left=cumulative+'px';
-    cumulative+=w;
+    var ths=table.querySelectorAll('thead th.'+cls);
+    for(var k=0;k<ths.length;k++)ths[k].style.left=cumulative+'px';
+    cumulative+=td.offsetWidth;
   }
 }
 
@@ -108,7 +102,7 @@ function sysTogglePerm(uid,mod){
   var u=USERS[uid];
   if(!u||!u.permissions)return;
   u.permissions[mod]=!u.permissions[mod];
-  saveUserSettings();syncAllToCloud();
+  saveUserSettings();
   if(currentUser&&currentUser._uid===uid&&mod==='maintenance'&&!u.permissions[mod]){
     _showAlert('⚠️ 您已关闭自己的系统维护权限，保存后将无法再进入此模块。');
   }
@@ -341,7 +335,7 @@ function sysSaveUser(){
   for(var i=0;i<items.length;i++){perms[items[i].dataset.mod]=items[i].classList.contains('on');}
   var oldU=USERS[uid]||{};
   USERS[uid]={pwd:pwd,name:name,role:role||oldU.role||'staff',dept:dept,position:position,centerKeyword:oldU.centerKeyword||'',permissions:perms,reports:oldU.reports||_defaultReports(),subordinates:oldU.subordinates||_sysEditingSubs||{}};
-  saveUserSettings();syncAllToCloud();
+  saveUserSettings();
   sysCloseModal();
   sysRenderUserTable();
   if(currentUser&&(_sysEditingUid===currentUser._uid||(!_sysEditingUid&&uid===currentUser._uid))){
@@ -356,7 +350,7 @@ async function sysDeleteUser(){
   if(!ok)return;
   var deletedUid=_sysEditingUid;
   delete USERS[deletedUid];
-  saveUserSettings();syncAllToCloud();
+  saveUserSettings();
   // ★ 同步从 Supabase 删除该用户（防止其他设备拉取到已删除的用户）
   (async function(){
     try{
@@ -502,7 +496,7 @@ function sysSaveSubs(){
   var u=USERS[_sysEditingUid];
   if(!u)return;
   u.subordinates=_sysEditingSubs;
-  saveUserSettings();syncAllToCloud();
+  saveUserSettings();
   // 更新信息提示 + 预览列表
   var info=document.getElementById('sysSubInfo');
   var direct=0,indirect=0;
@@ -560,9 +554,7 @@ function sysCloseModal(){
 // 阶段2：用户确认后才执行新增/删除
 function sysRosterSync(){
   var emps=(typeof allEmployees!=='undefined'&&allEmployees)?allEmployees:[];
-  var preEmps=(typeof window!=='undefined'&&window.__PRELOADED_EMPLOYEES__)?window.__PRELOADED_EMPLOYEES__:[];
-  console.log('[V0.6.1.go sync] allEmployees:',emps.length,'PRE:',preEmps.length,'USERS:',Object.keys(USERS).length);
-  if(emps.length===0&&preEmps.length===0){_showAlert('暂无团队人才数据，请先到"人才团队"导入花名册','提示');return;}
+  if(emps.length===0){_showAlert('暂无团队人才数据，请先到"人才团队"导入花名册','提示');return;}
   var skips=(typeof SKIP_POSITIONS!=='undefined'&&SKIP_POSITIONS)?SKIP_POSITIONS:[];
   var skipStatus=(typeof SKIP_STATUS!=='undefined'&&SKIP_STATUS)?SKIP_STATUS:[];
   var activeStatus=(typeof ACTIVE_STATUS!=='undefined'&&ACTIVE_STATUS)?ACTIVE_STATUS:[];
@@ -583,11 +575,10 @@ function sysRosterSync(){
       if(USERS[e.name])toRemove.push(e.name);
       continue;
     }
-    // 状态必须是白名单才走后续逻辑（★空status默认当作"在职"处理）
+    // 状态必须是白名单才走后续逻辑
     if(activeStatus.length>0){
       var isActive=false;
-      var chkStatus=status||'在职';
-      for(var as=0;as<activeStatus.length;as++){if(chkStatus===activeStatus[as]){isActive=true;break;}}
+      for(var as=0;as<activeStatus.length;as++){if(status===activeStatus[as]){isActive=true;break;}}
       if(!isActive){skipped.push(e);continue;}
     }
     // 职位过滤 — 工人/检验员等不导入
