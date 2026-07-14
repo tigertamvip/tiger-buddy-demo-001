@@ -554,7 +554,9 @@ function sysCloseModal(){
 // 阶段2：用户确认后才执行新增/删除
 function sysRosterSync(){
   var emps=(typeof allEmployees!=='undefined'&&allEmployees)?allEmployees:[];
-  if(emps.length===0){_showAlert('暂无团队人才数据，请先到"人才团队"导入花名册','提示');return;}
+  var preEmps=(typeof window!=='undefined'&&window.__PRELOADED_EMPLOYEES__)?window.__PRELOADED_EMPLOYEES__:[];
+  console.log('[V0.6.1.go sync] allEmployees:',emps.length,'PRE:',preEmps.length,'USERS:',Object.keys(USERS).length);
+  if(emps.length===0&&preEmps.length===0){_showAlert('暂无团队人才数据，请先到"人才团队"导入花名册','提示');return;}
   var skips=(typeof SKIP_POSITIONS!=='undefined'&&SKIP_POSITIONS)?SKIP_POSITIONS:[];
   var skipStatus=(typeof SKIP_STATUS!=='undefined'&&SKIP_STATUS)?SKIP_STATUS:[];
   var activeStatus=(typeof ACTIVE_STATUS!=='undefined'&&ACTIVE_STATUS)?ACTIVE_STATUS:[];
