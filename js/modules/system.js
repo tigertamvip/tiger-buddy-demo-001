@@ -30,27 +30,32 @@ function sysRenderUserTable(){
   var tbody=document.getElementById('sysUserTableBody');
   if(!tbody){console.warn('HWM: sysUserTableBody not found');return;}
   var uids=Object.keys(USERS);
-  console.log('HWM: sysRenderUserTable rendering',uids.length,'users');
+  // ★ V0.6.1eo: 应用筛选
+  uids=applySysFilterToUids(uids);
+  console.log('HWM: sysRenderUserTable rendering',uids.length,'users (filtered)');
   var countEl=document.getElementById('sysUserCount');
-  if(countEl)countEl.textContent=uids.length;
+  if(countEl)countEl.textContent=Object.keys(USERS).length;
+  var filterCountEl=document.getElementById('sysFilterCount');
+  if(filterCountEl)filterCountEl.textContent=uids.length;
   // ★ 空数据兜底显示
   if(uids.length===0){
-    tbody.innerHTML='<tr><td colspan="16" style="padding:40px 20px;color:var(--text-hint);font-size:13px;text-align:center">暂无授权用户，请点击「新增用户」添加</td></tr>';
+    tbody.innerHTML='<tr><td colspan="21" style="padding:40px 20px;color:var(--text-hint);font-size:13px;text-align:center">没有匹配的用户</td></tr>';
     return;
   }
   var html='';
   for(var i=0;i<uids.length;i++){
     var uid=uids[i],u=USERS[uid];
     var perms=u.permissions||_defaultPerms(u.role);
+    // ★ V0.6.1et: 从花名册自动获取中心/部门
+    var rosterCenter=u.dept||getRosterCenterForName(u.name)||'';
+    var rosterDept=u.dept||getRosterDeptForName(u.name)||'';
     html+='<tr>';
-    html+='<td class="sys-td-left"><strong>'+_h(u.name)+'</strong></td>';
-    html+='<td class="sys-td-left" style="font-size:12px;color:var(--text-secondary)">'+_h(u.position)+'</td>';
-    html+='<td style="font-family:monospace;font-size:12px">'+_h(uid)+'</td>';
-    for(var j=0;j<HWM_MODULES.length;j++){
-      var mod=HWM_MODULES[j],on=!!perms[mod];
-      html+='<td><span class="sys-perm-toggle '+(on?'sys-perm-yes':'sys-perm-no')+'" onclick="sysTogglePerm(\''+uid+'\',\''+mod+'\')" title="点击切换">'+(on?'✓':'—')+'</span></td>';
-    }
-    html+='<td><button class="sys-action-btn" onclick="sysOpenEditUser(\''+uid+'\')">编辑</button></td>';
+    html+='<td class="sys-col-center" style="font-size:12px;color:var(--text-secondary);text-align:left;white-space:nowrap">'+_h(rosterCenter||'-')+'</td>';
+    html+='<td class="sys-col-dept" style="font-size:12px;color:var(--text-secondary);text-align:left;white-space:nowrap">'+_h(rosterDept||'-')+'</td>';
+    html+='<td class="sys-col-name sys-td-left"><strong>'+_h(u.name)+'</strong></td>';
+    html+='<td class="sys-col-position sys-td-left" style="font-size:12px;color:var(--text-secondary)">'+_h(u.position)+'</td>';
+    html+='<td class="sys-col-uid" style="font-family:monospace;font-size:12px">'+_h(uid)+'</td>';
+    html+='<td class="sys-col-action" style="width:70px"><button class="sys-action-btn" onclick="sysOpenEditUser(\''+uid+'\')">编辑</button></td>';
     // 下属列
     var subs=u.subordinates||{};
     var subCount=Object.keys(subs).length;
@@ -60,10 +65,37 @@ function sysRenderUserTable(){
       for(var sk in subs){if(subs[sk]==='direct')dC++;else iC++;}
       subLabel='<span style="font-size:11px">'+dC+'直/'+iC+'间</span>';
     }
-    html+='<td style="text-align:center">'+subLabel+'</td>';
+    html+='<td class="sys-col-sub" style="text-align:center">'+subLabel+'</td>';
+    for(var j=0;j<HWM_MODULES.length;j++){
+      var mod=HWM_MODULES[j],on=!!perms[mod];
+      var cellCls=(typeof HWM_LIVE_MODULES!=='undefined'&&!HWM_LIVE_MODULES[mod])?'sys-perm-offline':'';
+      html+='<td class="'+cellCls+'"><span class="sys-perm-toggle '+(on?'sys-perm-yes':'sys-perm-no')+'" onclick="sysTogglePerm(\''+uid+'\',\''+mod+'\')" title="'+(cellCls?'该模块尚未上线':(on?'已授权':'未授权'))+'">'+(on?'✓':'—')+'</span></td>';
+    }
     html+='</tr>';
   }
   tbody.innerHTML=html;
+  // ★ V0.6.1fu: 渲染后动态计算固定列 left（避免CSS预设left和实际宽度错位）
+  setTimeout(_recalcSysFixedColumns,0);
+}
+
+// 测量并应用固定列的 left 值（实际宽度更可靠）
+function _recalcSysFixedColumns(){
+  var table=document.getElementById('sysUserTable');
+  if(!table)return;
+  var firstRow=table.querySelector('tbody tr');
+  if(!firstRow)return;
+  var tds=firstRow.querySelectorAll('td');
+  var fixedClasses=['sys-col-center','sys-col-dept','sys-col-name','sys-col-position','sys-col-uid','sys-col-action','sys-col-sub'];
+  var cumulative=0;
+  for(var i=0;i<tds.length&&i<7;i++){
+    var td=tds[i];
+    var cls=fixedClasses[i];
+    td.style.left=cumulative+'px';
+    // 同步表头
+    var ths=table.querySelectorAll('thead th.'+cls);
+    for(var k=0;k<ths.length;k++)ths[k].style.left=cumulative+'px';
+    cumulative+=td.offsetWidth;
+  }
 }
 
 function sysTogglePerm(uid,mod){
@@ -203,7 +235,7 @@ function sysOpenAddUser(){
     document.getElementById('sysFormDept').value='';
     document.getElementById('sysFormRole').value='';
     document.getElementById('sysDeleteUserBtn').style.display='none';
-    sysBuildPermGrid({});
+    sysBuildPermGrid({mbo:true}); // ★ V0.6.1fl: 新用户默认仅开通「当周行动」
     document.getElementById('sysUserModal').style.display='flex';
   }catch(e){
     console.error('HWM: sysOpenAddUser error:',e);
@@ -267,7 +299,7 @@ function sysBuildPermGrid(perms){
   if(!grid)return;
   var html='';
   for(var i=0;i<HWM_MODULES.length;i++){
-    var mod=HWM_MODULES[i],on=perms[mod]!==false;
+    var mod=HWM_MODULES[i],on=perms[mod]===true; // ★ V0.6.1fm: 显式 true 才算开启（修复未定义字段也变 ✓ 的 BUG）
     html+='<div class="sys-perm-item '+(on?'on':'off')+'" onclick="sysFlipPermItem(this,\''+mod+'\')" data-mod="'+mod+'">';
     html+='<span class="sys-perm-icon">'+(on?'✓':'✕')+'</span>';
     html+='<span class="sys-perm-label">'+HWM_MODULE_LABELS[mod]+'</span>';
@@ -517,8 +549,10 @@ function sysCloseModal(){
   _sysEditingUid=null;
 }
 
-// ★ V0.6.1ee: 智能同步 — 自动过滤已离职/工人/检验员/试用期，新增+清理一键确认
-function sysSmartSync(){
+// ★ V0.6.1ex: 同步花名册 — 两阶段预览确认，透明安全
+// 阶段1：扫描花名册 → 过滤蓝领/离职 → 对比差异 → 展示预览
+// 阶段2：用户确认后才执行新增/删除
+function sysRosterSync(){
   var emps=(typeof allEmployees!=='undefined'&&allEmployees)?allEmployees:[];
   if(emps.length===0){_showAlert('暂无团队人才数据，请先到"人才团队"导入花名册','提示');return;}
   var skips=(typeof SKIP_POSITIONS!=='undefined'&&SKIP_POSITIONS)?SKIP_POSITIONS:[];
@@ -526,68 +560,67 @@ function sysSmartSync(){
   var activeStatus=(typeof ACTIVE_STATUS!=='undefined'&&ACTIVE_STATUS)?ACTIVE_STATUS:[];
   var toAdd=[];
   var toRemove=[];
-  var skipped=[];   // 工人/检验员等
-  var resigned=[];  // 离职（不导入但也不删）
-  var activeNames={};
+  var skipped=[];   // 工人/检验员（不导入）
+  var rosterNames={}; // 花名册中所有在职白领
+  var userCount=Object.keys(USERS).length;
+
   for(var i=0;i<emps.length;i++){
     var e=emps[i];if(!e||!e.name)continue;
     var pos=(e.position||'').trim();
     var status=(e.status||'').trim();
-    // ★ V0.6.1ee: 状态过滤 — 已离职不导入
+    // 状态过滤：已离职 → 记录到清理列表（如果 USERS 中有同名用户）
     var isResigned=false;
     for(var rs=0;rs<skipStatus.length;rs++){if(status===skipStatus[rs]||status.indexOf(skipStatus[rs])>=0){isResigned=true;break;}}
-    if(isResigned){resigned.push(e);continue;}
-    // ★ V0.6.1ee: 状态必须在白名单（默认"已转正"才导入；如果有 activeStatus 列表则按列表判断）
+    if(isResigned){
+      if(USERS[e.name])toRemove.push(e.name);
+      continue;
+    }
+    // 状态必须是白名单才走后续逻辑
     if(activeStatus.length>0){
       var isActive=false;
       for(var as=0;as<activeStatus.length;as++){if(status===activeStatus[as]){isActive=true;break;}}
       if(!isActive){skipped.push(e);continue;}
     }
-    // ★ 职位过滤 — 工人/检验员等不导入
+    // 职位过滤 — 工人/检验员等不导入
     var isSkipped=false;
     for(var s=0;s<skips.length;s++){if(pos.indexOf(skips[s])>=0){isSkipped=true;break;}}
     if(isSkipped){skipped.push(e);continue;}
-    activeNames[e.name]=true;
+    // 在职白领：记录名字
+    rosterNames[e.name]=true;
     if(!USERS[e.name])toAdd.push(e);
   }
-  // ★ V0.6.1ee: 离职清理 = 人才团队中已不在职的员工（resigned）
-  for(var ri=0;ri<resigned.length;ri++){
-    if(USERS[resigned[ri].name])toRemove.push(resigned[ri].name);
+
+  // ★ 关键安全设计：只清理"花名册中标记为离职"的用户，不碰其他任何 USERS
+  // 管理员手动添加的用户、不在花名册中的用户，统统保留
+
+  if(toAdd.length===0&&toRemove.length===0){
+    _showAlert('系统用户已与花名册在职白领完全一致，无需操作','✅ 同步花名册');
+    return;
   }
-  var userNames=Object.keys(USERS);
-  for(var u=0;u<userNames.length;u++){
-    var uname=userNames[u];
-    if(!activeNames[uname]&&!resigned.find(function(r){return r.name===uname;})&&toRemove.indexOf(uname)<0)toRemove.push(uname);
-  }
-  // ★ V0.6.1ee: 安全阈值 — 清理超过 50% 现有用户时强制确认（防止误删）
-  if(toRemove.length>userNames.length*0.5&&userNames.length>10){
-    var confirm_msg='⚠️ 系统维护中现有 '+userNames.length+' 个用户，本次将清理 '+toRemove.length+' 个\n\n';
-    if(userNames.length>200)confirm_msg+='这通常是因为之前的同步错误导入了大量数据。\n\n';
-    confirm_msg+='是否继续？';
-    _showConfirm(confirm_msg,'大批量清理确认').then(function(ok){
+
+  // ★ 安全阈值：新增过多时强制确认
+  if(toAdd.length>30){
+    _showConfirm('⚠️ 本次将新增 '+toAdd.length+' 个用户（超过30人安全阈值）\n\n花名册在职白领 '+(Object.keys(rosterNames).length)+' 人，现有用户 '+userCount+' 人\n\n是否继续？','新增安全确认').then(function(ok){
       if(!ok)return;
-      // 继续弹窗
-      showSmartSyncDialog(toAdd,toRemove,resigned,skipped,emps.length,userNames.length);
+      showRosterSyncDialog(toAdd,toRemove,skipped,emps.length,userCount);
     });
     return;
   }
-  if(toAdd.length===0&&toRemove.length===0){
-    _showAlert('系统维护与人才团队已完全同步，无需操作','✅ 智能同步');
-    return;
-  }
-  showSmartSyncDialog(toAdd,toRemove,resigned,skipped,emps.length,userNames.length);
+
+  showRosterSyncDialog(toAdd,toRemove,skipped,emps.length,userCount);
 }
 
-// ★ V0.6.1ee: 弹窗渲染函数（提取出来供安全确认后调用）
-function showSmartSyncDialog(toAdd,toRemove,resigned,skipped,empTotal,userTotal){
-  // 构建弹窗
-  var html='<div class="_confirm-card" style="max-width:560px">';
-  html+='<div class="_confirm-title" style="padding:18px 24px 12px">🔄 智能同步</div>';
+function showRosterSyncDialog(toAdd,toRemove,skipped,empTotal,userTotal){
+  var unchanged=userTotal-toRemove.length;
+  var html='<div class="_confirm-card" style="max-width:580px">';
+  html+='<div class="_confirm-title" style="padding:18px 24px 12px">📋 同步花名册</div>';
   html+='<div class="_confirm-body" style="padding:0 24px 12px;line-height:1.6">';
-  html+='<div style="font-size:12px;color:#6b7280;margin-bottom:12px">人才团队 '+empTotal+' 人 → 系统维护 '+userTotal+' 人</div>';
+  html+='<div style="font-size:12px;color:#6b7280;margin-bottom:12px">花名册 '+empTotal+' 人（不含蓝领）→ 现有 '+userTotal+' 个系统用户</div>';
+
+  // 新增
   if(toAdd.length>0){
-    html+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="color:#10b981;font-size:16px">➕</span><strong style="color:#10b981">新增 '+toAdd.length+' 人</strong><span style="color:#9ca3af;font-size:11px">（初始密码 1234）</span></div>';
-    html+='<div style="background:#f0fdf4;border-radius:6px;padding:6px 10px;margin-bottom:10px;max-height:120px;overflow-y:auto">';
+    html+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="color:#2563EB;font-size:16px">➕</span><strong style="color:#2563EB">新增 '+toAdd.length+' 人</strong><span style="color:#9ca3af;font-size:11px">（默认关闭全部模块权限）</span></div>';
+    html+='<div style="background:#eff6ff;border-radius:6px;padding:6px 10px;margin-bottom:10px;max-height:140px;overflow-y:auto">';
     for(var a=0;a<toAdd.length;a++){
       var ae=toAdd[a];
       html+='<div style="font-size:12px;padding:2px 0"><strong>'+esc(ae.name)+'</strong>';
@@ -597,28 +630,29 @@ function showSmartSyncDialog(toAdd,toRemove,resigned,skipped,empTotal,userTotal)
     }
     html+='</div>';
   }
+
+  // 离职清理
   if(toRemove.length>0){
-    html+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="color:#D64352;font-size:16px">🗑</span><strong style="color:#D64352">离职清理 '+toRemove.length+' 人</strong><span style="color:#9ca3af;font-size:11px">（人才团队已不在职）</span></div>';
+    html+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="color:#D64352;font-size:16px">🗑</span><strong style="color:#D64352">离职清理 '+toRemove.length+' 人</strong></div>';
     html+='<div style="background:#fef2f2;border-radius:6px;padding:6px 10px;margin-bottom:10px;font-size:12px">';
     for(var r=0;r<toRemove.length;r++){html+=esc(toRemove[r])+(r<toRemove.length-1?'、':'');}
     html+='</div>';
   }
+
+  // 不变
+  html+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="color:#6b7280;font-size:14px">✓</span><strong style="color:#6b7280">不变 '+unchanged+' 人</strong></div>';
+
+  // 已过滤
   if(skipped.length>0){
-    html+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="color:#9ca3af;font-size:14px">⏭</span><strong style="color:#9ca3af">已过滤 '+skipped.length+' 人</strong><span style="color:#9ca3af;font-size:11px">（工人/检验员/未匹配状态）</span></div>';
-    if(skipped.length<=6){
-      html+='<div style="font-size:11px;color:#9ca3af;margin-bottom:6px">';
-      for(var k=0;k<skipped.length;k++){html+=esc(skipped[k].name)+(k<skipped.length-1?'、':'');}
-      html+='</div>';
-    }
+    html+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;margin-top:8px"><span style="color:#9ca3af;font-size:14px">⏭</span><strong style="color:#9ca3af">已过滤 '+skipped.length+' 人</strong><span style="color:#9ca3af;font-size:11px">（工人/检验员/非在职状态）</span></div>';
   }
-  if(resigned.length>0){
-    html+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="color:#D97706;font-size:14px">🚪</span><strong style="color:#D97706">已离职 '+resigned.length+' 人</strong><span style="color:#9ca3af;font-size:11px">（不导入，可手动清理系统维护中的同名账号）</span></div>';
-  }
+
   html+='</div>';
   html+='<div class="_confirm-actions" style="padding:0 24px 18px">';
   html+='<button class="_confirm-btn-cancel" onclick="document.getElementById(\'_sysSyncOverlay\').remove()">取消</button>';
-  html+='<button class="_confirm-btn-ok" onclick="sysDoSmartSync()">确认同步</button>';
+  html+='<button class="_confirm-btn-ok" onclick="sysDoRosterSync()">确认同步</button>';
   html+='</div></div>';
+
   var overlay=document.createElement('div');
   overlay.id='_sysSyncOverlay';
   overlay.className='_confirm-overlay';
@@ -629,7 +663,7 @@ function showSmartSyncDialog(toAdd,toRemove,resigned,skipped,empTotal,userTotal)
   document.body.appendChild(overlay);
 }
 
-async function sysDoSmartSync(){
+function sysDoRosterSync(){
   var overlay=document.getElementById('_sysSyncOverlay');
   if(!overlay)return;
   var toAdd=overlay._toAdd||[];
@@ -638,7 +672,7 @@ async function sysDoSmartSync(){
   for(var i=0;i<toAdd.length;i++){
     var ae=toAdd[i];
     if(USERS[ae.name])continue;
-    USERS[ae.name]={pwd:'1234',name:ae.name,role:'staff',dept:ae.dept||'',position:ae.position||'',centerKeyword:'',permissions:{hr:false,mbo:false,kpi:false,talent:false,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},subordinates:{},reports:{boss:'',supervisor:'',subordinates:[]}};
+    USERS[ae.name]={pwd:'1234',name:ae.name,role:'staff',dept:ae.dept||'',position:ae.position||'',centerKeyword:'',permissions:{hr:false,editHr:false,mbo:false,kpi:false,talent:false,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},subordinates:{},reports:{boss:'',supervisor:'',subordinates:[]}};
     added++;
   }
   var removed=0;
@@ -650,8 +684,178 @@ async function sysDoSmartSync(){
     var msg='';
     if(added>0)msg+='✅ 新增 '+added+' 个用户';
     if(removed>0)msg+=(msg?'，':'')+'🗑 清理 '+removed+' 个离职用户';
-    _showAlert(msg,'智能同步完成');
+    _showAlert(msg,'同步花名册完成');
   }
   overlay.remove();
 }
 
+// ★ V0.6.1ey: 清理未授权用户 — 删除所有权限全为false且不在默认名单中的用户
+function sysCleanUnauthorized(){
+  var toClean=[];
+  // 建立默认名单姓名集合
+  var defaultNames={};
+  for(var dk in _DEFAULT_USERS){if(_DEFAULT_USERS.hasOwnProperty(dk)){defaultNames[_DEFAULT_USERS[dk].name]=true;defaultNames[dk]=true;}}
+  var _ALL_MODULES=['hr','editHr','mbo','kpi','talent','learning','payroll','ideas','policies','maintenance','decision','dashboard','rd'];
+  for(var uid in USERS){
+    if(!USERS.hasOwnProperty(uid))continue;
+    var u=USERS[uid];
+    // 保护默认用户
+    if(defaultNames[uid]||defaultNames[u.name])continue;
+    // 检查是否有任何权限为 true
+    var anyOn=false;
+    for(var m=0;m<_ALL_MODULES.length;m++){
+      if(u.permissions&&u.permissions[_ALL_MODULES[m]]===true){anyOn=true;break;}
+    }
+    if(!anyOn)toClean.push(uid);
+  }
+  if(toClean.length===0){_showAlert('没有可清理的未授权用户','🧹 清理未授权');return;}
+  var html='<div class="_confirm-card" style="max-width:560px">';
+  html+='<div class="_confirm-title" style="padding:18px 24px 12px">🧹 清理未授权用户</div>';
+  html+='<div class="_confirm-body" style="padding:0 24px 12px;line-height:1.6">';
+  html+='<div style="font-size:12px;color:#6b7280;margin-bottom:8px">以下 '+toClean.length+' 个用户没有任何模块权限，且不在默认名单中：</div>';
+  html+='<div style="background:#fef2f2;border-radius:6px;padding:6px 10px;margin-bottom:6px;max-height:180px;overflow-y:auto;font-size:12px">';
+  for(var c=0;c<toClean.length;c++){
+    var cu=USERS[toClean[c]];
+    html+=esc(toClean[c])+(cu&&cu.dept?' <span style="color:#9ca3af">'+esc(cu.dept)+'</span>':'')+(c<toClean.length-1?'<br>':'');
+  }
+  html+='</div>';
+  html+='<div style="font-size:11px;color:#9ca3af">已保护的默认用户及其他有权限的用户不会被删除</div>';
+  html+='</div>';
+  html+='<div class="_confirm-actions" style="padding:0 24px 18px">';
+  html+='<button class="_confirm-btn-cancel" onclick="document.getElementById(\'_sysCleanOverlay\').remove()">取消</button>';
+  html+='<button class="_confirm-btn-ok" onclick="sysDoCleanUnauthorized()">确认清理 ('+toClean.length+')</button>';
+  html+='</div></div>';
+  var overlay=document.createElement('div');
+  overlay.id='_sysCleanOverlay';
+  overlay.className='_confirm-overlay';
+  overlay.innerHTML=html;
+  overlay._toClean=toClean;
+  overlay.addEventListener('click',function(e){if(e.target===overlay)overlay.remove();});
+  document.body.appendChild(overlay);
+}
+
+function sysDoCleanUnauthorized(){
+  var overlay=document.getElementById('_sysCleanOverlay');
+  if(!overlay)return;
+  var toClean=overlay._toClean||[];
+  var removed=0;
+  for(var i=0;i<toClean.length;i++){if(USERS[toClean[i]]){delete USERS[toClean[i]];removed++;}}
+  if(removed>0){
+    saveUserSettings();syncAllToCloud();sysRenderUserTable();
+    _showAlert('✅ 已清理 '+removed+' 个未授权用户（默认用户及有权限的用户已保留）','清理完成');
+  }
+  overlay.remove();
+}
+
+
+// ★ V0.6.1et: 系统维护筛选 — 表头中心/部门 + 搜索框
+var _sysHeaderFilter={center:'',dept:''};
+function applySysFilterToUids(uids){
+  var searchEl=document.getElementById('sysFilterSearch');
+  var search=searchEl?(searchEl.value||'').trim().toLowerCase():'';
+  var center=_sysHeaderFilter.center;
+  var dept=_sysHeaderFilter.dept;
+  return uids.filter(function(uid){
+    var u=USERS[uid]||{};
+    if(search){
+      var name=(u.name||'').toLowerCase();
+      if(name.indexOf(search)<0&&uid.toLowerCase().indexOf(search)<0)return false;
+    }
+    if(center){
+      var c=u.dept||getRosterCenterForName(u.name);
+      if(c!==center)return false;
+    }
+    if(dept){
+      var d=u.dept||getRosterDeptForName(u.name);
+      if(d!==dept)return false;
+    }
+    return true;
+  });
+}
+
+function clearSysFilter(){
+  var s=document.getElementById('sysFilterSearch');if(s)s.value='';
+  _sysHeaderFilter={center:'',dept:''};
+  applySysFilter();
+}
+
+
+function applySysFilter(){
+  if(typeof sysRenderUserTable==="function")sysRenderUserTable();
+}
+
+// ★ V0.6.1et: 表头点击筛选 — 中心/部门二选一
+function toggleSysHeaderFilter(type){
+  var existing=document.querySelector(".sys-header-dd");
+  if(existing){existing.remove();document.removeEventListener("click",_cshdd);return;}
+  var values={};
+  var uids=Object.keys(USERS);
+  for(var i=0;i<uids.length;i++){
+    var u=USERS[uids[i]];
+    var val="";
+    if(type==="center"){val=u.dept||getRosterCenterForName(u.name)||"";}
+    else{val=u.dept||getRosterDeptForName(u.name)||"";}
+    if(val)values[val]=true;
+  }
+  var dd=document.createElement("div");
+  dd.className="sys-header-dd";
+  dd.style.cssText="position:fixed;z-index:9999;background:rgba(252,252,253,.92);backdrop-filter:blur(20px);border:1px solid rgba(200,205,212,.4);border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,.04),0 10px 24px rgba(0,0,0,.08);padding:4px;max-height:300px;overflow-y:auto;min-width:160px";
+  var allItem=document.createElement("div");
+  var allSel=(_sysHeaderFilter[type]==="");
+  allItem.style.cssText="padding:8px 10px;cursor:pointer;border-radius:6px;font-size:13px;background:"+(allSel?"#EEF2FF":"");
+  allItem.innerHTML=(allSel?"<span style=\"color:#3B7DB4\">✓ </span>":"")+"全部";
+  allItem.onclick=function(e){e.stopPropagation();_sysHeaderFilter[type]="";dd.remove();applySysFilter();};
+  dd.appendChild(allItem);
+  Object.keys(values).sort().forEach(function(v){
+    var isSel=(_sysHeaderFilter[type]===v);
+    var item=document.createElement("div");
+    item.style.cssText="padding:8px 10px;cursor:pointer;border-radius:6px;font-size:13px;background:"+(isSel?"#EEF2FF":"");
+    item.onmouseover=function(){this.style.background="#F5F5F5"};
+    item.onmouseout=function(){this.style.background='"'+(isSel?"#EEF2FF":"")+'"'};
+    item.innerHTML=(isSel?"<span style=\"color:#3B7DB4\">✓</span>":"")+"<span style=\"overflow:hidden;text-overflow:ellipsis;white-space:nowrap\">"+v+"</span>";
+    item.onclick=function(e){e.stopPropagation();_sysHeaderFilter[type]=v;dd.remove();applySysFilter();};
+    dd.appendChild(item);
+  });
+  var th=null;
+  var allThs=document.querySelectorAll(".sys-user-table th");
+  var colIdx=(type==="center")?0:1;
+  if(allThs[colIdx])th=allThs[colIdx];
+  if(th){
+    var rect=th.getBoundingClientRect();
+    dd.style.left=rect.left+"px";
+    dd.style.top=(rect.bottom+2)+"px";
+    dd.style.minWidth=Math.max(rect.width,160)+"px";
+  }
+  document.body.appendChild(dd);
+  _cshdd=function(e){if(!dd.contains(e.target)){dd.remove();document.removeEventListener("click",_cshdd);}};
+  setTimeout(function(){document.addEventListener("click",_cshdd);},0);
+}
+var _cshdd=null;
+
+
+// ★ V0.6.1eu: 修复缺失的函数（之前文件截断时被删除）
+var _rosterCache=null;
+function getRosterLookup(){
+  if(_rosterCache)return _rosterCache;
+  var map={};
+  if(typeof allEmployees!=='undefined'&&allEmployees){
+    for(var i=0;i<allEmployees.length;i++){
+      var e=allEmployees[i];
+      if(e&&e.name){
+        var c='',d=e.dept||'';
+        if(d){var m=String(d).match(/^([^/]+)/);if(m)c=m[1];}
+        map[e.name]={center:c,dept:d};
+      }
+    }
+  }
+  _rosterCache=map;
+  return map;
+}
+function getRosterCenterForName(name){
+  var r=getRosterLookup();
+  return r[name]?r[name].center:'';
+}
+function getRosterDeptForName(name){
+  var r=getRosterLookup();
+  return r[name]?r[name].dept:'';
+}

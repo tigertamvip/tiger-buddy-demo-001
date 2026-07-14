@@ -330,6 +330,14 @@ function fixAllPlanDirtyData(){
 function loadWPData(){
   // ① 先读 localStorage（秒出，不卡）
   try{_wpData=JSON.parse(localStorage.getItem(getWPLocalStorageKey())||'{}');}catch(e){_wpData={};}
+  // ★ V0.6.1eh: 备份恢复 — 当前数据为空但备份存在时自动恢复
+  var wpKey=getWPLocalStorageKey();
+  if(Object.keys(_wpData).length===0){
+    var backup=localStorage.getItem(wpKey+'_backup');
+    if(backup){
+      try{var backupData=JSON.parse(backup);if(Object.keys(backupData).length>0){_wpData=backupData;localStorage.setItem(wpKey,backup);console.warn('[WP] 从本地备份恢复了 '+Object.keys(backupData).length+' 周的数据');if(typeof showToast==='function')showToast('🔄 从本地备份恢复了周计划数据');}}catch(e){}
+    }
+  }
   // ② 后台从 Supabase 拉取并合并（跨设备数据同步，失败不影响使用）
   var user=_wpViewingShared||_wpViewingSubordinate||_wpViewingDeptMember||(currentUser&&currentUser.name)||getCurrentEmployee().name;
   if(!user||typeof user!=='string'||user.trim()===''){
@@ -402,6 +410,11 @@ function saveWPData(){
   if(_wpViewingShared){console.log('[DEBUG saveWPData] SKIPPED - _wpViewingShared='+_wpViewingShared);return;}
   var key=getWPLocalStorageKey();
   console.log('[DEBUG saveWPData] key='+key+' dataKeys='+Object.keys(_wpData).length);
+  // ★ V0.6.1eh: 保存前先备份 — 防止数据丢失
+  var oldData=localStorage.getItem(key);
+  if(oldData){
+    try{localStorage.setItem(key+'_backup',oldData);}catch(e){}
+  }
   localStorage.setItem(key,JSON.stringify(_wpData));
   // 异步推送到 Supabase（静默，失败不影响使用）
   // 检查 supabase 客户端是否已初始化
@@ -730,11 +743,11 @@ function renderWPSubSelect(){
     var directOpts=_wpSubData.options.filter(function(o){return o.rel==='direct';});
     // ★ V0.6.1dh: 下属重急事项放最前面（关注优先）
     if(subs.length>0){
-      ddHtml+='<div class="wp-custom-option'+(_wpViewingMergedUrgent?' active':'')+'" onclick="selectWPSubOption(\'__merged_urgent_direct__\',\'直接下属重急项\',\'merged-urgent\')" style="color:#FF3B30;font-weight:600"><span style="margin-right:8px">⚠️</span>直接下属重急项</div>';
+      ddHtml+='<div class="wp-custom-option'+(_wpViewingMergedUrgent?' active':'')+'" onclick="selectWPSubOption(\'__merged_urgent_direct__\',\'直接下属重急项\',\'merged-urgent\')"><span style="margin-right:8px">⚠️</span>直接下属重急项</div>';
     }
     // ★ V0.6.1do: 间接下属重急项
     if(nonDirect.length>0){
-      ddHtml+='<div class="wp-custom-option" onclick="selectWPSubOption(\'__merged_urgent_indirect__\',\'间接下属重急项\',\'merged-urgent-indirect\')" style="color:#D97706;font-weight:600"><span style="margin-right:8px">⚡</span>间接下属重急项</div>';
+      ddHtml+='<div class="wp-custom-option" onclick="selectWPSubOption(\'__merged_urgent_indirect__\',\'间接下属重急项\',\'merged-urgent-indirect\')"><span style="margin-right:8px">⚡</span>间接下属重急项</div>';
     }
     if(subs.length>0||nonDirect.length>0){
       ddHtml+='<div style="border-top:1px solid #e5e7eb;margin:6px 0"></div>';
@@ -816,6 +829,7 @@ function switchToMyWP(){
   if(yEl) yEl.value=autoY;
   if(mEl) mEl.value=autoM;
   syncMonthLabel();
+  syncYearLabel(); // ★ V0.6.1fk: 同步年份标签（避免 createNewWP 跨年时只改了 label 文字）
   
   var currInfo=getCurrentISOWeek();
   var mapped=isoWeekToMonthWeek(currInfo.week);
@@ -978,7 +992,7 @@ async function _renderMergedUrgentView(){
       var emp=content.querySelector('.wp-empty');if(emp)emp.remove();
       var emptyDiv=document.createElement('div');
       emptyDiv.className='wp-empty';
-      emptyDiv.innerHTML='<div class="wp-empty-title">本周暂无'+( _wpViewingMergedIndirect?'间接':'直接')+'下属重要紧急事项</div><div class="wp-empty-desc">你的'+( _wpViewingMergedIndirect?'间接':'直接')+'下属本周没有标记为"重要紧急"的行动项，团队节奏良好 👍</div>';
+      emptyDiv.innerHTML='<div class="wp-empty-title" style="font-size:15px">本周暂无'+( _wpViewingMergedIndirect?'间接':'直接')+'下属重要紧急事项</div><div class="wp-empty-desc">你的'+( _wpViewingMergedIndirect?'间接':'直接')+'下属本周没有标记为"重要紧急"的行动项，团队节奏良好 👍<div style="font-size:12px;color:var(--text-hint);margin-top:4px">No urgent & important items from your '+( _wpViewingMergedIndirect?'indirect':'direct')+' subordinates this week</div></div>';
       content.appendChild(emptyDiv);
     }
     return;
@@ -1049,10 +1063,11 @@ async function _renderMergedUrgentView(){
       var sc=content.querySelector('.wp-scroll-area');if(sc)sc.remove();
       var ta=content.querySelector('.wp-table-area');if(ta)ta.remove();
       var ib=content.querySelector('.wp-info-bar');if(ib)ib.remove();
+      var tb=content.querySelector('.wp-toolbar');if(tb)tb.remove();
       var emp=content.querySelector('.wp-empty');if(emp)emp.remove();
       var emptyDiv=document.createElement('div');
       emptyDiv.className='wp-empty';
-      emptyDiv.innerHTML='<div class="wp-empty-title">本周暂无下属重要紧急事项</div><div class="wp-empty-desc">你的直属下属本周没有标记为"重要紧急"的行动项，团队节奏良好 👍</div>';
+      emptyDiv.innerHTML='<div class="wp-empty-title" style="font-size:15px">本周暂无'+( _wpViewingMergedIndirect?'间接':'直接')+'下属重要紧急事项</div><div class="wp-empty-desc">你的'+( _wpViewingMergedIndirect?'间接':'直接')+'下属本周没有标记为"重要紧急"的行动项，团队节奏良好 👍<div style="font-size:12px;color:var(--text-hint);margin-top:4px">No urgent & important items from your '+( _wpViewingMergedIndirect?'indirect':'direct')+' subordinates this week</div></div>';
       content.appendChild(emptyDiv);
     }
     return;
@@ -1088,6 +1103,8 @@ async function _renderMergedUrgentView(){
   var oldTa=content.querySelectorAll('.wp-table-area');oldTa.forEach(function(el){el.remove();});
   var oldIb=content.querySelectorAll('.wp-info-bar.merged-urgent');oldIb.forEach(function(el){el.remove();});
   var oldTb=content.querySelectorAll('.wp-toolbar.merged-urgent');oldTb.forEach(function(el){el.remove();});
+  // ★ V0.6.1fe: 切视图前清掉之前的 wp-empty，避免与新数据共存
+  var oldEmpty=content.querySelectorAll('.wp-empty');oldEmpty.forEach(function(el){el.remove();});
 
   var weekLabel=cy+'年'+cm+'月 第'+cw+'周';
   var infoBar=document.createElement('div');
@@ -1131,11 +1148,20 @@ async function _renderMergedUrgentView(){
   var thWork=document.createElement('th');
   thWork.textContent='本周重点行动项';thWork.style.cssText='position:sticky;left:126px;z-index:6;min-width:180px;background:#E8EAED';
   tr.appendChild(thWork);
+  // ★ V0.6.1fv: 可排序列加 ⇅ 提示图标 + title
   var headers=['优先级','启动日期','计划完成','剩余天数','实际完成','耗时','状态','协同','问题','需要上级','上级建议'];
   var hWids=['80px','80px','80px','80px','80px','56px','56px','80px','56px','56px','120px'];
+  var sortableKeys=['priority','startDate','plannedDate','daysLeft',null,null,null,null,null,null,null];
   for(var hi=0;hi<headers.length;hi++){
     var th=document.createElement('th');
-    th.textContent=headers[hi];th.style.minWidth=hWids[hi];
+    if(sortableKeys[hi]){
+      th.innerHTML=headers[hi]+' <span style="opacity:.4;font-size:10px;margin-left:2px">⇅</span>';
+      th.ondblclick=function(k){return function(){toggleWPSort(k);};}(sortableKeys[hi]);
+      th.title='💡 双击表头切换排序';
+      th.style.cssText='cursor:pointer;min-width:'+hWids[hi]+';user-select:none';
+    }else{
+      th.textContent=headers[hi];th.style.minWidth=hWids[hi];
+    }
     tr.appendChild(th);
   }
   thead.appendChild(tr);
@@ -1240,6 +1266,11 @@ function _setupDropdownScrollHint(dd){
 // selectWPDeptOption removed (V0.5.80: merged into selectWPSubOption with rel param)
 
 function onWPSubordinateChange(val){
+  // ★ V0.6.1fc: 从重急合并视图点下属名 → 重置标记，进入该下属正常周行动项
+  _wpViewingMergedUrgent=false;
+  _wpViewingMergedIndirect=false;
+  // ★ V0.6.1fd: 切到直属时清掉部门成员选中状态，避免两个高亮
+  _wpViewingDeptMember=null;
   var v=(typeof val==='string')?val:_wpSubData.selected;
   var myName=(currentUser&&currentUser.name)||'';
   // 选中自己 = 切换回自己的周计划
@@ -1393,6 +1424,9 @@ function toggleYearDropdown(){
 }
 
 function onWPDeptMemberChange(val){
+  // ★ V0.6.1fc: 从重急合并视图点部门成员 → 重置标记，进入该成员正常周行动项
+  _wpViewingMergedUrgent=false;
+  _wpViewingMergedIndirect=false;
   var v=val||'';
   if(!v){switchToMyWP();return;}
   if(!val){switchToMyWP();return;}
@@ -1448,6 +1482,9 @@ function _absWeek(y,m,w){
 }
 function _fromAbsWeek(aw){
   var WEEKS=[4,4,5,4,4,5,4,4,5,4,4,5];
+  // ★ V0.6.1fj: 处理第53周（年网格渲染53周，_fromAbsWeek必须能反向映射）
+  if(aw>52)return{month:12,week:aw-47};
+  if(aw<1)return{month:1,week:1};
   var month=1, week=aw;
   for(var i=0;i<12;i++){
     if(week<=WEEKS[i]){month=i+1;break;}
@@ -1610,41 +1647,48 @@ function selectWP(y,m,w){
 }
 
 function createNewWP(){
-  var yEl=document.getElementById('wpYear');
-  var mEl=document.getElementById('wpMonth');
-  var y=yEl?parseInt(yEl.value):new Date().getFullYear();
-  var m=mEl?parseInt(mEl.value):(new Date().getMonth()+1);
-  var w;
-  // ★ V0.1.87b: 先找完全不存在的周
-  for(w=1;w<=4;w++){if(!getWP(y,m,w))break;}
-  // 如果4周都存在，找第一个空壳周（无实质内容）
-  if(w>4){
-    var emptyW=0;
-    for(var ew=1;ew<=4;ew++){
-      var ep=getWP(y,m,ew);
-      if(ep&&ep.tasks){
-        var hasContent=false;
-        for(var ti=0;ti<ep.tasks.length;ti++){if(ep.tasks[ti].work&&ep.tasks[ti].work.trim()){hasContent=true;break;}}
-        if(!hasContent){emptyW=ew;break;}
-      }
-    }
-    if(!emptyW){_showAlert('该月4周计划已全部创建且有内容，请先删除不需要的');return;}
-    w=emptyW;
-    // 对空壳周运行顺延（相当于"激活"这周的转入任务）
-    _autoCarryTasks(getWP(y,m,w),y,m,w);
-    _wpCurrent={year:y,month:m,week:w,plan:getWP(y,m,w)};
-    renderWPPlanList(y,m);
-    renderWPTable(getWP(y,m,w));
-    renderWPUserInfo();
-    return;
+  // ★ V0.6.1fj: 直接 y/m/w +1，年末特殊处理 52→53→下年W1
+  var y = (_wpCurrent && _wpCurrent.year) || parseInt(document.getElementById('wpYear').value)||new Date().getFullYear();
+  var m = (_wpCurrent && _wpCurrent.month) || parseInt(document.getElementById('wpMonth').value)||(new Date().getMonth()+1);
+  var w = (_wpCurrent && _wpCurrent.week) || 1;
+  var newYear=y, newM, newW;
+  if(m===12 && w===5){
+    // 年末52周 → 虚拟53周（同年12月第6周）
+    newYear=y; newM=12; newW=6;
+  }else if(m===12 && w===6){
+    // 虚拟53周 → 下年第1周
+    newYear=y+1; newM=1; newW=1;
+  }else{
+    // 正常情况：ISO周+1
+    var mw=_fromAbsWeek(_absWeek(y,m,w)+1);
+    newM=mw.month; newW=mw.week; newYear=y;
   }
-  var plan=createEmptyPlan(y,m,w);
-  saveWP(y,m,w,plan);
-  _autoCarryTasks(plan,y,m,w); // ★ V0.1.87: 从上周自动顺延未完成任务
-  _wpCurrent={year:y,month:m,week:w,plan:plan};
-  renderWPPlanList(y,m);
+  // 跨年时自动添加年份 option
+  var yEl = document.getElementById('wpYear');
+  if (yEl && !Array.from(yEl.options).find(function(o){return parseInt(o.value)===newYear;})) {
+    var newOpt = document.createElement('option');
+    newOpt.value = String(newYear); newOpt.textContent = newYear + '年';
+    yEl.appendChild(newOpt);
+  }
+  // 同步下拉框和标签
+  if (yEl) yEl.value = String(newYear);
+  var mEl = document.getElementById('wpMonth'); if (mEl) mEl.value = String(newM);
+  var yLbl = document.getElementById('wpYearLabel'); if (yLbl) yLbl.textContent = newYear + '年';
+  var mLbl = document.getElementById('wpMonthLabel'); if (mLbl) mLbl.textContent = newM + '月';
+  // 找或建计划
+  var plan = getWP(newYear, newM, newW);
+  if (plan) {
+    _wpCurrent = {year:newYear, month:newM, week:newW, plan:plan};
+  } else {
+    plan = createEmptyPlan(newYear, newM, newW);
+    saveWP(newYear, newM, newW, plan);
+    _autoCarryTasks(plan, newYear, newM, newW);
+    _wpCurrent = {year:newYear, month:newM, week:newW, plan:plan};
+  }
+  renderWPPlanList(newYear, newM);
   renderWPTable(plan);
   renderWPUserInfo();
+  if (typeof renderWPYearGrid === 'function') renderWPYearGrid(newYear);
 }
 
 function showWPEmpty(){
@@ -2304,30 +2348,6 @@ function addTaskRow(afterIdx){
   showToast('✅ 已添加新行');
 }
 
-// ★ V0.1.59: 删除指定行
-// ★ V0.3.110: 清空指定行内容（不清除该行，只重置所有字段）
-async function clearTaskRow(idx){
-  var p=_wpCurrent.plan;if(!p)return;
-  var tasks=p.tasks;
-  if(idx<0||idx>=tasks.length){showToast('⚠️ 索引越界，无法清空');return;}
-  var t=tasks[idx];
-  if(!t){showToast('⚠️ 目标行为空');return;}
-  if(t.collab_from){showToast('⚠️ 协同任务不能清空');return;}
-  var taskLabel=(t.work||'第'+(idx+1)+'项').substring(0,20);
-  var ok=await _showConfirm('确定要清空「'+taskLabel+'」的全部内容吗？\n\n该行将保留为空白行，可重新填写。'+'\n\n—\n\n'+'Clear all content of "'+taskLabel+'"?\n\nThe row will remain as a blank line.','注意 / Attention');
-  if(!ok)return;
-  // ★ 重置所有字段为默认空值，保留对象引用
-  t.work='';t.goal='';t.startDate='';t.plannedDate='';t.actualDate='';t.status='';
-  t.supporters='';t.problems='';t.problemType='';t.needBoss='';t.bossFeedback='';t.remarks='';
-  delete t._manualNotDone;delete t._pausedAt;
-  if(t.aiSuggestion)delete t.aiSuggestion;
-  console.log('[clearTaskRow] cleared idx='+idx);
-  _calcWeekScore(p);
-  saveWP(p.year,p.month,p.week,p);
-  renderWPTable(p);
-  showToast('🧹 已清空该行内容');
-}
-
 async function deleteTaskRow(idx){
   var p=_wpCurrent.plan;if(!p)return;
   var tasks=p.tasks;
@@ -2353,35 +2373,44 @@ async function deleteTaskRow(idx){
 // ★ V0.6.1dv: 清空单行所有字段（保留行结构）
 // 用于 total=1 时，无法删除整行时清空内容重新填写
 async function clearTaskRow(idx){
-  var p=_wpCurrent.plan;if(!p)return;
+  var p=_wpCurrent.plan;if(!p||!p.tasks)return;
   var tasks=p.tasks;
   if(idx<0||idx>=tasks.length)return;
   var t=tasks[idx];
   if(!t)return;
   if(t.collab_from){showToast('⚠️ 协同任务不能清空');return;}
-  // 检查是否为空行（避免误清空空白行）
   var hasContent=t.work||t.goal||t.startDate||t.plannedDate||t.actualDate||
     t.estimatedHours||t.status||t.needBoss||t.problems||t.problemType||
     (t.supporters&&t.supporters.length>0)||t.aiSuggestion||t.bossFeedback;
+  // ★ V0.6.1em: 关键修复 — hasContent 必须同时检查 _revisions！renderWPCellValue 实际读的是 _revisions
+  if(!hasContent&&p._revisions){
+    var _prefix='tasks.'+idx+'.';
+    for(var _rk in p._revisions){
+      if(_rk.indexOf(_prefix)===0&&p._revisions[_rk]&&p._revisions[_rk].value){hasContent=true;break;}
+    }
+  }
   if(!hasContent){showToast('该行已经是空行，无需清空');return;}
   var taskLabel=(t.work||'第'+(idx+1)+'项').substring(0,20);
-  // ★ V0.6.1dx: 改用项目统一的 _showConfirm 弹窗，与 deleteTaskRow 风格一致
   var ok=await _showConfirm('确定要清空「'+taskLabel+'」的所有内容吗？\n\n行结构和序号将保留。','清空该行 / Clear Row');
   if(!ok)return;
-  // 保留 seq/年份月份周/协同来源，清空其他所有字段
-  var keepSeq=t.seq;
-  var keepCollab=t.collab_from;
-  tasks[idx]={
-    seq:keepSeq,
-    goal:'',work:'',status:'',needBoss:'',problems:'',
-    startDate:'',actualDate:'',supporters:'',
-    plannedDate:'',problemType:'',
-    aiSuggestion:'',bossFeedback:'',
-    estimatedHours:''
-  };
-  if(keepCollab)tasks[idx].collab_from=keepCollab;
+  // ★ V0.6.1el: 最直接方案 — 同时更新数据+DOM+刷新页面
+  // 1. 清空数据（所有字段）
+  var newTask={seq:1,goal:'',work:'',status:'',needBoss:'',problems:'',
+    startDate:'',actualDate:'',supporters:'',plannedDate:'',problemType:'',
+    aiSuggestion:'',bossFeedback:'',estimatedHours:'',remarks:''};
+  tasks.splice(idx,1,newTask);
+  // 2. 清空 _revisions
+  if(p._revisions){
+    var prefix='tasks.'+idx+'.';
+    for(var key in p._revisions){if(key.indexOf(prefix)===0)delete p._revisions[key];}
+  }
   p.updatedAt=new Date().toISOString();
-  _calcWeekScore(p);
+  // 3. 同步到 _wpData（保存数据）
+  if(_wpCurrent&&_wpCurrent.year){
+    var k=makeWPId(_wpCurrent.year,_wpCurrent.month,_wpCurrent.week);
+    if(_wpData)_wpData[k]=p;
+  }
+  // 4. 保存到 localStorage
   saveWP(p.year,p.month,p.week,p);
   renderWPTable(p);
   showToast('✨ 已清空第 '+(idx+1)+' 行所有内容');
@@ -2559,10 +2588,10 @@ function renderWPTable(plan){
     switch(_wpSort.col){case'priority':_sPri=_arr;break;case'startDate':_sSd=_arr;break;case'plannedDate':_sPd=_arr;break;case'remainingDays':_sRd=_arr;break;case'actualDate':_sAd=_arr;break;case'status':_sSt=_arr;break;}
   }
   html+='<th class="col-num">#</th><th class="col-work">本周重点行动项</th>';
-  html+='<th class="col-goal wp-sortable" ondblclick="toggleWPSort(\'priority\')" title="双击排序" style="cursor:pointer">优先级'+_sPri+'</th>';
-  html+='<th class="col-hours wp-sortable" ondblclick="toggleWPSort(\'startDate\')" title="双击排序" style="cursor:pointer">启动日期'+_sSd+'</th>';
-  html+='<th class="col-hours wp-sortable" ondblclick="toggleWPSort(\'plannedDate\')" title="双击排序" style="cursor:pointer">计划完成日期'+_sPd+'</th>';
-  html+='<th class="col-remaining wp-sortable" ondblclick="toggleWPSort(\'remainingDays\')" title="双击排序" style="cursor:pointer;min-width:80px">剩余办结天数'+_sRd+'</th>';
+  html+='<th class="col-goal wp-sortable" ondblclick="toggleWPSort(\'priority\')" title="💡 双击表头切换排序" style="cursor:pointer">优先级 <span style="opacity:.5;font-size:9px">⇅</span>'+_sPri+'</th>';
+  html+='<th class="col-hours wp-sortable" ondblclick="toggleWPSort(\'startDate\')" title="💡 双击表头切换排序" style="cursor:pointer">启动日期 <span style="opacity:.5;font-size:9px">⇅</span>'+_sSd+'</th>';
+  html+='<th class="col-hours wp-sortable" ondblclick="toggleWPSort(\'plannedDate\')" title="💡 双击表头切换排序" style="cursor:pointer">计划完成日期 <span style="opacity:.5;font-size:9px">⇅</span>'+_sPd+'</th>';
+  html+='<th class="col-remaining wp-sortable" ondblclick="toggleWPSort(\'remainingDays\')" title="💡 双击表头切换排序" style="cursor:pointer;min-width:80px">剩余办结天数 <span style="opacity:.5;font-size:9px">⇅</span>'+_sRd+'</th>';
   html+='<th class="col-hours wp-sortable" ondblclick="toggleWPSort(\'actualDate\')" title="双击排序" style="cursor:pointer">实际完成日期'+_sAd+'</th>';
   html+='<th class="col-hours dur-tooltip" style="min-width:80px">计划/实际耗时</th>';
   html+='<th class="col-status wp-sortable" ondblclick="toggleWPSort(\'status\')" title="双击排序" style="cursor:pointer">完成状态'+_sSt+'</th>';
