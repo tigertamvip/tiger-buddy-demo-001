@@ -3138,10 +3138,10 @@ function startEditCell(cell){
     cell.innerHTML='<input class="wp-cell-input" type="date" value="'+_h(dateVal)+'" onblur="commitEditCell()" onchange="commitEditCell(this)">';
     var dEl=cell.querySelector('input');if(dEl){dEl.focus();dEl.style.minWidth='120px';}
   }else{
-    // ★ V0.6.1.gp: 协同人列 — chip 标签编辑器（支持多人逐个输入+智能提示）
+    // ★ V0.6.1.gv: 协同人列 — chip 标签 + 自定义 portal 下拉
     var isSupporters=field&&field.indexOf('.supporters')>=0;
     if(isSupporters){
-      cell.innerHTML='<div class="supporter-chip-editor" style="display:flex;flex-wrap:wrap;gap:3px;align-items:center;min-width:100px;padding:2px 0;position:relative"></div>';
+      cell.innerHTML='<div class="supporter-chip-editor" style="display:flex;flex-wrap:wrap;gap:3px;align-items:center;min-width:100px;padding:2px 0"></div>';
       var editor=cell.querySelector('.supporter-chip-editor');
       var names=cur?cur.split(/[,，;；]/).filter(function(x){return x.trim();}):[];
       var seen={};
@@ -3161,13 +3161,31 @@ function startEditCell(cell){
       inp.setAttribute('autocomplete','off');
       inp.style.cssText='flex:1;min-width:60px;border:none;outline:none;font-size:12px;padding:2px 0;background:transparent';
       inp.placeholder='输入姓名后回车';
-      // ★ V0.6.1.gp: 自定义下拉（替代浏览器原生 datalist）
+
+      // ★ V0.6.1.gv: 自定义下拉（portal 模式 - 挂 body 不被 td 截断）
       var dropdown=document.createElement('div');
       dropdown.className='supporter-dropdown';
-      dropdown.style.cssText='display:none;position:absolute;top:100%;left:0;z-index:9999;background:#fff;border:1px solid #d1d5db;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,.12);max-height:160px;overflow-y:auto;min-width:180px;font-size:12px;white-space:nowrap;z-index:9999';
-      editor.appendChild(inp);
-      editor.appendChild(dropdown);
+      dropdown.style.cssText='display:none;position:fixed;z-index:99999;background:rgba(255,255,255,.8);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid #d1d5db;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,.12);max-height:200px;overflow-y:auto;min-width:160px;font-size:12px;line-height:1';
+      document.body.appendChild(dropdown);
 
+      function positionDropdown(){
+        // ★ V0.6.1.gw: 跟 cell 对齐(不是input),中线与单元格对齐
+        var cellRect=cell.getBoundingClientRect();
+        dropdown.style.left=cellRect.left+'px';
+        dropdown.style.top=(cellRect.bottom+2)+'px';
+        dropdown.style.minWidth=cellRect.width+'px';
+      }
+      function createChipFromInput(inputEl,forcedVal){
+        var v=(forcedVal!==undefined?forcedVal:inputEl.value).trim();
+        if(!v)return;
+        var chip2=document.createElement('span');
+        chip2.className='supporter-chip';
+        chip2.style.cssText='display:inline-flex;align-items:center;background:#E8F0FE;color:#1B6EC4;font-size:11px;font-weight:500;padding:2px 6px;border-radius:12px;gap:4px;white-space:nowrap';
+        chip2.innerHTML='<span>'+_h(v)+'</span><span class="chip-x" style="cursor:pointer;opacity:.6;font-size:13px;line-height:1" onclick="this.parentNode.remove()">&times;</span>';
+        editor.insertBefore(chip2,inputEl);
+        if(forcedVal!==undefined){inputEl.value='';inputEl.focus();}
+        else inputEl.value='';
+      }
       function showDropdown(q){
         dropdown.innerHTML='';
         var pool=(typeof allEmployees!=='undefined'&&allEmployees)?allEmployees:[];
@@ -3180,21 +3198,27 @@ function startEditCell(cell){
           }
         }
         if(hits.length===0){dropdown.style.display='none';return;}
-        for(var k=0;k<hits.length;k++){
+        for(var k=0;k<Math.min(hits.length,8);k++){
           (function(emp){
             var item=document.createElement('div');
-            item.style.cssText='padding:4px 8px;cursor:pointer;font-size:12px;color:#1f2937';
-            item.textContent=emp.name+(emp.position?' · '+emp.position:'');
-            item.onmouseover=function(){item.style.background='#E8F0FE';};
-            item.onmouseout=function(){item.style.background='#fff';};
-            item.onmousedown=function(e){e.preventDefault();createChipFromInput(inp,emp.name);dropdown.style.display='none';inp.value='';inp.focus();};
+            // ★ Tiger 三个要求:行高1.0 + 12px同输入框 + 背景透白
+            item.style.cssText='padding:5px 10px;cursor:pointer;font-size:12px;color:#1f2937;line-height:1;white-space:nowrap';
+            item.textContent=emp.name;
+            item.onmouseover=function(){item.style.background='rgba(232,240,254,.9)';};
+            item.onmouseout=function(){item.style.background='transparent';};
+            // ★ 用 mousedown 而非 click + preventDefault，避免 dropdown blur 关闭
+            item.onmousedown=function(e){
+              e.preventDefault();e.stopPropagation();
+              createChipFromInput(inp,emp.name);
+              dropdown.style.display='none';
+            };
             dropdown.appendChild(item);
           })(hits[k]);
         }
+        positionDropdown();
         dropdown.style.display='block';
       }
-
-      // ★ V0.6.1.gs: focus时不主动弹下拉,等用户输入再弹(避免空白时显示全部员工)
+      // ★ focus 时不主动弹（避免空白显示全部员工）
       inp.addEventListener('focus',function(){if(inp.value)showDropdown(inp.value);});
       inp.addEventListener('input',function(){showDropdown(inp.value);});
       inp.addEventListener('keydown',function(e){
@@ -3206,17 +3230,14 @@ function startEditCell(cell){
           dropdown.style.display='none';
         }
       });
-      inp.addEventListener('blur',function(){setTimeout(function(){dropdown.style.display='none';commitEditCell(inp);},150);});
-      function createChipFromInput(inputEl,forcedVal){
-        var v=forcedVal||inputEl.value.trim();
-        if(!v)return;
-        var chip2=document.createElement('span');
-        chip2.className='supporter-chip';
-        chip2.style.cssText='display:inline-flex;align-items:center;background:#E8F0FE;color:#1B6EC4;font-size:11px;font-weight:500;padding:2px 6px;border-radius:12px;gap:4px;white-space:nowrap';
-        chip2.innerHTML='<span>'+_h(v)+'</span><span class="chip-x" style="cursor:pointer;opacity:.6;font-size:13px;line-height:1" onclick="this.parentNode.remove()">&times;</span>';
-        editor.insertBefore(chip2,inputEl);
-        inputEl.value='';
-      }
+      inp.addEventListener('blur',function(){
+        setTimeout(function(){
+          dropdown.style.display='none';
+          if(dropdown.parentNode)dropdown.parentNode.removeChild(dropdown);
+          commitEditCell(inp);
+        },200);
+      });
+      editor.appendChild(inp);
       setTimeout(function(){inp.focus();},30);
     }else{
       cell.innerHTML='<input class="wp-cell-input" type="text" value="'+_h(cur)+'" onblur="commitEditCell()">';
