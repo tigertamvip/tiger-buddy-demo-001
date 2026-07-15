@@ -6,6 +6,13 @@
 //
 // =============================================
 
+// ★ V0.6.1.gk: 显式暴露到 window — 防止某些场景下函数未定义
+window.sysInitModule=window.sysInitModule||function(){
+  console.warn('HWM: sysInitModule not yet defined (placeholder)');
+};
+window.sysRenderUserTable=window.sysRenderUserTable||function(){};
+window.sysCloseModal=window.sysCloseModal||function(){};
+
 var _sysEditingUid=null;
 var _sysEditingSubs={};
 
