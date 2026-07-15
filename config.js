@@ -49,11 +49,9 @@ window.APP_CONFIG = {
   },
 };
 
-// ===== Supabase 数据库配置（Demo 独立项目）=====
-// Tiger-buddy demo 专属 Supabase（与主程序完全隔离）
+// ===== Supabase 数据库配置（Demo 独立数据库） =====
 var SUPABASE_URL = 'https://bigjlksembhbyhfxnmig.supabase.co';
 var SUPABASE_ANON_KEY = 'sb_publishable_1Hv1jO3dM3G7TUH3WTcgYw_9xKOAx5z';
-var SUPABASE_USERS_TABLE = 'tiger_buddy_users';
 
 // ★ V0.6.1ef: 智能同步 — 跳过无需系统账号的职位（工人/检验员/操作类/生产类等）
 // 模糊匹配：position 包含其中任一关键词即跳过
@@ -83,5 +81,7 @@ var ACTIVE_STATUS = ['已转正','在职','正式','试用','试用期','active'
 // Supabase 数据表名（一般不需要改，除非客户有用到多项目共享表的需求）
 var SUPABASE_TABLE = 'hwm_employees';
 var SUPABASE_WP_TABLE = 'hwm_workplans';
+// ★ Demo 独立用户表，与主程序区分
+var SUPABASE_USERS_TABLE = 'tiger_buddy_users';
 var SUPABASE_JD_TABLE = 'hwm_jobdesc';
 var SUPABASE_FAV_TABLE = 'hwm_favorites';
