@@ -399,7 +399,27 @@ function loadWPData(){
           console.log('[V0.3.117] Removed stale local cache for',wk);
         }
       }
-      if(!seenNewer)return;
+      // ★ V0.6.1.gi: 多重备份自动恢复 — 防御云端覆盖导致数据丢失
+      try{
+        for(var wk in localData){
+          var hasContent=!!(localData[wk].tasks||[]).some(function(t){return t.work&&t.work.trim();});
+          if(!hasContent){
+            // 当前 localData 是空壳，尝试从 xxx_backup 恢复
+            var bkKey=currentKey+'_backup';
+            var bkRaw=localStorage.getItem(bkKey);
+            if(bkRaw){
+              try{
+                var bkData=JSON.parse(bkRaw);
+                if(bkData[wk]&&(bkData[wk].tasks||[]).some(function(t){return t.work&&t.work.trim();})){
+                  localData[wk]=bkData[wk];
+                  console.log('[V0.6.1.gi] 备份恢复：'+wk);
+                  seenNewer=true;
+                }
+              }catch(e){}
+            }
+          }
+        }
+      }catch(e){console.warn('[V0.6.1.gi] 备份恢复失败',e.message);}
       // 写回 localStorage
       try{localStorage.setItem(currentKey,JSON.stringify(localData));}catch(e){}
       // 如果当前页面仍在查看同一用户，刷新显示
@@ -1855,9 +1875,8 @@ function _renderSupportersCell(plan,taskIndex,rawSupporters){
   }
   var revSuffix=revPrefix?'</span>':'';
   // ★ V0.3.118: 始终显示协同状态徽章（无状态数据时默认"待响应"）
-  var html='';
+  var html='<div style="display:flex;flex-direction:column;gap:2px;width:100%">';
   for(var i=0;i<sups.length;i++){
-    if(i>0)html+='<br>';
     var s=sups[i];
     var st='pending';
     if(hasStatuses){
@@ -1868,11 +1887,13 @@ function _renderSupportersCell(plan,taskIndex,rawSupporters){
     if(st==='accepted'){badgeColor='#16a34a';badgeIcon='✅';badgeText='已接受';}
     else if(st==='rejected'){badgeColor='#dc2626';badgeIcon='❌';badgeText='已拒绝';}
     else{badgeColor='#9ca3af';badgeIcon='⏳';badgeText='待响应';}
-    html+='<span style="display:inline-flex;align-items:center;gap:2px;white-space:nowrap">';
-    html+='<span style="font-weight:500">'+_h(s.name)+'</span>';
-    html+='<span style="font-size:9px;padding:1px 4px;border-radius:3px;background:'+badgeColor+';color:#fff;font-weight:600;line-height:1.4">'+badgeIcon+' '+badgeText+'</span>';
-    html+='</span>';
+    // ★ V0.6.1.gn: 姓名左对齐 + 徽章右对齐（flex space-between）
+    html+='<div style="display:flex;align-items:center;justify-content:space-between;gap:4px">';
+    html+='<span style="font-weight:500;text-align:left">'+_h(s.name)+'</span>';
+    html+='<span style="font-size:9px;padding:1px 5px;border-radius:3px;background:'+badgeColor+';color:#fff;font-weight:600;line-height:1.4;white-space:nowrap">'+badgeIcon+' '+badgeText+'</span>';
+    html+='</div>';
   }
+  html+='</div>';
   return revPrefix+html+revSuffix;
 }
 
@@ -1881,6 +1902,25 @@ function _getEmpDB(){
   if(typeof allEmployees!=='undefined'&&allEmployees&&allEmployees.length>0)return allEmployees;
   if(window.__PRELOADED_EMPLOYEES__&&window.__PRELOADED_EMPLOYEES__.length>0)return window.__PRELOADED_EMPLOYEES__;
   return [];
+}
+
+// ★ V0.6.1.gj: 刷新协同人 datalist — 从 allEmployees 动态生成立即可用
+function _refreshEmpDatalist(){
+  var dl=document.getElementById('empDatalist');
+  if(!dl){
+    dl=document.createElement('datalist');
+    dl.id='empDatalist';
+    document.body.appendChild(dl);
+  }
+  var emps=_getEmpDB();
+  if(emps.length===0)return;
+  var names=[]; var seen={};
+  for(var i=0;i<emps.length;i++){
+    var n=emps[i].name||emps[i]['姓名'];
+    if(n&&!seen[n]){seen[n]=true;names.push(n);}
+  }
+  dl.innerHTML=names.map(function(n){return '<option value="'+_h(n)+'">';}).join('');
+  console.log('[V0.6.1.gj] empDatalist refreshed: '+names.length+' names');
 }
 
 // 生成协同任务的唯一 ID
@@ -2595,10 +2635,10 @@ function renderWPTable(plan){
     switch(_wpSort.col){case'priority':_sPri=_arr;break;case'startDate':_sSd=_arr;break;case'plannedDate':_sPd=_arr;break;case'remainingDays':_sRd=_arr;break;case'actualDate':_sAd=_arr;break;case'status':_sSt=_arr;break;}
   }
   html+='<th class="col-num">#</th><th class="col-work">本周重点行动项</th>';
-  html+='<th class="col-goal wp-sortable" ondblclick="toggleWPSort(\'priority\')" title="💡 双击表头切换排序" style="cursor:pointer">优先级 <span style="opacity:.5;font-size:9px">⇅</span>'+_sPri+'</th>';
-  html+='<th class="col-hours wp-sortable" ondblclick="toggleWPSort(\'startDate\')" title="💡 双击表头切换排序" style="cursor:pointer">启动日期 <span style="opacity:.5;font-size:9px">⇅</span>'+_sSd+'</th>';
-  html+='<th class="col-hours wp-sortable" ondblclick="toggleWPSort(\'plannedDate\')" title="💡 双击表头切换排序" style="cursor:pointer">计划完成日期 <span style="opacity:.5;font-size:9px">⇅</span>'+_sPd+'</th>';
-  html+='<th class="col-remaining wp-sortable" ondblclick="toggleWPSort(\'remainingDays\')" title="💡 双击表头切换排序" style="cursor:pointer;min-width:80px">剩余办结天数 <span style="opacity:.5;font-size:9px">⇅</span>'+_sRd+'</th>';
+  html+='<th class="col-goal wp-sortable" ondblclick="toggleWPSort(\'priority\')" title="💡 双击表头切换排序" style="cursor:pointer">优先级 <span style="opacity:.75;font-size:9px;color:#3B7DB4">⇅</span>'+_sPri+'</th>';
+  html+='<th class="col-hours wp-sortable" ondblclick="toggleWPSort(\'startDate\')" title="💡 双击表头切换排序" style="cursor:pointer">启动日期 <span style="opacity:.75;font-size:9px;color:#3B7DB4">⇅</span>'+_sSd+'</th>';
+  html+='<th class="col-hours wp-sortable" ondblclick="toggleWPSort(\'plannedDate\')" title="💡 双击表头切换排序" style="cursor:pointer">计划完成日期 <span style="opacity:.75;font-size:9px;color:#3B7DB4">⇅</span>'+_sPd+'</th>';
+  html+='<th class="col-remaining wp-sortable" ondblclick="toggleWPSort(\'remainingDays\')" title="💡 双击表头切换排序" style="cursor:pointer;min-width:80px">剩余办结天数 <span style="opacity:.75;font-size:9px;color:#3B7DB4">⇅</span>'+_sRd+'</th>';
   html+='<th class="col-hours wp-sortable" ondblclick="toggleWPSort(\'actualDate\')" title="双击排序" style="cursor:pointer">实际完成日期'+_sAd+'</th>';
   html+='<th class="col-hours dur-tooltip" style="min-width:80px">计划/实际耗时</th>';
   html+='<th class="col-status wp-sortable" ondblclick="toggleWPSort(\'status\')" title="双击排序" style="cursor:pointer">完成状态'+_sSt+'</th>';
@@ -2913,6 +2953,8 @@ function renderWPTable(plan){
       });
     });
   },10);
+  // ★ V0.6.1.gj: 周计划表格渲染完成后，更新协同人输入建议列表
+  _refreshEmpDatalist();
 }
 
 // ★ V0.1.23: 审核并锁定 — 上级锁定下属周计划的核心三列
@@ -3094,8 +3136,50 @@ function startEditCell(cell){
     cell.innerHTML='<input class="wp-cell-input" type="date" value="'+_h(dateVal)+'" onblur="commitEditCell()" onchange="commitEditCell(this)">';
     var dEl=cell.querySelector('input');if(dEl){dEl.focus();dEl.style.minWidth='120px';}
   }else{
-    cell.innerHTML='<input class="wp-cell-input" type="text" value="'+_h(cur)+'" onblur="commitEditCell()">';
-    var inp2=cell.querySelector('input');if(inp2)inp2.focus();
+    // ★ V0.6.1.gl: 协同人列 — chip 标签编辑器（支持多人逐个输入+智能提示）
+    var isSupporters=field&&field.indexOf('.supporters')>=0;
+    if(isSupporters){
+      cell.innerHTML='<div class="supporter-chip-editor" style="display:flex;flex-wrap:wrap;gap:3px;align-items:center;min-width:100px;padding:2px 0"></div>';
+      var editor=cell.querySelector('.supporter-chip-editor');
+      var names=cur?cur.split(/[,，;；]/).filter(function(x){return x.trim();}):[];
+      var seen={};
+      for(var nx=0;nx<names.length;nx++){
+        var nm=names[nx].trim();
+        if(nm&&!seen[nm]){
+          seen[nm]=true;
+          var chip=document.createElement('span');
+          chip.className='supporter-chip';
+          chip.style.cssText='display:inline-flex;align-items:center;background:#E8F0FE;color:#1B6EC4;font-size:11px;font-weight:500;padding:2px 6px;border-radius:12px;gap:4px;white-space:nowrap';
+          chip.innerHTML='<span>'+_h(nm)+'</span><span class="chip-x" style="cursor:pointer;opacity:.6;font-size:13px;line-height:1" onclick="this.parentNode.remove()">&times;</span>';
+          editor.appendChild(chip);
+        }
+      }
+      var inp=document.createElement('input');
+      inp.type='text';inp.className='wp-cell-input';
+      inp.setAttribute('list','empDatalist');
+      inp.setAttribute('autocomplete','off');
+      inp.style.cssText='flex:1;min-width:60px;border:none;outline:none;font-size:12px;padding:2px 0;background:transparent';
+      inp.placeholder='输入姓名后回车';
+      inp.addEventListener('keydown',function(e){
+        if(e.key==='Enter'||e.key===','||e.key==='，'){
+          e.preventDefault();
+          var v=inp.value.trim();
+          if(!v)return;
+          var chip2=document.createElement('span');
+          chip2.className='supporter-chip';
+          chip2.style.cssText='display:inline-flex;align-items:center;background:#E8F0FE;color:#1B6EC4;font-size:11px;font-weight:500;padding:2px 6px;border-radius:12px;gap:4px;white-space:nowrap';
+          chip2.innerHTML='<span>'+_h(v)+'</span><span class="chip-x" style="cursor:pointer;opacity:.6;font-size:13px;line-height:1" onclick="this.parentNode.remove()">&times;</span>';
+          editor.insertBefore(chip2,inp);
+          inp.value='';
+        }
+      });
+      inp.addEventListener('blur',function(){commitEditCell(this);});
+      editor.appendChild(inp);
+      setTimeout(function(){inp.focus();},30);
+    }else{
+      cell.innerHTML='<input class="wp-cell-input" type="text" value="'+_h(cur)+'" onblur="commitEditCell()">';
+      var inp2=cell.querySelector('input');if(inp2)inp2.focus();
+    }
   }
 }
 
@@ -3107,6 +3191,16 @@ async function commitEditCell(el){
     var field=cell.dataset.field;
     var input=el||cell.querySelector('input,textarea,select');
     var newVal=input?input.value:'';
+    // ★ V0.6.1.gl: 协同人 chip 编辑器 — 从 chips 收集姓名，逗号分隔
+    if(field&&field.indexOf('.supporters')>=0){
+      var chips=cell.querySelectorAll('.supporter-chip span:first-child');
+      var names=[];
+      for(var c=0;c<chips.length;c++){
+        var n=chips[c].textContent.trim();
+        if(n)names.push(n);
+      }
+      newVal=names.join(',');
+    }
 
     // ★ V0.4.90m: 状态字段自定义下拉无 input，从 cell 文本提取
     if(!newVal && field && field.indexOf('.status')>=0){
