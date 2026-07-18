@@ -6,13 +6,6 @@
 //
 // =============================================
 
-// ★ V0.6.1.gk: 显式暴露到 window — 防止某些场景下函数未定义
-window.sysInitModule=window.sysInitModule||function(){
-  console.warn('HWM: sysInitModule not yet defined (placeholder)');
-};
-window.sysRenderUserTable=window.sysRenderUserTable||function(){};
-window.sysCloseModal=window.sysCloseModal||function(){};
-
 var _sysEditingUid=null;
 var _sysEditingSubs={};
 
@@ -471,10 +464,13 @@ function sysRenderSubList(){
     html+='<td style="padding:8px 12px;font-weight:500">'+_h(e.name)+'</td>';
     html+='<td style="padding:8px 12px;color:#797973">'+_h(e.dept)+'</td>';
     html+='<td style="padding:8px 12px;color:#797973">'+_h(e.position)+'</td>';
-    html+='<td style="padding:6px 12px;text-align:center"><select onchange="sysToggleSubRel(\''+_h(e.name)+'\',this.value)" style="font-size:12px;padding:4px 8px;border-radius:4px;border:1px solid var(--border);cursor:pointer">';
-    html+='<option value="none"'+(rel==='none'?' selected':'')+'>无</option>';
-    html+='<option value="direct" style="color:#22c55e"'+(rel==='direct'?' selected':'')+'>● 直属</option>';
-    html+='<option value="indirect" style="color:#3b82f6"'+(rel==='indirect'?' selected':'')+'>● 间接</option>';
+    // ★ V0.6.1.ha: 用彩色 emoji 替代 "●" (Mac Chrome 下拉框忽略option颜色,emoji走OS彩色)
+    var selColor=rel==='direct'?'#16A34A':(rel==='indirect'?'#3B82F6':'#6B7280');
+    var selWeight=rel==='none'?'normal':'600';
+    html+='<td style="padding:6px 12px;text-align:center"><select onchange="sysToggleSubRel(\''+_h(e.name)+'\',this.value)" style="font-size:13px;padding:4px 8px;border-radius:4px;border:1px solid var(--border);cursor:pointer;color:'+selColor+';font-weight:'+selWeight+'">';
+    html+='<option value="none"'+(rel==='none'?' selected':'')+'>⚪ 无</option>';
+    html+='<option value="direct"'+(rel==='direct'?' selected':'')+'>🟢 直属</option>';
+    html+='<option value="indirect"'+(rel==='indirect'?' selected':'')+'>🔵 间接</option>';
     html+='</select></td>';
     // WP可见性复选框
     html+='<td style="padding:8px 12px;text-align:center"><input type="checkbox" '+(wpShared?'checked':'')+' onchange="sysToggleWPShared(\''+_h(e.name)+'\',this.checked)" style="cursor:pointer;accent-color:#3B7DB4;width:16px;height:16px"></td>';

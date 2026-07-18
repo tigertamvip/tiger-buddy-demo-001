@@ -6,8 +6,8 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="version" content="V0.6.1.gw">
-<!-- cache-bust: 2026-07-13-18-40 -->
+<meta name="version" content="V0.6.1.j0">
+<!-- cache-bust: 2026-07-18-11-04 -->
 <meta name="theme-color" content="#02314D">
 <link rel="manifest" href="manifest.json?v=bc">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -111,7 +111,7 @@ body{
 .btn-return-mbo{background:#fff;color:#3B7DB4;border:none;border-radius:8px;padding:5px 18px;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s ease;box-shadow:0 2px 8px rgba(0,0,0,.12)}
 .btn-return-mbo:hover{background:#E8F4FE;transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.18)}
 .btn-sm{padding:5px 12px;font-size:14px}
-/* ★ V0.6.1.gw: 危险操作幽灵按钮（橙红色，导出按钮右侧，清空数据） */
+/* ★ V0.6.1.hs: 危险操作幽灵按钮（橙红色，导出按钮右侧，清空数据） */
 .btn-danger-ghost{background:linear-gradient(135deg,#E85D2F 0%,#D64352 100%);color:#fff;border:1px solid #C74A1F;border-radius:8px;padding:6px 16px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s cubic-bezier(.4,0,.2,1);white-space:nowrap;box-shadow:0 2px 6px rgba(216,67,82,.28);letter-spacing:.5px}
 .btn-danger-ghost:hover{background:linear-gradient(135deg,#D04A1F 0%,#B82F3F 100%);border-color:#A02F1F;color:#fff;transform:translateY(-1px);box-shadow:0 4px 12px rgba(216,67,82,.45)}
 .btn-danger-ghost:active{transform:translateY(0);box-shadow:0 1px 3px rgba(216,67,82,.3)}
@@ -149,7 +149,7 @@ body{
 }
 .stats-row+.stats-row{border-top:1px solid #EBEEF0}
 .stats-row-label{font-size:11px;color:#2A476A;white-space:nowrap}
-.stats-row-num{font-size:15px;font-weight:700;color:#2A476A;white-space:nowrap}
+.stats-row-num{font-size:16px;font-weight:700;color:#2A476A;white-space:nowrap}
 .stats-row-num.small{font-size:12px;font-weight:600}
 .stats-row-num.tbd{font-size:12px;font-weight:600;color:var(--text-hint)}
 .stats-row-clickable{cursor:pointer;border-radius:4px;transition:background .15s}
@@ -563,13 +563,13 @@ body{
   align-items:center;
   justify-content:center;
   color:#fff;
-  font-size:18px;
+  font-size:19px;
   font-weight:600;
 }
 .emp-card-v2 .ec-avatar img{width:100%;height:100%;object-fit:cover}
 .emp-card-v2 .ec-info{flex:1;min-width:0}
 .emp-card-v2 .ec-info-top{display:flex;align-items:center;gap:6px;margin-bottom:4px;flex-wrap:wrap}
-.emp-card-v2 .ec-name{font-size:15px;font-weight:600;color:var(--text)}
+.emp-card-v2 .ec-name{font-size:16px;font-weight:600;color:var(--text)}
 .emp-card-v2 .ec-tag{
   font-size:10px;
   padding:2px 8px;
@@ -669,7 +669,7 @@ body{
 }
 .modal-header-btn:hover{opacity:.9;transform:translateY(-1px)}
 .modal-header-btn:active{transform:translateY(0)}
-/* ★ V0.6.1.gw: 三个按钮统一动效 — translateY(-1px) + 同步 transition */
+/* ★ V0.6.1.hs: 三个按钮统一动效 — translateY(-1px) + 同步 transition */
 .modal-header-btn--save{background:#3B7DB4;transition:all .2s cubic-bezier(.4,0,.2,1)}
 .modal-header-btn--save:hover{background:#2A6A9A;transform:translateY(-1px);box-shadow:0 4px 12px rgba(59,125,180,.3)}
 .modal-header-btn--save:active{transform:translateY(0);box-shadow:0 2px 4px rgba(59,125,180,.2)}
@@ -690,7 +690,7 @@ body{
 }
 .pwd-input:focus{border-color:var(--primary-light)}
 .pwd-actions{display:flex;gap:12px}
-.pwd-actions button{flex:1;padding:12px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;border:none}
+.pwd-actions button{flex:1;padding:12px;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer;border:none}
 .pwd-btn-cancel{background:var(--bg);color:var(--text-secondary)}
 .pwd-btn-confirm{background:var(--danger);color:#fff}
 .pwd-error{color:var(--danger);font-size:13px;text-align:center;min-height:20px}
@@ -801,7 +801,7 @@ body{
 
 .file-input{display:none}
 
-.result-count{font-size:15px;font-weight:600;color:#797973;white-space:nowrap;padding:4px 0;margin:0}
+.result-count{font-size:16px;font-weight:600;color:#797973;white-space:nowrap;padding:4px 0;margin:0}
 
 /* Password Gate */
 .password-overlay{
@@ -876,20 +876,20 @@ body{
   font-size:14.3px;
   font-weight:500;
 }
-.login-left .value-item .en{font-size:15px;opacity:.6;margin-left:4px}
+.login-left .value-item .en{font-size:16px;opacity:.6;margin-left:4px}
 .login-right{flex:0 0 auto;margin-right:95px}
 .password-card{
-  background:rgba(255,255,255,.7);
+  background:rgba(255,255,255,.6);
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
-  border-radius:20px;
+  border-radius:12px;
   padding:40px 28px 32px;
   width:360px;
   text-align:center;
   box-shadow:0 20px 60px rgba(0,0,0,.25);
 }
 .password-card .lock-icon{font-size:44px;margin-bottom:12px}
-.password-card h2{font-size:16px;font-weight:600;color:#3B7DB4;margin-bottom:4px}
+.password-card h2{font-size:19px;font-weight:600;color:#3B7DB4;margin-bottom:4px}
 .password-card .sub{font-size:13px;color:var(--text-secondary);margin-bottom:24px}
 .password-card input{
   width:100%;
@@ -1007,7 +1007,7 @@ body{
   /* 员工列表 */
   .list-section{margin:0 12px 16px;gap:6px}
   .emp-card-v2{padding:10px 12px;gap:8px;border-radius:10px}
-  .emp-card-v2 .ec-avatar{width:38px;height:38px;font-size:15px}
+  .emp-card-v2 .ec-avatar{width:38px;height:38px;font-size:16px}
   .emp-card-v2 .ec-name{font-size:14px}
   .emp-card-v2 .ec-meta{font-size:11px}
   .emp-card-v2 .ec-idcard{font-size:11px}
@@ -1030,7 +1030,7 @@ body{
   .password-overlay{justify-content:center;padding:20px}
   .login-left{display:none}
   .password-card{max-width:90%;width:360px;padding:32px 20px 24px}
-  .password-card h2{font-size:18px}
+  .password-card h2{font-size:19px}
 
   /* FAB 按钮 */
   .fab{width:44px;height:44px;font-size:22px}
@@ -1046,7 +1046,7 @@ body{
   .filter-panel{max-width:100%}
   .filter-panel-body{padding:0 16px 20px}
   .filter-panel-header{padding:12px 16px 8px}
-  .filter-panel-header h3{font-size:15px}
+  .filter-panel-header h3{font-size:16px}
   .filter-dropdown-header{padding:10px 0}
   .filter-dropdown-label{font-size:13px}
 
@@ -1150,6 +1150,7 @@ body{
 #portalCard_talent{grid-column:1;grid-row:2}
 #portalCard_payroll{grid-column:3;grid-row:2}
 #portalCard_mbo{background:#6D9D39!important}
+#portalCard_dashboard{background:#6D9D39!important}
 #portalCard_learning{grid-column:2;grid-row:2}
 #portalCard_ideas{grid-column:1;grid-row:3}
 #portalCard_policies{grid-column:2;grid-row:3}
@@ -1158,7 +1159,7 @@ body{
 .portal-card{
   background:#1B4F72;
   border:1px solid rgba(255,255,255,.08);
-  border-radius:18px;
+  border-radius:8px;
   padding:28px 14px;
   text-align:center;
   cursor:pointer;
@@ -1180,8 +1181,8 @@ body{
 .portal-card:active{}
 .portal-card-label{
   font-family:"Microsoft YaHei Light","微软雅黑 Light",sans-serif;
-  font-size:20px;
-  font-weight:300;
+  font-size:19px;
+  font-weight:700;
   color:#ffffff;
   line-height:1.3;
   transition:color .25s;
@@ -1189,13 +1190,13 @@ body{
 .portal-card:hover .portal-card-label{color:#ffffff}
 .portal-card-en{
   font-family:"Microsoft YaHei Light","微软雅黑 Light",sans-serif;
-  font-size:13px;
+  font-size:16px;
   font-weight:300;
-  color:rgba(255,255,255,.45);
+  color:rgba(255,255,255,.55);
   letter-spacing:1px;
   transition:color .25s;
 }
-.portal-card:hover .portal-card-en{color:rgba(255,255,255,.65)}
+.portal-card:hover .portal-card-en{color:rgba(255,255,255,.7)}
 
 /* ★ V0.5.120→抽屉式改造: 顶部抽屉式信息面板（easeOutExpo推出 / easeInExpo回收） */
 .portal-info-panel{
@@ -1309,9 +1310,9 @@ body{
 .portal-card.disabled{
   background:rgba(208,216,226,.8);
 }
-.portal-card.disabled .portal-card-label{color:#0F2C4B;font-weight:300}
-.portal-card.disabled .portal-card-en{color:#6b7280}
-.portal-card.disabled .portal-card-badge{background:rgba(0,0,0,.08);color:#6b7280;border-color:rgba(0,0,0,.06)}
+.portal-card.disabled .portal-card-en{color:#ffffff;font-weight:700}
+.portal-card.disabled .portal-card-label{color:#ffffff}
+.portal-card.disabled .portal-card-badge{background:rgba(255,255,255,.15);color:#ffffff;border-color:rgba(255,255,255,.2)}
 .portal-card.disabled:hover{opacity:.8}
 
 /* ★ V0.6.1k: 未授权模块 — 看得见但低饱和（提高可见性） */
@@ -1368,7 +1369,7 @@ body{
   .portal-hero{margin-bottom:48px;margin-top:0}
   .portal-hero h1{font-size:20px;letter-spacing:1px;line-height:1.6}
   .portal-hero .portal-divider{margin:14px auto;width:40px}
-  .portal-hero .portal-subtitle{font-size:15px}
+  .portal-hero .portal-subtitle{font-size:16px}
   .portal-grid{
     grid-template-columns:repeat(2,1fr);
     gap:12px;
@@ -1386,8 +1387,8 @@ body{
     min-height:110px;
     border-radius:10px;
   }
-  .portal-card-label{font-size:21px}
-  .portal-card-en{font-size:11px}
+  .portal-card-label{font-size:19px;font-weight:700}
+  .portal-card-en{font-size:16px;font-weight:300}
   .portal-card-badge{font-size:9px;padding:1px 6px;top:4px;right:4px}
   .portal-footer{font-size:10px;line-height:1.8}
   .portal-logout{font-size:14px;color:#045C94}
@@ -1406,8 +1407,8 @@ body{
   .portal-hero .portal-subtitle{font-size:13px}
   .portal-grid{gap:8px}
   .portal-card{padding:16px 6px;min-height:96px}
-  .portal-card-label{font-size:18px}
-  .portal-card-en{font-size:10px}
+  .portal-card-label{font-size:16px;font-weight:700}
+  .portal-card-en{font-size:14px;font-weight:300}
 }
 
 /* ===== 人力资源制度模块 — UI Design v2 ===== */
@@ -1423,7 +1424,7 @@ body{
   box-shadow:0 2px 8px rgba(74,101,128,.15);
 }
 .policies-topbar-left{display:flex;align-items:center;gap:16px}
-.policies-topbar-logo{font-size:18px;font-weight:600;display:flex;align-items:center;gap:10px;white-space:nowrap}
+.policies-topbar-logo{font-size:19px;font-weight:600;display:flex;align-items:center;gap:10px;white-space:nowrap}
 .policies-topbar-logo .logo-icon{font-size:22px}
 .policies-search-box{
   position:relative;margin-left:24px;
@@ -1437,7 +1438,7 @@ body{
 .policies-search-box input:focus{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.5)}
 .policies-search-icon{
   position:absolute;left:12px;top:50%;transform:translateY(-50%);
-  font-size:15px;opacity:.6;pointer-events:none;
+  font-size:16px;opacity:.6;pointer-events:none;
 }
 .policies-topbar-right{display:flex;align-items:center;gap:12px}
 .policies-back-btn{
@@ -1499,7 +1500,7 @@ body{
   display:flex;align-items:center;justify-content:space-between;
   padding:20px 24px;border-bottom:1px solid #D3D1C7;
 }
-.policies-doc-header h2{font-size:18px;font-weight:500;color:#2C2C2A;margin:0;display:flex;align-items:center;gap:10px}
+.policies-doc-header h2{font-size:19px;font-weight:500;color:#2C2C2A;margin:0;display:flex;align-items:center;gap:10px}
 .policies-doc-actions{display:flex;align-items:center;gap:8px}
 .policies-action-btn{
   display:inline-flex;align-items:center;gap:5px;
@@ -1555,13 +1556,13 @@ body{
   height:100%;padding:64px 24px;text-align:center;
 }
 .policies-empty-icon{font-size:56px;margin-bottom:16px;opacity:.4}
-.policies-empty-title{font-size:15px;font-weight:500;color:#2C2C2A;margin-bottom:8px}
+.policies-empty-title{font-size:16px;font-weight:500;color:#2C2C2A;margin-bottom:8px}
 .policies-empty-desc{font-size:13px;color:#5F5E5A;margin-bottom:24px;max-width:400px;line-height:1.6}
 
 /* 联系人力资源卡片 */
 .policies-contact-info{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px}
 .policies-contact-card{background:#F5F5F0;border:1px solid #D3D1C7;border-radius:8px;padding:32px;max-width:480px;width:100%;text-align:center}
-.policies-contact-card h3{font-size:18px;font-weight:500;color:#2C2C2A;margin:0 0 8px}
+.policies-contact-card h3{font-size:19px;font-weight:500;color:#2C2C2A;margin:0 0 8px}
 .policies-contact-card p{font-size:13px;color:#5F5E5A;margin:0 0 16px;line-height:1.7}
 .policies-contact-methods{display:flex;flex-direction:column;gap:12px;margin-top:20px}
 .policies-contact-item{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#fff;border-radius:8px;font-size:13px;color:#2C2C2A;border:1px solid #D3D1C7}
@@ -1576,7 +1577,7 @@ body{
 }
 .policies-dropzone:hover,.policies-dropzone.drag-over{border-color:#185FA5;background:#E6F1FB}
 .policies-dropzone-icon{font-size:44px;margin-bottom:12px;opacity:.5}
-.policies-dropzone-title{font-size:15px;font-weight:500;color:#2C2C2A;margin-bottom:4px}
+.policies-dropzone-title{font-size:16px;font-weight:500;color:#2C2C2A;margin-bottom:4px}
 .policies-dropzone-desc{font-size:12px;color:#5F5E5A}
 .policies-dropzone-accepted{font-size:11px;color:#888780;margin-top:8px}
 .policies-file-info{display:flex;align-items:center;gap:8px;font-size:12px;color:#5F5E5A;padding:4px 0}
@@ -1609,7 +1610,7 @@ body{
   background:#185FA5;color:#fff;border:none;
   box-shadow:0 2px 12px rgba(24,95,165,.25);
   cursor:pointer;display:none;align-items:center;justify-content:center;
-  font-size:18px;z-index:200;transition:all .2s;
+  font-size:19px;z-index:200;transition:all .2s;
 }
 .policies-back-to-top:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(24,95,165,.35)}
 .policies-back-to-top.show{display:flex}
@@ -1633,7 +1634,7 @@ body{
   flex-shrink:0;overflow:hidden;
 }
 .jd-dept-header{
-  padding:16px 16px 8px;font-size:15px;font-weight:500;color:#2C2C2A;
+  padding:16px 16px 8px;font-size:16px;font-weight:500;color:#2C2C2A;
 }
 .jd-dept-select{
   position:relative;margin:0 16px 12px;
@@ -1801,7 +1802,7 @@ body{
   display:flex;align-items:center;justify-content:space-between;
   padding:14px 18px;border-bottom:1px solid #F0F0EC;
 }
-.import-header h3{font-size:15px;font-weight:600;color:#2C2C2A;margin:0}
+.import-header h3{font-size:16px;font-weight:600;color:#2C2C2A;margin:0}
 .import-close{
   width:28px;height:28px;border:none;background:none;
   font-size:20px;color:#888780;cursor:pointer;border-radius:50%;
@@ -1888,7 +1889,7 @@ body{
 /* ---- 响应式 ---- */
 @media(max-width:768px){
   .policies-topbar{padding:0 12px;height:48px}
-  .policies-topbar-logo{font-size:15px}
+  .policies-topbar-logo{font-size:16px}
   .policies-search-box{display:none}
   .policies-breadcrumb{padding:10px 12px;font-size:12px}
   .policies-layout{flex-direction:column}
@@ -1901,7 +1902,7 @@ body{
   .policies-nav-contact small{display:none}
   .policies-content{padding:12px}
   .policies-doc-header{padding:14px 16px}
-  .policies-doc-header h2{font-size:15px}
+  .policies-doc-header h2{font-size:16px}
   .policies-meta-card{padding:12px 16px;flex-direction:column;gap:4px}
   .policies-tabs{padding:0 12px;overflow-x:auto}
   .policies-tab{padding:8px 14px;font-size:12px}
@@ -1995,7 +1996,7 @@ body{
 .kpi-empty-title{font-size:16px;font-weight:500;margin-bottom:6px;color:var(--text-secondary)}
 .kpi-empty-desc{font-size:13px}
 
-.kpi-section-title{font-size:15px;font-weight:600;color:var(--text);margin:16px 0 8px;padding-bottom:6px;border-bottom:2px solid var(--primary)}
+.kpi-section-title{font-size:16px;font-weight:600;color:var(--text);margin:16px 0 8px;padding-bottom:6px;border-bottom:2px solid var(--primary)}
 .kpi-score-row{background:#F5F5F0!important;font-weight:600;font-size:12px}
 .kpi-table .kpi-score-row td{border-top:2px solid var(--primary);background:#F5F5F0!important}
 
@@ -2106,7 +2107,7 @@ body{
 .wp-table.merged-urgent tbody td:nth-child(6){position:sticky;left:466px;z-index:2;background:#FBF8F3;min-width:80px}
 .wp-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--text-hint);padding:16px 24px}
 .wp-empty-icon{font-size:48px;margin-bottom:16px;opacity:.5}
-.wp-empty-title{font-size:18px;font-weight:500;margin-bottom:8px;color:var(--text-secondary)}
+.wp-empty-title{font-size:19px;font-weight:500;margin-bottom:8px;color:var(--text-secondary)}
 .wp-empty-desc{font-size:13px;text-align:center;line-height:1.6}
 
 .wp-toolbar{display:flex;flex-wrap:wrap;gap:16px;padding:14px 0;margin-bottom:7px;border-bottom:1px solid var(--border);flex-shrink:0}
@@ -2114,14 +2115,14 @@ body{
 .wp-toolbar button{padding:8px 18px;border:1px solid #3B7DB4;border-radius:8px;background:#fff;color:#3B7DB4;font-size:13px;cursor:pointer;transition:all .15s ease;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:5px;font-weight:500;min-width:130px;box-shadow:none;line-height:1.4}
 .wp-toolbar button:hover{background:#E8F4FE;border-color:#2A6A9A;color:#2A6A9A}
 .wp-toolbar button:active{background:#D0E8FD;border-color:#004A9E}
-/* ★ V0.6.1.gw: 统一操作按钮 — font-size 13px + padding 8px 18px + 配色去透明度 */
+/* ★ V0.6.1.hs: 统一操作按钮 — font-size 13px + padding 8px 18px + 配色去透明度 */
 .wp-toolbar button.wp-btn-primary{background:#6D9D39;color:#fff;border-color:#6D9D39}
 .wp-toolbar button.wp-btn-primary:hover{background:rgba(109,157,57,.2);border-color:rgba(109,157,57,.25);color:#5a8530}
 .wp-toolbar button.wp-btn-summary{background:#289FB7;color:#fff;border-color:#289FB7}
 .wp-toolbar button.wp-btn-summary:hover{background:rgba(40,159,183,.2);border-color:rgba(40,159,183,.25);color:#1f7a8f}
 .wp-toolbar button.wp-btn-delete{background:#F07167;color:#fff;border-color:#F07167}
 .wp-toolbar button.wp-btn-delete:hover{background:rgba(240,113,103,.2);border-color:rgba(240,113,103,.25);color:#d65a52}
-/* ★ V0.6.1.gw: 导出按钮改幽灵风格（辅助操作不抢视觉焦点） */
+/* ★ V0.6.1.hs: 导出按钮改幽灵风格（辅助操作不抢视觉焦点） */
 .wp-toolbar button.wp-btn-export{background:#fff;color:#6B7280;border-color:#D1D5DB}
 .wp-toolbar button.wp-btn-export:hover{background:#F3F4F6;border-color:#9CA3AF;color:#374151}
 /* 统一禁用状态 */
@@ -2244,7 +2245,7 @@ body{
 .wp-table td.col-readonly{background:#FBF8F3;color:var(--text-hint);cursor:default}
 .wp-table input.wp-cell-input{width:100%;max-width:100%;border:1px solid #E2E4E7;border-radius:3px;padding:5px 6px;font-size:12px;outline:none;box-sizing:border-box;background:#fff;min-width:0;height:26px;line-height:1}
 .wp-table input.wp-cell-input:focus{border-color:var(--primary);box-shadow:0 0 0 2px rgba(24,90,165,.12)}
-/* V0.6.1.gw: 协同人chip input - 取消浏览器默认focus蓝色边框,改为极淡边框 */
+/* V0.6.1.hs: 协同人chip input - 取消浏览器默认focus蓝色边框,改为极淡边框 */
 .wp-table .supporter-chip-editor>input.wp-cell-input,.wp-table .supporter-chip-editor>input.wp-cell-input:focus{border:none!important;box-shadow:none!important;background:transparent!important;outline:none!important;padding:0!important}
 .wp-table td:focus-within{outline:none!important}
 .wp-table select.wp-cell-select{width:100%;max-width:100%;border:1px solid #E2E4E7;border-radius:3px;padding:4px;font-size:12px;outline:none;box-sizing:border-box;background:#fff;cursor:pointer;height:26px}
@@ -2294,11 +2295,132 @@ table.collab-table tbody tr:hover{background:#fffdf5}
 .wp-feedback-textarea[readonly]{background:var(--card-alt);color:var(--text-secondary);cursor:default}
 .wp-feedback-textarea::placeholder{color:var(--text-hint)}
 .wp-feedback-empty{display:flex;align-items:center;justify-content:center;min-height:60px;padding:12px 16px;color:var(--text-hint);font-size:13px;font-style:italic;background:var(--card-alt)}
+/* ===== Mood Selector 心情选择器 ===== */
+.wp-mood-selector{display:flex;align-items:center;gap:4px;padding:12px 16px;background:var(--card-alt);border-top:1px solid var(--border);user-select:none}
+.wp-mood-label{font-size:12px;color:var(--text-secondary);margin-right:6px;white-space:nowrap}
+.wp-mood-emoji{width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;font-size:22px;border-radius:50%;cursor:pointer;transition:all .2s cubic-bezier(.4,0,.2,1);border:2px solid transparent;position:relative;line-height:1;opacity:.38;filter:grayscale(100%)}
+.wp-mood-emoji:hover{opacity:.75;filter:grayscale(50%);transform:translateY(-2px);background:var(--card)}
+.wp-mood-emoji.mood-selected{opacity:1;filter:grayscale(0);transform:scale(1.08);border-color:var(--border)}
+.wp-mood-emoji.mood-happy.mood-selected{background:#FFF8E1;border-color:#FFB300}
+.wp-mood-emoji.mood-calm.mood-selected{background:#E3F2FD;border-color:#3B82F6}
+.wp-mood-emoji.mood-tired.mood-selected{background:#F3F4F6;border-color:#9CA3AF}
+.wp-mood-emoji.mood-pain.mood-selected{background:#FEF2F2;border-color:#EF4444}
+.wp-mood-emoji.mood-silent.mood-selected{background:#EEF2FF;border-color:#818CF8}
+.wp-mood-emoji::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%) translateY(4px);font-size:10px;color:#fff;background:rgba(0,0,0,.75);padding:3px 8px;border-radius:4px;white-space:nowrap;pointer-events:none;opacity:0;transition:all .15s}
+.wp-mood-emoji:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
+.wp-mood-display{display:inline-flex;align-items:center;gap:4px;font-size:13px;color:var(--text);font-weight:500;padding:12px 16px;border-top:1px solid var(--border)}
+.wp-mood-display-emoji{font-size:20px;line-height:1}
+.wp-mood-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-left:2px;vertical-align:middle}
+.wp-mood-dot.mood-happy{background:#FFB300}
+.wp-mood-dot.mood-calm{background:#3B82F6}
+.wp-mood-dot.mood-tired{background:#9CA3AF}
+.wp-mood-dot.mood-pain{background:#EF4444}
+.wp-mood-dot.mood-silent{background:#818CF8}
+/* ===== Medal Selector 奖牌选择器 ===== */
+.wp-rating-selector{display:flex;align-items:center;gap:4px;padding:12px 16px;background:var(--card-alt);border-top:1px solid var(--border);user-select:none}
+.wp-rating-label{font-size:12px;color:var(--text-secondary);margin-right:6px;white-space:nowrap}
+.wp-rating-emoji{width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;font-size:22px;border-radius:50%;cursor:pointer;transition:all .2s cubic-bezier(.4,0,.2,1);border:2px solid transparent;position:relative;line-height:1;opacity:.38;filter:grayscale(100%)}
+.wp-rating-emoji:hover{opacity:.75;filter:grayscale(50%);transform:translateY(-2px);background:var(--card)}
+.wp-rating-emoji.rating-selected{opacity:1;filter:grayscale(0);transform:scale(1.08);border-color:var(--border)}
+.wp-rating-emoji.rating-gold.rating-selected{background:#FFF8E1;border-color:#FFB300}
+.wp-rating-emoji.rating-silver.rating-selected{background:#F3F4F6;border-color:#9CA3AF}
+.wp-rating-emoji.rating-bronze.rating-selected{background:#FFF7ED;border-color:#D97706}
+.wp-rating-emoji.rating-warn.rating-selected{background:#FEF3C7;border-color:#F59E0B}
+.wp-rating-emoji.rating-danger.rating-selected{background:#FEF2F2;border-color:#EF4444}
+.wp-rating-emoji::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%) translateY(4px);font-size:10px;color:#fff;background:rgba(0,0,0,.75);padding:3px 8px;border-radius:4px;white-space:nowrap;pointer-events:none;opacity:0;transition:all .15s}
+.wp-rating-emoji:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
+.wp-rating-display{display:inline-flex;align-items:center;gap:4px;font-size:13px;color:var(--text);font-weight:500;padding:12px 16px;border-top:1px solid var(--border)}
+.wp-rating-display-emoji{font-size:20px;line-height:1}
+.wp-rating-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-left:2px;vertical-align:middle}
+.wp-rating-dot.rating-gold{background:#FFB300}
+.wp-rating-dot.rating-silver{background:#9CA3AF}
+.wp-rating-dot.rating-bronze{background:#D97706}
+.wp-rating-dot.rating-warn{background:#F59E0B}
+.wp-rating-dot.rating-danger{background:#EF4444}
 .wp-summary-bar{display:flex;gap:12px;padding:10px 12px;margin-top:7px;background:#FBF8F3;border:none;flex-shrink:0;flex-wrap:wrap}
 .wp-summary-item{display:flex;align-items:center;gap:6px;font-size:12px}
 .wp-summary-label{color:#6b7280}
 .wp-summary-value{font-weight:600;color:var(--primary)}
 .wp-summary-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:500}
+
+/* ===== 数据中心 Dashboard ===== */
+.ds-grid{display:flex;flex-direction:column;gap:20px;width:100%}
+/* ★ V0.6.1.hx: Hero 4 大提交率卡片（年度×计划/小结 + 上周×计划/小结） */
+.ds-hero-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:8px}
+.ds-hero-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 18px;box-shadow:var(--shadow-sm);transition:all .2s;position:relative;overflow:hidden}
+.ds-hero-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.ds-hero-title{font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:10px;letter-spacing:.2px}
+.ds-hero-num{font-size:34px;font-weight:800;line-height:1;margin-bottom:8px;letter-spacing:-1.5px;display:flex;align-items:baseline;gap:2px}
+.ds-hero-pct{font-size:20px;font-weight:600;opacity:.7;margin-left:2px}
+.ds-hero-sub{font-size:12px;color:var(--text-hint);margin-bottom:12px}
+.ds-hero-bar{height:6px;border-radius:3px;background:#F3F4F6;overflow:hidden;margin-top:8px}
+.ds-hero-bar>div{height:100%;border-radius:3px;transition:width .8s ease}
+/* ★ V0.6.1.im: 左右50/50两栏（评价分布 + 心情统计） */
+.ds-halves-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:4px 0}
+@media(max-width:1024px){.ds-halves-row{grid-template-columns:1fr}}
+/* 评价分布独立面板 */
+.ds-rating-panel{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow-sm)}
+.ds-rating-panel-head{font-size:14px;font-weight:600;color:var(--text);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+.ds-rating-panel-head:hover{color:var(--brand-tech)}
+.ds-rating-panel-toggle{font-size:12px;color:var(--text-hint);font-weight:400;transition:all .2s;user-select:none}
+.ds-rating-panel-head:hover .ds-rating-panel-toggle{color:var(--brand-tech)}
+.ds-rating-panel-sub{font-size:12px;color:var(--text-hint);font-weight:400;margin-left:4px}
+.ds-rating-panel-foot{font-size:12px;color:var(--text-secondary);margin-top:12px;padding-top:10px;border-top:1px solid var(--border);text-align:right}
+/* 收起时隐藏 body 内容 */
+.ds-rating-panel.ds-rating-collapsed .ds-rating-panel-body{display:none}
+.ds-rating-panel.ds-rating-collapsed .ds-rating-panel-head{margin-bottom:0}
+/* 兼容旧样式（保留以防其他模块引用） */
+.ds-cards-row{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.ds-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 10px;text-align:center;transition:all .2s}
+.ds-card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
+.ds-card.ds-card-gold{background:linear-gradient(135deg,#FFF8E1,#FFECB3);border-color:#FFB300}
+.ds-card.ds-card-silver{background:linear-gradient(135deg,#F3F4F6,#E5E7EB);border-color:#9CA3AF}
+.ds-card.ds-card-amber{background:linear-gradient(135deg,#FFF7ED,#FED7AA);border-color:#FB923C}
+.ds-card.ds-card-blue{background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border-color:#93C5FD}
+.ds-card.ds-card-green{background:linear-gradient(135deg,#ECFDF5,#D1FAE5);border-color:#6EE7B7}
+.ds-card-num{font-size:24px;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:-0.5px}
+.ds-card-label{font-size:12.5px;color:var(--text-secondary);font-weight:500}
+.ds-filter-bar{display:flex;align-items:center;gap:10px;padding:14px 18px;background:var(--card);border:1px solid var(--border);border-radius:10px;flex-wrap:wrap}
+.ds-select{padding:7px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:var(--bg);color:var(--text);cursor:pointer;outline:none;min-width:130px}
+.ds-select:focus{border-color:var(--primary);box-shadow:0 0 0 2px rgba(59,125,180,.12)}
+.ds-table-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border);background:var(--card)}
+.ds-table{width:100%;border-collapse:collapse;font-size:13px;line-height:1.4}
+.ds-table th{background:#F8FAFB;color:var(--text-secondary);font-weight:600;font-size:12px;padding:6px 10px;text-align:left;border-bottom:2px solid var(--border);white-space:nowrap}
+.ds-table td{padding:6px 10px;border-bottom:1px solid var(--border);vertical-align:middle}
+.ds-table tbody tr:hover{background:#f0f7ff}
+.ds-table tbody tr:last-child td{border-bottom:none}
+/* ===== 左侧导航 ===== */
+.ds-nav-item{display:flex;align-items:center;gap:9px;padding:9px 14px;cursor:pointer;transition:all .15s;border-left:3px solid transparent;font-size:13px;color:var(--text-secondary);margin:0 8px;border-radius:0 6px 6px 0;user-select:none}
+.ds-nav-item:hover{background:#f3f4f6;color:var(--text)}
+.ds-nav-item.ds-nav-active{background:#EFF6FF;color:#1B6EC4;font-weight:600;border-left-color:#3B7DB4}
+.ds-nav-section-title{font-size:13px;font-weight:600;color:var(--text-secondary);padding:6px 18px 4px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);margin-bottom:6px;background:#fafbfc}
+.ds-nav-item .ds-nav-icon{font-size:16px;width:22px;text-align:center}
+.ds-nav-sep{height:1px;background:var(--border);margin:8px 16px}
+.ds-nav-group{font-size:11px;color:var(--text-hint);padding:8px 16px 4px 16px;text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-left:8px}
+/* ===== 圆饼图 ===== */
+.ds-donuts{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:20px 0}
+.ds-donut-card{text-align:center;padding:20px 12px;background:var(--card);border:1px solid var(--border);border-radius:12px;transition:all .2s}
+.ds-donut-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.ds-donut-card svg{display:block;margin:0 auto}
+.ds-donut-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px}
+.ds-donut-sub{font-size:11px;color:var(--text-secondary)}
+/* ===== 迷你统计模块 ===== */
+.ds-stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:16px 0}
+.ds-stat-module{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;transition:all .2s}
+.ds-stat-module:hover{box-shadow:var(--shadow-sm)}
+.ds-stat-head{font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:8px}
+.ds-stat-num{font-size:22px;font-weight:700;margin-bottom:4px}
+.ds-stat-detail{font-size:11px;color:var(--text-hint);margin-bottom:6px}
+.ds-stat-bar{height:3px;border-radius:1.5px;background:var(--border);overflow:hidden;margin-top:6px}
+.ds-stat-bar>div{height:100%;border-radius:1.5px;transition:width .8s ease}
+.ds-rating-bars{display:flex;flex-direction:column;gap:5px}
+.ds-rating-row{display:flex;align-items:center;gap:6px;font-size:11px}
+.ds-rating-row .ds-r-label{width:24px;text-align:center}
+.ds-rating-row .ds-r-count{width:28px;text-align:right;color:var(--text-secondary)}
+.ds-rating-row .ds-r-bar{flex:1;height:6px;border-radius:3px;overflow:hidden;background:#f3f4f6}
+.ds-rating-row .ds-r-bar>div{height:100%;border-radius:3px;transition:width .8s ease}
+@media(max-width:1024px){.ds-donuts{grid-template-columns:repeat(2,1fr)}.ds-stats-row{grid-template-columns:repeat(2,1fr)}.ds-cards-row{grid-template-columns:repeat(3,1fr)}.ds-hero-row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){#dsNav{width:140px!important}.ds-cards-row{grid-template-columns:repeat(2,1fr)}.ds-hero-row{grid-template-columns:repeat(2,1fr)}.ds-filter-bar{flex-direction:column;align-items:flex-start}.ds-donuts{grid-template-columns:1fr}.ds-hero-num{font-size:36px}}
 
 /* ★ V0.3.74: 卡片仪表盘 */
 .wp-cards-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:6px 0 4px 0}
@@ -2313,14 +2435,14 @@ table.collab-table tbody tr:hover{background:#fffdf5}
 .wp-progress-card{grid-column:1/-1}
 .wp-progress-row{display:flex;align-items:center;gap:6px;margin:3px 0}
 .wp-progress-label{font-size:10px;color:#4b5563;width:64px;flex-shrink:0;text-align:right;display:flex;align-items:center;justify-content:flex-end;gap:4px}
-.wp-progress-bar-wrap{flex:1;height:10px;background:#e5e7eb;border-radius:5px;overflow:hidden;position:relative}
-.wp-progress-bar-fill{height:100%;background:linear-gradient(90deg,#4DD1FF,#9DDEF7);border-radius:0 5px 5px 0;transition:width .4s ease}
+.wp-progress-bar-wrap{flex:1;height:5px;background:#e5e7eb;border-radius:2.5px;overflow:hidden;position:relative}
+.wp-progress-bar-fill{height:100%;background:linear-gradient(90deg,#4DD1FF,#9DDEF7);border-radius:0 2.5px 2.5px 0;transition:width .4s ease}
 .wp-progress-num{font-size:10px;color:#6b7280;width:64px;flex-shrink:0;white-space:nowrap}
 .wp-card-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:500;background:#EEF1F5;color:#2A476A}
 .wp-card-tag.green,.wp-card-tag.blue,.wp-card-tag.red,.wp-card-tag.gray{background:#EEF1F5;color:#2A476A}
 .wp-card-score-row{display:flex;justify-content:space-between;align-items:center;padding:3px 0}
 .wp-card-score-label{color:#6b7280;font-size:11px}
-.wp-card-score-val{color:#2A476A;font-family:system-ui;font-size:15px}
+.wp-card-score-val{color:#2A476A;font-family:system-ui;font-size:16px}
 .wp-card-score-bold{font-weight:700;font-size:16px;color:#2A476A}
 .wp-card-divider{border-top:1px solid #e5e7eb;margin:5px 0;padding-top:5px}
 /* ★ V0.5.0: 艾森豪威尔矩阵 */
@@ -2348,7 +2470,7 @@ table.collab-table tbody tr:hover{background:#fffdf5}
 .wp-eval-modal.show{display:flex}
 .wp-eval-card{background:#fff;border-radius:8px;width:90%;max-width:560px;max-height:80vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.15)}
 .wp-eval-header{padding:10px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-shrink:0;gap:12px}
-.wp-eval-header h3{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
+.wp-eval-header h3{font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
 .wp-eval-header-actions{display:flex;gap:8px;align-items:center;flex-shrink:0}
 .wp-eval-header-actions button{padding:6px 14px;border-radius:6px;font-size:12px;cursor:pointer;font-weight:500}
 .wp-eval-close{width:28px;height:28px;border:none;border-radius:50%;background:#F2F2F2;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -2357,7 +2479,7 @@ table.collab-table tbody tr:hover{background:#fffdf5}
 /* ★ V0.1.94: 自定义居中确认弹窗 (alert-modal-design Skill v1.0) */
 ._confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:9999;display:flex;align-items:center;justify-content:center}
 ._confirm-card{background:rgba(255,255,255,.8);backdrop-filter:blur(10px);border-radius:12px;width:480px;max-width:90vw;box-shadow:0 12px 40px rgba(0,0,0,.2);overflow:hidden}
-._confirm-title{padding:28px 24px 12px;font-size:15px;font-weight:600;color:#1f2937;border-bottom:1px solid #e5e7eb}
+._confirm-title{padding:28px 24px 12px;font-size:16px;font-weight:600;color:#1f2937;border-bottom:1px solid #e5e7eb}
 ._confirm-body{padding:10px 28px 20px;font-size:14px;color:#6b7280;line-height:1;white-space:pre-line;word-break:break-word}
 ._confirm-actions{padding:14px 28px 20px;display:flex;justify-content:flex-end;gap:12px;border-top:1px solid #e5e7eb}
 ._confirm-btn-cancel{padding:10px 40px;border:1px solid #d1d5db;border-radius:8px;background:#fff;color:#6b7280;font-size:14px;cursor:pointer;min-width:100px}
@@ -2414,7 +2536,7 @@ table.collab-table tbody tr:hover{background:#fffdf5}
 .sys-user-table td.sys-td-left{text-align:left}
 .sys-user-table tbody tr:hover{background:#f0f7ff}
 .sys-user-table tbody tr:last-child td{border-bottom:none}
-/* ★ V0.6.1.gw: 前7列固定（中心→下属），从"人才团队"开始可横向滚动 */
+/* ★ V0.6.1.hs: 前7列固定（中心→下属），从"团队"开始可横向滚动 */
 .sys-user-table .sys-col-center,.sys-user-table .sys-col-dept,.sys-user-table .sys-col-name,.sys-user-table .sys-col-position,.sys-user-table .sys-col-uid,.sys-user-table .sys-col-action,.sys-user-table .sys-col-sub{position:sticky;background:var(--card);z-index:1;border-right:1px solid var(--border)}
 .sys-user-table thead .sys-col-center,.sys-user-table thead .sys-col-dept,.sys-user-table thead .sys-col-name,.sys-user-table thead .sys-col-position,.sys-user-table thead .sys-col-uid,.sys-user-table thead .sys-col-action,.sys-user-table thead .sys-col-sub{background:#3B7DB4;z-index:4}
 .sys-user-table .sys-col-center{left:0px;min-width:90px}
@@ -2434,7 +2556,7 @@ table.collab-table tbody tr:hover{background:#fffdf5}
 .sys-perm-no{color:var(--text-hint);font-size:13px}
 .sys-perm-toggle{cursor:pointer;padding:2px 6px;border-radius:4px;transition:all .15s;display:inline-block;border:1px solid transparent;user-select:none}
 .sys-perm-toggle:hover{background:rgba(5,150,105,.08);border-color:rgba(5,150,105,.2)}
-/* ★ V0.6.1.gw: 未上线模块单元格灰色 */
+/* ★ V0.6.1.hs: 未上线模块单元格灰色 */
 .sys-perm-offline{background:#E5E7EB !important;color:#9CA3AF !important;cursor:not-allowed}
 .sys-perm-offline .sys-perm-toggle{cursor:not-allowed;color:#9CA3AF !important;background:transparent !important;border-color:transparent !important}
 .sys-perm-offline:hover{background:#D1D5DB !important}
@@ -2477,8 +2599,8 @@ select.form-input{padding-right:28px;appearance:auto;-webkit-appearance:menulist
 </head>
 <body>
 
-<!-- ★ V0.6.1.gw: 版本号左下、提示窗右下，同一水平线 bottom:24px -->
-<!-- ★ V0.6.1.gw: 版本号徽章 — 改深色毛玻璃（白/深色背景都可见，避开 iOS Safari 底部工具栏） -->
+<!-- ★ V0.6.1.hs: 版本号左下、提示窗右下，同一水平线 bottom:24px -->
+<!-- ★ V0.6.1.hs: 版本号徽章 — 改深色毛玻璃（白/深色背景都可见，避开 iOS Safari 底部工具栏） -->
 <div id="appVersionBadge" style="position:fixed;left:24px;bottom:max(24px,env(safe-area-inset-bottom));z-index:9999;font-size:11px;color:#fff;font-family:'SF Mono',Menlo,Monaco,Consolas,monospace;pointer-events:none;user-select:none;line-height:1.4">
   <span id="appVersionBadgeText" style="background:rgba(0,0,0,.25);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:6px 14px;border-radius:24px;border:1px solid rgba(255,255,255,.2);box-shadow:0 2px 10px rgba(0,0,0,.15)"></span>
 </div>
@@ -2552,17 +2674,17 @@ function togglePortalTips(){
       <div class="portal-card-en">3-Year Plan</div>
       <div class="portal-card-badge">In Progress</div>
     </div>
-    <div id="portalCard_kpi" class="portal-card" data-module="kpi" style="display:none" data-tip-head="年度目标" data-tip-cn="设定年度关键绩效目标，将公司战略层层分解到部门与个人。目标驱动的管理确保上下对齐、聚焦重点。" data-tip-en="Set annual key performance goals, decompose company strategy to departments and individuals. Goal-driven management ensures alignment and focus." onclick="enterModule('kpi')">
-      <div class="portal-card-label">年度目标</div>
+    <div id="portalCard_kpi" class="portal-card" data-module="kpi" style="display:none" data-tip-head="本年目标" data-tip-cn="设定年度关键绩效目标，将公司战略层层分解到部门与个人。目标驱动的管理确保上下对齐、聚焦重点。" data-tip-en="Set annual key performance goals, decompose company strategy to departments and individuals. Goal-driven management ensures alignment and focus." onclick="enterModule('kpi')">
+      <div class="portal-card-label">本年目标</div>
       <div class="portal-card-en">Annual Goals</div>
     </div>
-    <div id="portalCard_mbo" class="portal-card" data-module="mbo" style="display:none" data-tip-head="当周行动" data-tip-cn="团队目标计划管理下沉到周，公司运营效率和绩效才有扎实根基。借助信息化系统内嵌管理规则与约束机制，用系统自动追踪跟进员工计划进度，优于管理者反复催促督办。一个人如果周计划长期落实不到位，其绩效表现大概率不会理想。" data-tip-en="Weekly team goal management underpins operational efficiency and performance management. An information system auto-tracks task progress instead of frequent managerial chasing. Persistent failure on weekly plans usually leads to poor performance." onclick="enterModule('workplan')">
-      <div class="portal-card-label">当周行动</div>
+    <div id="portalCard_mbo" class="portal-card" data-module="mbo" style="display:none" data-tip-head="本周任务" data-tip-cn="团队目标计划管理下沉到周，公司运营效率和绩效才有扎实根基。借助信息化系统内嵌管理规则与约束机制，用系统自动追踪跟进员工计划进度，优于管理者反复催促督办。一个人如果周计划长期落实不到位，其绩效表现大概率不会理想。" data-tip-en="Weekly team goal management underpins operational efficiency and performance management. An information system auto-tracks task progress instead of frequent managerial chasing. Persistent failure on weekly plans usually leads to poor performance." onclick="enterModule('workplan')">
+      <div class="portal-card-label">本周任务</div>
       <div class="portal-card-en">Weekly To-Do</div>
     </div>
-    <div id="portalCard_rd" class="portal-card portal-card-orange disabled" data-module="rd" style="display:none" data-tip-head="本月计划" data-tip-cn="承上启下的月度计划管理，将年度目标分解为月度里程碑，确保战略执行不脱节。" data-tip-en="Monthly plan management bridging annual and weekly goals. Decompose annual targets into monthly milestones to ensure strategic execution continuity." onclick="moduleBuilding()">
+    <div id="portalCard_rd" class="portal-card portal-card-orange disabled" data-module="rd" style="display:none" data-tip-head="本月计划" data-tip-cn="承上启下的月度计划管理，将本年目标分解为月度里程碑，确保战略执行不脱节。" data-tip-en="Monthly plan management bridging annual and weekly goals. Decompose annual targets into monthly milestones to ensure strategic execution continuity." onclick="moduleBuilding()">
       <div class="portal-card-label">本月计划</div>
-      <div class="portal-card-en">Month Plan</div>
+      <div class="portal-card-en">Monthly Plan</div>
       <div class="portal-card-badge">In Progress</div>
     </div>
     <div id="portalCard_decision2" class="portal-card portal-card-orange disabled" data-module="decision" style="display:none" data-tip-head="三年规划" data-tip-cn="制定公司中长期三年战略规划，分解战略目标并追踪执行进度。科学规划引领公司稳健发展。" data-tip-en="Formulate three-year strategic planning for the company, decompose strategic goals and track execution progress. Scientific planning guides steady company development." onclick="moduleBuilding()">
@@ -2570,9 +2692,9 @@ function togglePortalTips(){
       <div class="portal-card-en">3-Year Plan</div>
       <div class="portal-card-badge">In Progress</div>
     </div>
-    <div id="portalCard_hr" class="portal-card" data-module="hr" style="display:none" data-tip-head="人才团队" data-tip-cn="管理团队信息、人员档案与组织架构。清晰的组织脉络与人才盘点是高效管理的基础。" data-tip-en="Manage team information, personnel files and organizational structure. Clear organizational mapping and talent inventory are the foundation of efficient management." onclick="enterModule('hr')">
-      <div class="portal-card-label">人才团队</div>
-      <div class="portal-card-en">Talent Team</div>
+    <div id="portalCard_hr" class="portal-card" data-module="hr" style="display:none" data-tip-head="团队" data-tip-cn="管理团队信息、人员档案与组织架构。清晰的组织脉络与人才盘点是高效管理的基础。" data-tip-en="Manage team information, personnel files and organizational structure. Clear organizational mapping and talent inventory are the foundation of efficient management." onclick="enterModule('hr')">
+      <div class="portal-card-label">团队</div>
+      <div class="portal-card-en">Teams</div>
     </div>
     <div id="portalCard_talent" class="portal-card" data-module="pm" style="display:none" data-tip-head="项目管理" data-tip-cn="全生命周期项目管理，从立项、执行到验收闭环跟踪。提升项目交付效率与质量，确保按时按质完成。" data-tip-en="Full-lifecycle project management, from initiation to execution to closure tracking. Improve project delivery efficiency and quality, ensuring on-time completion." onclick="enterModule('pm')">
       <div class="portal-card-label">项目管理</div>
@@ -2583,28 +2705,27 @@ function togglePortalTips(){
       <div class="portal-card-en">Decision Tool</div>
       <div class="portal-card-badge">In Progress</div>
     </div>
-    <div id="portalCard_dashboard" class="portal-card portal-card-orange disabled" data-module="dashboard" style="display:none" data-tip-head="数据中心" data-tip-cn="公司核心数据汇聚与分析平台，为各业务模块提供数据支撑与决策依据。数据驱动让管理更精准。" data-tip-en="Company data aggregation and analytics platform, providing data support and decision basis for all business modules. Data-driven management for precision." onclick="moduleBuilding()">
-      <div class="portal-card-label">数据中心</div>
-      <div class="portal-card-en">Data Center</div>
-      <div class="portal-card-badge">In Progress</div>
-    </div>
-    <div id="portalCard_learning" class="portal-card disabled" data-module="learning" style="display:none" data-tip-head="岗位胜任力" data-tip-cn="建立岗位能力模型与胜任力标准，评估员工岗位匹配度与发展潜力。人岗匹配是组织效能的基石。" data-tip-en="Build job competency models and standards, evaluate employee-job fit and development potential. Right people in right roles is the foundation of organizational effectiveness." onclick="moduleBuilding()">
-      <div class="portal-card-label">岗位胜任力</div>
-      <div class="portal-card-en">Job Competency</div>
+    <div id="portalCard_learning" class="portal-card disabled" data-module="learning" style="display:none" data-tip-head="职业生涯" data-tip-cn="建立岗位能力模型与胜任力标准，评估员工岗位匹配度与发展潜力。人岗匹配是组织效能的基石。" data-tip-en="Build job competency models and standards, evaluate employee-job fit and development potential. Right people in right roles is the foundation of organizational effectiveness." onclick="moduleBuilding()">
+      <div class="portal-card-label">职业生涯</div>
+      <div class="portal-card-en">IDP</div>
       <div class="portal-card-badge">In Progress</div>
     </div>
     <div id="portalCard_policies" class="portal-card" data-module="policies" style="display:none" data-tip-head="体系流程" data-tip-cn="管理公司制度、流程与标准化文档。完善的制度体系是规范化运营与风险管控的基础保障。" data-tip-en="Manage company policies, processes and standardized documents. Sound system frameworks are the foundation for standardized operations and risk control." onclick="enterModule('policies')">
       <div class="portal-card-label">体系流程</div>
-      <div class="portal-card-en">System &amp; Process</div>
+      <div class="portal-card-en">Process</div>
     </div>
     <div id="portalCard_ideas" class="portal-card portal-card-orange disabled" data-module="ideas" style="display:none" data-tip-head="敬业度" data-tip-cn="员工敬业度测评与分析，识别团队活力与留任风险。高敬业度团队是业务持续增长的驱动力。" data-tip-en="Employee engagement assessment and analysis, identifying team vitality and retention risks. Highly engaged teams drive sustainable business growth." onclick="moduleBuilding()">
       <div class="portal-card-label">敬业度</div>
-      <div class="portal-card-en">Engagement Driver</div>
+      <div class="portal-card-en">Q12</div>
       <div class="portal-card-badge">In Progress</div>
     </div>
     <div id="portalCard_maintenance" class="portal-card portal-card-special" data-module="maintenance" style="display:none" data-tip-head="系统维护" data-tip-cn="系统配置与维护中心。管理员可在此进行系统设置、数据管理与权限配置，保障系统稳定运行。" data-tip-en="System configuration and maintenance center. Administrators can manage settings, data and permissions to ensure stable system operation." onclick="enterModule('system')">
       <div class="portal-card-label">系统维护</div>
-      <div class="portal-card-en">System Maintenance</div>
+      <div class="portal-card-en">Settings</div>
+    </div>
+    <div id="portalCard_dashboard" class="portal-card" data-module="dashboard" style="display:none" data-tip-head="数据中心" data-tip-cn="实时积分排名与提交率统计。支持按角色、中心、时间范围灵活筛选，为管理层提供数据驱动的决策依据。" data-tip-en="Real-time score ranking and submission analytics. Flexible filtering by role, center and time range, providing data-driven insights for management decisions." onclick="enterModule('dashboard')">
+      <div class="portal-card-label">数据中心</div>
+      <div class="portal-card-en">Data Center</div>
     </div>
   </div>
   <!-- ★ V0.5.112→抽屉式改造: 顶部抽屉式信息面板 -->
@@ -2620,7 +2741,8 @@ function togglePortalTips(){
     如果使用过程中有任何问题，请咨询人力资源部<br>
     <span id="footer-copy">&copy; Tiger-Buddy+AI 版权所有</span>
   </div>
-  <!-- ★ V0.6.1.gw: 提示窗开关移至右下角，与版本号同一水平线 bottom:24px -->
+
+  <!-- ★ V0.6.1.hs: 提示窗开关移至右下角，与版本号同一水平线 bottom:24px -->
   <div id="portalTipToggle" style="position:fixed;right:24px;bottom:24px;z-index:10000;font-size:11px;color:rgba(255,255,255,.55);font-family:-apple-system,'苹方',sans-serif;display:flex;align-items:center;gap:6px" onclick="togglePortalTips()" title="关闭后鼠标悬停模块不弹窗">
     <span>提示窗</span>
     <span id="portalTipSlider"><span id="portalTipKnob"></span></span>
@@ -2633,8 +2755,8 @@ function togglePortalTips(){
 <div class="header">
   <div class="header-inner">
     <div>
-        <h1>人才团队</h1>
-        <div style="font-size:13px;color:rgba(255,255,255,.55);margin-top:2px;letter-spacing:.3px">Talent Team</div>
+        <h1>团队</h1>
+        <div style="font-size:13px;color:rgba(255,255,255,.55);margin-top:2px;letter-spacing:.3px">Teams</div>
         <div class="header-sub" id="headerUser">随时随地查询员工信息</div>
       </div>
     <div style="display:flex;flex-direction:column;align-items:flex-end;gap:16px">
@@ -2772,7 +2894,7 @@ function togglePortalTips(){
     <div class="policies-topbar-logo">
       <span class="logo-icon">📋</span>
       <span>体系流程</span>
-      <span style="font-size:13px;color:rgba(255,255,255,.55);margin-left:8px;letter-spacing:.3px;font-weight:400">System &amp; Process</span>
+      <span style="font-size:13px;color:rgba(255,255,255,.55);margin-left:8px;letter-spacing:.3px;font-weight:400">Process</span>
     </div>
     <div class="policies-search-box">
       <span class="policies-search-icon">🔍</span>
@@ -2940,6 +3062,25 @@ function togglePortalTips(){
   </div>
 </div>
 
+<!-- ===== 数据中心模块 ===== -->
+<div id="dashboardView" style="display:none;flex-direction:column;height:100vh;background:var(--bg)">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--border);background:var(--card);flex-shrink:0">
+    <div style="display:flex;align-items:center;gap:12px">
+      <h1 style="font-size:16px;font-weight:600;color:var(--text);margin:0">📊 数据中心</h1>
+      <span style="font-size:13px;color:var(--text-secondary)">Data Center</span>
+    </div>
+    <button class="btn btn-return-mbo" onclick="goHome()" style="margin:0">← 返回首页</button>
+  </div>
+  <div style="display:flex;flex:1;overflow:hidden">
+    <div id="dsNav" style="width:200px;flex-shrink:0;border-right:1px solid var(--border);background:var(--card);overflow-y:auto;padding:12px 0">
+      <div id="dsNavItems"></div>
+    </div>
+    <div id="dashboardContent" style="flex:1;overflow-y:auto;padding:24px">
+      <div style="text-align:center;padding:60px;color:var(--text-hint)">加载中...</div>
+    </div>
+  </div>
+</div>
+
 <!-- ===== MBO模块 ===== -->
 <div id="workPlanView" style="display:none;flex-direction:column;height:100vh;">
   <div class="wp-topbar">
@@ -3100,7 +3241,7 @@ function togglePortalTips(){
       <div class="header-inner">
         <div>
           <h1>系统维护</h1>
-          <div style="font-size:13px;color:rgba(255,255,255,.55);margin-top:2px;letter-spacing:.3px">System Maintenance</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.55);margin-top:2px;letter-spacing:.3px">Settings</div>
           <div class="header-sub" id="sysHeaderUser">用户权限管理</div>
         </div>
         <div style="display:flex;gap:8px">
@@ -3134,12 +3275,12 @@ function togglePortalTips(){
             <th class="sys-col-uid">用户名</th>
             <th class="sys-col-action" style="width:70px">编辑</th>
             <th class="sys-col-sub">下属</th>
-            <th class="sys-col-module">人才团队</th>
+            <th class="sys-col-module">团队</th>
             <th class="sys-col-module" style="color:rgba(255,255,255,.7)">编辑档案</th>
-            <th class="sys-col-module">当周行动</th>
-            <th class="sys-col-module">年度目标</th>
+            <th class="sys-col-module">本周任务</th>
+            <th class="sys-col-module">本年目标</th>
             <th class="sys-col-module">项目管理</th>
-            <th class="sys-col-module">岗位胜任力</th>
+            <th class="sys-col-module">职业生涯</th>
             <th class="sys-col-module">决策工具</th>
             <th class="sys-col-module">敬业度</th>
             <th class="sys-col-module">体系流程</th>
@@ -3208,6 +3349,7 @@ function togglePortalTips(){
               <option value="data_admin">数据管理员</option>
               <option value="senior">高层</option>
               <option value="center_head">中心负责人</option>
+              <option value="middle_manager">中层（经理级）</option>
               <option value="staff">普通员工</option>
             </select>
           </div>
@@ -3254,10 +3396,10 @@ function togglePortalTips(){
       <div style="max-height:400px;overflow-y:auto;border:1px solid var(--border);border-radius:6px" id="sysSubList">
         <div style="padding:20px;text-align:center;color:#797973">加载中...</div>
       </div>
-      <div style="margin-top:14px;padding:10px 14px;background:#F0F5FF;border-radius:6px;font-size:12px;color:#797973;display:flex;gap:16px">
-        <span>🟢 直属下属 — MBO/KPI中可查看、评价、修改</span>
-        <span>🔵 间接下属—MBO/KPI中可查看、修改但一般不建议隔级修改</span>
-        <span>⚪ 无 — 不关联</span>
+      <div style="margin-top:14px;padding:10px 14px;background:#F0F5FF;border-radius:6px;font-size:12px;color:#797973;display:flex;gap:16px;align-items:center">
+        <span style="display:inline-flex;align-items:center;gap:5px"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#10B981;box-shadow:0 0 0 2px rgba(16,185,129,.2)"></span>直属下属 — MBO/KPI中可查看、评价、修改</span>
+        <span style="display:inline-flex;align-items:center;gap:5px"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#3B82F6;box-shadow:0 0 0 2px rgba(59,130,246,.2)"></span>间接下属—MBO/KPI中可查看、修改但一般不建议隔级修改</span>
+        <span style="display:inline-flex;align-items:center;gap:5px"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#D1D5DB"></span>无 — 不关联</span>
       </div>
     </div>
   </div>
@@ -3360,14 +3502,18 @@ var AUTH_UID_KEY='hr_auth_uid';
 // 用户数据库：用户名 → {pwd: SHA256哈希, name: 显示名, role: 角色, centerKeyword: 中心关键词}
 // 模块权限定义
 var HWM_MODULES=['hr','editHr','mbo','kpi','talent','learning','payroll','ideas','policies','maintenance','decision','dashboard','rd'];
-var HWM_MODULE_LABELS={hr:'人才团队',editHr:'编辑档案',mbo:'当周行动',kpi:'年度目标',talent:'项目管理',learning:'岗位胜任力',payroll:'决策工具',ideas:'敬业度',policies:'体系流程',maintenance:'系统维护',decision:'三年规划',dashboard:'数据中心',rd:'本月计划'};
-// ★ V0.6.1.gw: 已上线模块（未列出的在系统维护表中灰色显示）
-var HWM_LIVE_MODULES={hr:true,editHr:true,mbo:true,talent:true,maintenance:true};
+var HWM_MODULE_LABELS={hr:'团队',editHr:'编辑档案',mbo:'本周任务',kpi:'本年目标',talent:'项目管理',learning:'职业生涯',payroll:'决策工具',ideas:'敬业度',policies:'体系流程',maintenance:'系统维护',decision:'三年规划',dashboard:'数据中心',rd:'本月计划'};
+// ★ V0.6.1.hs: 已上线模块（未列出的在系统维护表中灰色显示）
+var HWM_LIVE_MODULES={hr:true,editHr:true,mbo:true,talent:true,maintenance:true,dashboard:true};
 
-// ★ V0.6.1.gw: 默认权限 — 仅 admin / data_admin 全开，其余角色全关，手动逐项开启
+// ★ V0.6.1.hs: 默认权限 — 仅 admin / data_admin 全开，其余角色全关，手动逐项开启
 function _defaultPerms(role){
   if(role==='admin'||role==='data_admin'){
     return {hr:true,editHr:true,mbo:true,kpi:true,talent:true,learning:true,payroll:true,ideas:true,policies:true,maintenance:true,decision:true,dashboard:true,rd:true};
+  }
+  if(role==='middle_manager'){
+    // ★ V0.6.1.hs: 中层经理级 - 默认开放 MBO/KPI/Talent，关闭其他
+    return {hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false};
   }
   return {hr:false,editHr:false,mbo:false,kpi:false,talent:false,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false};
 }
@@ -3383,49 +3529,16 @@ function _effectivePerms(u){
 function _defaultReports(){ return {boss:'',supervisor:'',subordinates:[]}; }
 
 var _DEFAULT_USERS={
-  '张玉基':{pwd:'123',name:'张玉基',role:'senior',dept:'总经办',position:'总经理',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '顾佳':{pwd:'123',name:'顾佳',role:'center_head',dept:'采购中心',position:'经理',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '仲子进':{pwd:'123',name:'仲子进',role:'senior',dept:'营销中心',position:'销售总监',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '王鹏':{pwd:'123',name:'王鹏',role:'senior',dept:'研发中心',position:'研发副总',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '唐爱珍':{pwd:'123',name:'唐爱珍',role:'center_head',dept:'采购中心',position:'仓储主管',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '范文越':{pwd:'123',name:'范文越',role:'staff',dept:'研发中心',position:'研发工程师',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '施慧娟':{pwd:'123',name:'施慧娟',role:'center_head',dept:'财务中心',position:'财务经理',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '李敏':{pwd:'123',name:'李敏',role:'staff',dept:'生产中心',position:'生产专员',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '邵强':{pwd:'123',name:'邵强',role:'staff',dept:'营销中心',position:'销售工程师',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '蔡亚珍':{pwd:'123',name:'蔡亚珍',role:'center_head',dept:'人力资源行政中心',position:'人力行政经理',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '孙依暄':{pwd:'123',name:'孙依暄',role:'staff',dept:'采购中心',position:'采购助理',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '薛金鑫':{pwd:'123',name:'薛金鑫',role:'staff',dept:'生产中心',position:'生产专员',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '杨烨':{pwd:'123',name:'杨烨',role:'staff',dept:'生产中心',position:'计划专员',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '张梦':{pwd:'123',name:'张梦',role:'staff',dept:'营销中心',position:'销售工程师',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '邵超凤':{pwd:'123',name:'邵超凤',role:'staff',dept:'研发中心',position:'生产专员',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '贺陆青青':{pwd:'123',name:'贺陆青青',role:'staff',dept:'研发中心',position:'资深研究员',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '吴云萍':{pwd:'123',name:'吴云萍',role:'staff',dept:'研发中心',position:'研发工程师',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '袁月贤':{pwd:'123',name:'袁月贤',role:'staff',dept:'财务中心',position:'会计',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '卓浩':{pwd:'123',name:'卓浩',role:'staff',dept:'研发中心',position:'研发工程师',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '洪霞':{pwd:'123',name:'洪霞',role:'center_head',dept:'研发中心',position:'研发主管',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '华晨':{pwd:'123',name:'华晨',role:'center_head',dept:'CDMO中心',position:'注册经理',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '夏羽':{pwd:'123',name:'夏羽',role:'center_head',dept:'营销中心',position:'海外销售经理',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '张玉印':{pwd:'123',name:'张玉印',role:'staff',dept:'采购中心',position:'设备工程师',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '陈贝贝':{pwd:'123',name:'陈贝贝',role:'staff',dept:'研发中心',position:'研发工程师',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '张迁':{pwd:'123',name:'张迁',role:'staff',dept:'CDMO中心',position:'注册工程师',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '赵洁岚':{pwd:'123',name:'赵洁岚',role:'center_head',dept:'生产中心',position:'生产主管',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '潘晓惠':{pwd:'123',name:'潘晓惠',role:'staff',dept:'财务中心',position:'出纳',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '王博':{pwd:'123',name:'王博',role:'senior',dept:'营销中心',position:'销售副总',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '王艳玲':{pwd:'123',name:'王艳玲',role:'staff',dept:'研发中心',position:'资深研发工程师',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '薛延':{pwd:'123',name:'薛延',role:'staff',dept:'质量中心',position:'QA工程师',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '朱小凤':{pwd:'123',name:'朱小凤',role:'center_head',dept:'营销中心',position:'产品经理',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '许来利':{pwd:'123',name:'许来利',role:'staff',dept:'研发中心',position:'研发工程师',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '周玲':{pwd:'123',name:'周玲',role:'staff',dept:'质量中心',position:'QC工程师',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '梅可栋':{pwd:'123',name:'梅可栋',role:'center_head',dept:'生产中心',position:'采购主管',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '许浩':{pwd:'123',name:'许浩',role:'staff',dept:'研发中心',position:'研发助理工程师',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '范冬冬':{pwd:'123',name:'范冬冬',role:'staff',dept:'生产中心',position:'配液专员',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '毕泳':{pwd:'123',name:'毕泳',role:'staff',dept:'研发中心',position:'研发助理工程师',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '张玮':{pwd:'123',name:'张玮',role:'staff',dept:'营销中心',position:'病毒质控品销售',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '李梦楠':{pwd:'123',name:'李梦楠',role:'center_head',dept:'营销中心',position:'产品经理',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '李华中':{pwd:'123',name:'李华中',role:'staff',dept:'研发中心',position:'研发工程师',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '王梅君':{pwd:'123',name:'王梅君',role:'center_head',dept:'人力资源行政中心',position:'人事经理',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '徐德聚':{pwd:'123',name:'徐德聚',role:'staff',dept:'总经办',position:'总助',permissions:{hr:true,editHr:false,mbo:true,kpi:true,talent:true,learning:false,payroll:false,ideas:false,policies:false,maintenance:false,decision:false,dashboard:false,rd:false},reports:{boss:'',supervisor:'',subordinates:[]}},
-  '管理员':{pwd:'123',name:'管理员',role:'admin',dept:'系统',position:'管理员',permissions:{hr:true,editHr:true,mbo:true,kpi:true,talent:true,learning:true,payroll:true,ideas:true,policies:true,maintenance:true,decision:true,dashboard:true,rd:true},reports:{boss:'',supervisor:'',subordinates:[]}},
+  '李欣华':{pwd:'123',name:'李欣华',role:'center_head',centerKeyword:'海外销售',dept:'营销中心（海外）',position:'负责人',permissions:_defaultPerms('center_head'),reports:_defaultReports()},
+  '刘星梦':{pwd:'123',name:'刘星梦',role:'center_head',centerKeyword:'质量管理',dept:'质量管理中心',position:'负责人',permissions:_defaultPerms('center_head'),reports:_defaultReports()},
+  '谭晨航':{pwd:'6688',name:'谭晨航',role:'admin',dept:'人力资源部',position:'人力资源总监',permissions:_defaultPerms('admin'),reports:_defaultReports(),subordinates:{}},
+  '葛师师':{pwd:'123',name:'葛师师',role:'center_head',centerKeyword:'研发',dept:'研发中心',position:'经理',permissions:_defaultPerms('center_head'),reports:_defaultReports()},
+  '杨成':{pwd:'123',name:'杨成',role:'center_head',centerKeyword:'营销中心',dept:'营销中心（国内）',position:'负责人',permissions:_defaultPerms('center_head'),reports:_defaultReports()},
+  '韩铁工':{pwd:'123',name:'韩铁工',role:'senior',dept:'总经办',position:'董事长',permissions:_defaultPerms('senior'),reports:_defaultReports()},
+  '张向利':{pwd:'123',name:'张向利',role:'center_head',centerKeyword:'供应链',dept:'供应链',position:'总监',permissions:_defaultPerms('center_head'),reports:_defaultReports()},
+  '徐亮':{pwd:'123',name:'徐亮',role:'center_head',centerKeyword:'财务',dept:'财务部',position:'负责人',permissions:_defaultPerms('center_head'),reports:_defaultReports()},
+  '孙颖':{pwd:'110088',name:'孙颖',role:'staff',dept:'人力资源部',position:'人事专员',permissions:_defaultPerms('staff'),reports:_defaultReports()},
+  '管理员':{pwd:'123',name:'管理员',role:'admin',dept:'系统',position:'管理员',permissions:_defaultPerms('admin'),reports:_defaultReports()}
 };
 
 // USERS 从 localStorage 加载，回退到默认值
@@ -3545,12 +3658,15 @@ function loadUserSettings(){
       return merged;
     }
   }catch(e){console.warn('HWM: loadUserSettings failed',e);}
+  // ★ V0.6.1.hs: localStorage为空 → 从云端拉取，再兜底 _DEFAULT_USERS
+  // 不再直接回退到 _DEFAULT_USERS（会导致已配置用户丢失）
   syncUsersFromCloud();
+  // 如果云端很快返回（<1s），USERS 会被更新；否则先用 _DEFAULT_USERS 兜底
   return JSON.parse(JSON.stringify(_DEFAULT_USERS));
 }
 
 // 用户数据云端同步：拉取
-// ★ V0.6.1ey: 只同步已存在的用户（跨设备更新），绝不从云端新增（防止污染复活）
+// ★ V0.6.1.hs: 本地为空时从云端拉取作为主数据源（不再回退到 _DEFAULT_USERS）
 function syncUsersFromCloud(){
   (async function(){
     try{
@@ -3558,26 +3674,41 @@ function syncUsersFromCloud(){
       if(resp.error){console.warn('HWM: Users cloud sync failed',resp.error.message);return;}
       if(!resp.data||resp.data.length===0)return;
       var localSaved=localStorage.getItem('HWM_USER_SETTINGS');
-      if(!localSaved)return; // ★ 本地为空时，不拉云端（防止污染），用 _DEFAULT_USERS
-      var localData=JSON.parse(localSaved);
-      var changed=false;
-      // ★ 只更新本地已有的用户，绝不新增
-      for(var i=0;i<resp.data.length;i++){
-        var row=resp.data[i];
-        if(!localData[row.uid])continue; // 本地没有 → 跳过（不新增）
-        var cloudUpd=row.updated_at||'';
-        var localUpd=localData[row.uid]._cloudUpdated||'';
-        if(cloudUpd>localUpd){
-          localData[row.uid]=row.user_data;
-          localData[row.uid]._cloudUpdated=cloudUpd;
-          changed=true;
+      if(localSaved){
+        // ★ 有本地数据：用云端更新本地（保持原有行为）
+        var localData=JSON.parse(localSaved);
+        var changed=false;
+        for(var i=0;i<resp.data.length;i++){
+          var row=resp.data[i];
+          if(!localData[row.uid])continue;
+          var cloudUpd=row.updated_at||'';
+          var localUpd=localData[row.uid]._cloudUpdated||'';
+          if(cloudUpd>localUpd){
+            localData[row.uid]=row.user_data;
+            localData[row.uid]._cloudUpdated=cloudUpd;
+            changed=true;
+          }
         }
-      }
-      if(changed){
-        try{localStorage.setItem('HWM_USER_SETTINGS',JSON.stringify(localData));}catch(e){}
-        USERS=loadUserSettingsFromLocal();
-        console.log('[users] 云端更新完成');
+        if(changed){
+          try{localStorage.setItem('HWM_USER_SETTINGS',JSON.stringify(localData));}catch(e){}
+          USERS=loadUserSettingsFromLocal();
+          console.log('[users] 云端更新完成');
+          forceCleanShadowUsers();
+        }
+      } else {
+        // ★ V0.6.1.hs: 本地为空 → 从云端恢复全部用户到 USERS
+        console.log('[users] 本地无数据，从云端恢复 '+resp.data.length+' 个用户');
+        for(var j=0;j<resp.data.length;j++){
+          var cr=resp.data[j];
+          if(cr.user_data&&cr.user_data.name){
+            USERS[cr.uid]=cr.user_data;
+          }
+        }
+        // 以云端数据为主，写回 localStorage
+        saveUserSettings();
         forceCleanShadowUsers();
+        // 刷新系统维护表格（如果已打开）
+        if(typeof sysRenderUserTable==='function')setTimeout(sysRenderUserTable,500);
       }
     }catch(e){console.warn('HWM: Users cloud sync error (non-critical)',e.message);}
   })();
@@ -3599,7 +3730,11 @@ function loadUserSettingsFromLocal(){
 }
 
 function saveUserSettings(){
-  try{localStorage.setItem('HWM_USER_SETTINGS',JSON.stringify(USERS));}catch(e){console.warn('HWM: saveUserSettings failed',e);}
+  try{
+    var count=Object.keys(USERS).length;
+    localStorage.setItem('HWM_USER_SETTINGS',JSON.stringify(USERS));
+    console.log('[saveUserSettings] 已保存 '+count+' 个用户到 localStorage');
+  }catch(e){console.warn('HWM: saveUserSettings failed',e);}
   // 异步推送到 Supabase（静默，失败不影响使用）
   syncUsersToCloud();
 }
@@ -3886,6 +4021,8 @@ function initPortalInfoPanel(){
   });
 }
 
+// ★ V0.6.1.iR: 头像功能已移除（V0.6.1.iq 回退）
+
 // ★ V0.5.78f: 统计卡片展开/收起
 var _empStatsExpanded=false;
 
@@ -3966,12 +4103,18 @@ function toggleEmpStats(){
 function goHome(){
   closeModal();
   sysCloseModal(); // ★ 清理系统维护弹窗
+  // ★ V0.6.1.hu: 清理所有残留 tooltip（防止耗时列 tooltip 跨页面残留）
+  document.querySelectorAll('.wp-tooltip').forEach(function(t){t.remove();});
   document.getElementById('appView').style.display='none';
   document.getElementById('hrPoliciesView').style.display='none';
   document.getElementById('kpiView').style.display='none';
   document.getElementById('workPlanView').style.display='none';
   var smv=document.getElementById('sysMaintenanceView');
   if(smv)smv.style.display='none';
+  var dv3=document.getElementById('dashboardView');
+  if(dv3)dv3.style.display='none';
+  var pmv2=document.getElementById('pmView');
+  if(pmv2)pmv2.style.display='none';
   document.getElementById('portalView').style.display='flex';
   // 刷新权限卡片显隐
   applyRoleUI();
@@ -3984,6 +4127,8 @@ function goHome(){
 }
 
 function enterModule(mod){
+  // ★ V0.6.1.hu: 清理任何残留的 tooltip（耗时列等，模块切换时清除）
+  document.querySelectorAll('.wp-tooltip').forEach(function(t){t.remove();});
   // 权限检查
   var permKey=mod==='workplan'?'mbo':(mod==='system'?'maintenance':mod);
   if(!hasPermission(permKey)){
@@ -4126,6 +4271,18 @@ function enterModule(mod){
       }
       _showAlert('系统维护模块加载失败：'+e.message);
     }
+  }else if(mod==='dashboard'){
+    document.getElementById('portalView').style.display='none';
+    document.getElementById('appView').style.display='none';
+    document.getElementById('hrPoliciesView').style.display='none';
+    document.getElementById('kpiView').style.display='none';
+    document.getElementById('workPlanView').style.display='none';
+    document.getElementById('pmView').style.display='none';
+    var smv2=document.getElementById('sysMaintenanceView');
+    if(smv2)smv2.style.display='none';
+    var dv=document.getElementById('dashboardView');
+    if(dv)dv.style.display='flex';
+    if(typeof dashboardInit==='function') dashboardInit();
   }
 }
 
@@ -5830,12 +5987,12 @@ function showDetail(empId){
   currentDetailEmpId=empId;
   const e=allEmployees.find(function(x){return (x.empId||x.empid)===empId;});
   if(!e)return;
-  // ★ V0.6.1.gw: 从 USERS 表读 role + permissions（currentUser 没有 permissions 字段）
+  // ★ V0.6.1.hs: 从 USERS 表读 role + permissions（currentUser 没有 permissions 字段）
   var usrObj=(currentUser&&USERS&&USERS[currentUser.name])||{};
   var effectiveRole=(currentUser&&currentUser.role)||usrObj.role||'';
   var currPerms=_effectivePerms(usrObj);
   var canEditBasic=!!(effectiveRole==='admin'||effectiveRole==='data_admin'||currPerms.editHr===true);
-  // ★ V0.6.1.gw: 自检 — USERS表editHr=true 但 canEditBasic=false 时告警
+  // ★ V0.6.1.hs: 自检 — USERS表editHr=true 但 canEditBasic=false 时告警
   if(usrObj.permissions&&usrObj.permissions.editHr===true&&!canEditBasic){
     console.error('[HR-EDIT-BUG] '+currentUser.name+' 在USERS里editHr=true但canEditBasic=false，请检查_effectivePerms逻辑！');
   }
@@ -5851,7 +6008,7 @@ function showDetail(empId){
   var companyWY=calcWorkYears(e.entryDate);
   document.getElementById('modalHeaderContent').innerHTML=
     avatarHtml+
-    '<div><div style="font-size:18px;font-weight:600;color:var(--text)">'+esc(e.name)+'</div><div style="font-size:13px;color:var(--text-secondary)">'+esc(e.position||'')+(e.dept?' · '+esc(e.dept):'')+'</div><div style="font-size:12px;color:var(--text-hint);margin-top:2px">公司工龄：'+(companyWY||'—')+'</div></div>';
+    '<div><div style="font-size:19px;font-weight:600;color:var(--text)">'+esc(e.name)+'</div><div style="font-size:13px;color:var(--text-secondary)">'+esc(e.position||'')+(e.dept?' · '+esc(e.dept):'')+'</div><div style="font-size:12px;color:var(--text-hint);margin-top:2px">公司工龄：'+(companyWY||'—')+'</div></div>';
   const fields=[
     {label:'工号',value:e.empId},
     {label:'姓名',value:e.name},
@@ -5905,7 +6062,7 @@ function showDetail(empId){
     currentGridFields.push({key:cfg.key,label:cfg.label,type:cfg.type||'text',opts:cfg.opts,editable:canEdit});
   }
   _flushHRSection();
-  // canEditBasic 已在函数顶部计算（V0.6.1.gw 修复时序问题）
+  // canEditBasic 已在函数顶部计算（V0.6.1.hs 修复时序问题）
   // 基础字段配置：{key, label, type: text|dropdown|date|auto}
   var basicConfig=[
     {key:'empId',label:'工号',type:'text'},
@@ -6351,7 +6508,7 @@ async function doClearWithPwd(){
   }
 }
 
-// ★ V0.6.1.gw: 一键清空（统一设计警告弹窗）
+// ★ V0.6.1.hs: 一键清空（统一设计警告弹窗）
 function clearAllEmployeesConfirm(){
   if(typeof _showConfirm!=='function'){
     if(confirm('确定要删除所有员工信息吗？此操作不可撤销！')){
@@ -6616,9 +6773,10 @@ if('serviceWorker' in navigator){
 <script src="js/modules/policies.js"></script>
 <script>
 </script>
-<script src="js/modules/mbo.js?v=50"></script>
+<script src="js/modules/mbo.js?v=j0"></script>
 <script src="js/modules/pm.js?v=4"></script>
 <script src="js/modules/system.js"></script>
+<script src="js/modules/dashboard.js?v=iy20260718"></script>
 <script>
 // PWA Service Worker Registration — V0.1.52 永久根治缓存
 if('serviceWorker' in navigator){
