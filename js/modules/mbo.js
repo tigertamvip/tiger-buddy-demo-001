@@ -2664,7 +2664,7 @@ function renderWPTable(plan){
   html+='<th class="col-hours wp-sortable" ondblclick="toggleWPSort(\'actualDate\')" title="双击排序" style="cursor:pointer">实际完成日期'+_sAd+'</th>';
   html+='<th class="col-hours dur-tooltip" style="min-width:80px">计划/实际耗时</th>';
   html+='<th class="col-status wp-sortable" ondblclick="toggleWPSort(\'status\')" title="双击排序" style="cursor:pointer">完成状态'+_sSt+'</th>';
-  html+='<th class="col-score">积分</th><th class="col-supporters">协同人</th><th class="col-wide">遇到的问题/挑战</th><th class="col-problemtype">问题类型</th><th class="col-needboss">需上级介入</th><th class="col-remarks">备注说明</th><th class="col-boss" style="white-space:normal;overflow:visible">上级评价与建议</th>';
+  html+='<th class="col-score">积分</th><th class="col-supporters">协同人</th><th class="col-wide">遇到的问题/挑战</th><th class="col-problemtype">问题类型</th><th class="col-needboss">需上级介入</th><th class="col-remarks">备注</th><th class="col-boss" style="white-space:normal;overflow:visible">主管点评</th>';
   html+='</tr></thead><tbody>';
 
   var seq=0;
@@ -2823,7 +2823,7 @@ function renderWPTable(plan){
     var currentMoods=[];
     if(Array.isArray(plan.moods)) currentMoods=plan.moods;
     else if(typeof plan.mood==='string' && plan.mood) currentMoods=plan.mood.split(',');
-    var moods=[{key:'happy',emoji:'😊',label:'成就',cls:'mood-happy'},{key:'calm',emoji:'😌',label:'平静',cls:'mood-calm'},{key:'tired',emoji:'😩',label:'失望',cls:'mood-tired'},{key:'aggrieved',emoji:'😢',label:'委屈',cls:'mood-aggrieved'},{key:'silent',emoji:'😶',label:'难言',cls:'mood-silent'}];
+    var moods=[{key:'happy',emoji:'😊',label:'成就',cls:'mood-happy'},{key:'calm',emoji:'😌',label:'平静',cls:'mood-calm'},{key:'tired',emoji:'😩',label:'困顿',cls:'mood-tired'},{key:'aggrieved',emoji:'😢',label:'委屈',cls:'mood-aggrieved'},{key:'silent',emoji:'😶',label:'难言',cls:'mood-silent'}];
     html+='<div class="wp-mood-selector"><span class="wp-mood-label">本周心情：</span><span style="font-size:11px;color:var(--text-hint);margin-left:4px">（最多选 2 种）</span>';
     for(var mi=0;mi<moods.length;mi++){
       var m=moods[mi];
